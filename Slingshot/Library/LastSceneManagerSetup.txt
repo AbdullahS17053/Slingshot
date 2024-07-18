@@ -1,5 +1,0 @@
-sceneSetups:
-- path: Assets/eretichable Technologies/Revolver Gun (Low Poly)/Scenes/Weapon_Scene.unity
-  isLoaded: 1
-  isActive: 1
-  isSubScene: 0
