@@ -35,7 +35,7 @@ public class DragAndShoot : MonoBehaviour
         if (isShoot)
             return;
 
-        rb.AddForce(new Vector3(Force.x, Force.y, Force.y) * forceMultiplier);
+        rb.AddForce(new Vector3(-Force.x, -Force.y, -Force.y) * forceMultiplier);
         isShoot = true;
     }
 
