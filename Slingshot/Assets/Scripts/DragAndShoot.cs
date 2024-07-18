@@ -2,17 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragandShoot : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
+public class DragAndShoot : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Vector3 mousePressDownPos;
+    private Vector3 mouseReleasePos;
+    public float forceMultiplier = 3;
+
+    private Rigidbody rb;
+
+    private bool isShoot;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
-        
+        mousePressDownPos = Input.mousePosition;
     }
+
+    private void OnMouseUp()
+    {
+        mouseReleasePos = Input.mousePosition;
+        Shoot(mouseReleasePos - mousePressDownPos);
+    }
+
+    void Shoot(Vector3 Force)
+    {
+        if (isShoot)
+            return;
+
+        rb.AddForce(new Vector3(Force.x, Force.y, Force.y) * forceMultiplier);
+        isShoot = true;
+    }
+
 }

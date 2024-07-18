@@ -356,6 +356,8 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/eretichable Technologies/Revolver Gun (Low Poly)/Scripts/Gun_rotation.cs"
+"Assets/Kabungus/HouseholdItems/Scripts/MouseLook.cs"
+"Assets/Kabungus/HouseholdItems/Scripts/PlayerMovement.cs"
 "Assets/Scripts/DragAndShoot.cs"
 -langversion:9.0
 

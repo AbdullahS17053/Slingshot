@@ -62,6 +62,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\DragAndShoot.cs" />
     <Compile Include="Assets\eretichable Technologies\Revolver Gun (Low Poly)\Scripts\Gun_rotation.cs" />
+    <Compile Include="Assets\Kabungus\HouseholdItems\Scripts\MouseLook.cs" />
+    <Compile Include="Assets\Kabungus\HouseholdItems\Scripts\PlayerMovement.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
