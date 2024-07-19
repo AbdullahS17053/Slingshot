@@ -164,6 +164,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 304099138735596770}
   lineSegmentCount: 50
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!120 &304099138735596770
 LineRenderer:
   serializedVersion: 2
