@@ -14,10 +14,11 @@ public class DragAndShoot : MonoBehaviour
 
     private bool isShoot;
 
+    public delegate void ShootAction();
+    public event ShootAction OnShoot;
+
     void Start()
     {
-        Application.targetFrameRate = 60;
-        QualitySettings.vSyncCount = 0;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -26,19 +27,32 @@ public class DragAndShoot : MonoBehaviour
         mousePressDownPos = Input.mousePosition;
     }
 
+    private void OnMouseDrag()
+    {
+        if (isShoot) return;
+
+        Vector3 forceInit = (Input.mousePosition - mousePressDownPos);
+        Vector3 forceV = new Vector3(-forceInit.x, -forceInit.y, -forceInit.y) * forceMultiplier;
+
+        DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
+    }
+
     private void OnMouseUp()
     {
+        if (isShoot) return;
+
         mouseReleasePos = Input.mousePosition;
-        Shoot(mouseReleasePos - mousePressDownPos);
+        Vector3 force = (mouseReleasePos - mousePressDownPos);
+        Shoot(force);
+
+        DrawTrajectory.Instance.HideLine();
     }
 
-    void Shoot(Vector3 Force)
+    void Shoot(Vector3 force)
     {
-        if (isShoot)
-            return;
-
-        rb.AddForce(new Vector3(-Force.x, -Force.y, -Force.y) * forceMultiplier);
+        rb.AddForce(new Vector3(-force.x, -force.y, -force.y) * forceMultiplier);
         isShoot = true;
-    }
 
+        OnShoot?.Invoke();
+    }
 }
