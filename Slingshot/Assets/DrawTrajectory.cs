@@ -11,6 +11,9 @@ public class DrawTrajectory : MonoBehaviour
     [Range(10, 100)]
     private int lineSegmentCount = 50;
 
+    [SerializeField]
+    private LayerMask collisionMask;
+
     private List<Vector3> linePoints = new List<Vector3>();
 
     #region Singleton
@@ -32,6 +35,9 @@ public class DrawTrajectory : MonoBehaviour
 
         linePoints.Clear();
 
+        Vector3 previousPoint = startPoint;
+        linePoints.Add(previousPoint);
+
         for (int i = 0; i < lineSegmentCount; i++)
         {
             float stepTimePassed = stepTime * i;
@@ -41,8 +47,20 @@ public class DrawTrajectory : MonoBehaviour
                 velocity.z * stepTimePassed
             );
 
-            linePoints.Add(-movementVector + startPoint);
+            Vector3 newPoint = -movementVector + startPoint;
+
+            RaycastHit hit;
+            if (Physics.Raycast(previousPoint, newPoint - previousPoint, out hit, Vector3.Distance(previousPoint, newPoint), collisionMask))
+            {
+                linePoints.Add(hit.point);
+                break;
+            }
+
+            linePoints.Add(newPoint);
+            previousPoint = newPoint;
         }
+
+
 
         lineRenderer.positionCount = linePoints.Count;
         lineRenderer.SetPositions(linePoints.ToArray());
