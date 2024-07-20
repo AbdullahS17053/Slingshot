@@ -27,7 +27,7 @@ public class CustomSpeeds : MonoBehaviour
         // Set the Rigidbody's velocity to the desired value
         if (rb != null)
         {
-            rb.velocity = new Vector3(0, -speed, 0);
+            rb.velocity = new Vector3(0, -speed/10f, 0);
         }
     }
 }
