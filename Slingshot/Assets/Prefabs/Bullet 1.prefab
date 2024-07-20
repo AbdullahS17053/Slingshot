@@ -150,6 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceMultiplier: 1
+  maxLeftDrag: -85
+  maxRightDrag: 85
+  maxUpDrag: 0
 --- !u!114 &1033613677292047321
 MonoBehaviour:
   m_ObjectHideFlags: 0
