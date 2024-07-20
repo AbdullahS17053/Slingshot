@@ -7,16 +7,24 @@ public class BulletSpawner : MonoBehaviour
 {
     public GameObject bulletPrefab;
     private GameObject currentBullet;
-    public CinemachineFreeLook vcam;
+    private CinemachineVirtualCamera vcam;
+    private Vector3 initialCameraPosition;
+    private Quaternion initialCameraRotation;
 
     void Start()
     {
-        vcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineFreeLook>();
+
+        vcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineVirtualCamera>();
+        initialCameraPosition = vcam.transform.position;
+        initialCameraRotation = vcam.transform.rotation;
         SpawnBullet();
     }
 
     void SpawnBullet()
     {
+        vcam.transform.position = initialCameraPosition;
+        vcam.transform.rotation = initialCameraRotation;
+
         if (currentBullet != null)
         {
             Destroy(currentBullet);
@@ -26,6 +34,8 @@ public class BulletSpawner : MonoBehaviour
         currentBullet.GetComponent<DragAndShoot>().OnShoot += HandleBulletShot;
 
         SetLookAtTarget(currentBullet.transform);
+
+
     }
 
     public void SetLookAtTarget(Transform target)

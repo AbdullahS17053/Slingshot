@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,10 +22,19 @@ public class DragAndShoot : MonoBehaviour
     public event ShootAction OnShoot;
 
 
+    public CinemachineVirtualCamera vcam;
+    public float camMoveSpeed = 1f;
+
+    // Constraints for camera movement
+    public float maxCameraX = 1f;
+    public float minCameraX = 0f;
+    //public float maxCameraY = 1f;
+    //public float minCameraY = 0f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        vcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineVirtualCamera>();
     }
 
     private void OnMouseDown()
@@ -43,6 +53,8 @@ public class DragAndShoot : MonoBehaviour
         Vector3 forceV = new Vector3(-forceInit.x, -forceInit.y, -forceInit.y) * forceMultiplier;
 
         DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
+
+        MoveCamera(forceInit);
     }
 
     private void OnMouseUp()
@@ -64,5 +76,27 @@ public class DragAndShoot : MonoBehaviour
         isShoot = true;
 
         OnShoot?.Invoke();
+
+
+    }
+
+
+
+
+    void MoveCamera(Vector3 dragInput) {
+
+        // Inverting the drag input for the desired effect
+        float cameraMovement = dragInput.x * camMoveSpeed * Time.deltaTime;
+
+        // Get current camera position
+        float newCameraPositionX = vcam.transform.position.x + cameraMovement;
+
+        // Clamping the camera position
+        newCameraPositionX = Mathf.Clamp(newCameraPositionX, minCameraX, maxCameraX);
+
+        // Applying the new position
+        vcam.transform.position = new Vector3(newCameraPositionX, vcam.transform.position.y, vcam.transform.position.z);
+
+
     }
 }

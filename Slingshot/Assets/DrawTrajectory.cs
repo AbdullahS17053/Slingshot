@@ -66,6 +66,9 @@ public class DrawTrajectory : MonoBehaviour
         lineRenderer.SetPositions(linePoints.ToArray());
     }
 
+
+   
+
     public void HideLine()
     {
         lineRenderer.positionCount = 0;

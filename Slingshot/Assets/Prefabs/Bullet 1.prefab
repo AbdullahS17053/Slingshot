@@ -152,7 +152,11 @@ MonoBehaviour:
   forceMultiplier: 1
   maxLeftDrag: -85
   maxRightDrag: 85
-  maxUpDrag: 0
+  maxUpDrag: 0.26
+  vcam: {fileID: 0}
+  camMoveSpeed: 0.01
+  maxCameraX: 0
+  minCameraX: -0.05
 --- !u!114 &1033613677292047321
 MonoBehaviour:
   m_ObjectHideFlags: 0
