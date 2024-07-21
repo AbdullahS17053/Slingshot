@@ -18,6 +18,7 @@ public class DrawTrajectory : MonoBehaviour
     private LayerMask collisionMask;
 
     private List<Vector3> linePoints = new List<Vector3>();
+    private List<Vector3> fullTrajectoryPoints = new List<Vector3>();
 
     #region Singleton
 
@@ -33,14 +34,13 @@ public class DrawTrajectory : MonoBehaviour
 
     #endregion
 
-
     private void Start()
     {
         ballVcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineVirtualCamera>();
         trajectoryVcam = GameObject.FindGameObjectWithTag("trajectoryVcam").GetComponent<CinemachineVirtualCamera>();
         lookAtTarget = new GameObject("TrajectoryLookAtTarget");
-
     }
+
     public void UpdateTrajectory(Vector3 forceVector, Rigidbody rigidBody, Vector3 startPoint)
     {
         Vector3 velocity = (forceVector / rigidBody.mass) * Time.fixedDeltaTime;
@@ -48,17 +48,16 @@ public class DrawTrajectory : MonoBehaviour
         float stepTime = flightDuration / lineSegmentCount;
 
         linePoints.Clear();
+        fullTrajectoryPoints.Clear();
 
         Vector3 previousPoint = startPoint;
         linePoints.Add(previousPoint);
+        fullTrajectoryPoints.Add(previousPoint);
 
         bool col = false;
 
         for (int i = 0; i < lineSegmentCount; i++)
         {
-
-            if (col) break;
-
             float stepTimePassed = stepTime * i;
             Vector3 movementVector = new Vector3(
                 velocity.x * stepTimePassed,
@@ -67,6 +66,9 @@ public class DrawTrajectory : MonoBehaviour
             );
 
             Vector3 newPoint = -movementVector + startPoint;
+            fullTrajectoryPoints.Add(newPoint);
+
+            if (col) continue; // continue to add points to fullTrajectoryPoints but not to linePoints
 
             RaycastHit hit;
             if (Physics.Raycast(previousPoint, newPoint - previousPoint, out hit, Vector3.Distance(previousPoint, newPoint), collisionMask))
@@ -74,22 +76,18 @@ public class DrawTrajectory : MonoBehaviour
                 linePoints.Add(hit.point);
                 col = true;
             }
-            else {
-
+            else
+            {
                 linePoints.Add(newPoint);
                 previousPoint = newPoint;
             }
-
-            
-
         }
 
         if (!col) ExtendTrajectoryBelow();
 
         lineRenderer.positionCount = linePoints.Count;
         lineRenderer.SetPositions(linePoints.ToArray());
-        //UpdateTrajectoryCamera();
-
+        UpdateTrajectoryCamera();
     }
 
     private void ExtendTrajectoryBelow()
@@ -100,26 +98,25 @@ public class DrawTrajectory : MonoBehaviour
         Vector3 secondLastPoint = linePoints[linePoints.Count - 2];
         Vector3 direction = lastPoint - secondLastPoint;
 
-        // Extend trajectory below 
-        float extensionLength = 5f;  //value
+        float extensionLength = 5f;  
         Vector3 extendedPoint = lastPoint + direction.normalized * extensionLength;
 
         linePoints.Add(extendedPoint);
+        fullTrajectoryPoints.Add(extendedPoint);
     }
 
     private void UpdateTrajectoryCamera()
     {
-        //if (linePoints.Count > 0)
-        //{
-        //    Vector3 middlePoint = linePoints[linePoints.Count / 2];
-        //    lookAtTarget.transform.position = middlePoint;
+        if (fullTrajectoryPoints.Count > 0)
+        {
+            Vector3 middlePoint = fullTrajectoryPoints[fullTrajectoryPoints.Count / 2]; 
+            lookAtTarget.transform.position = middlePoint;
 
-        //    trajectoryVcam.LookAt = lookAtTarget.transform;
+            trajectoryVcam.LookAt = lookAtTarget.transform;
 
-        //    // Increase priority of trajectory camera to make it active
-        //    trajectoryVcam.Priority = 20;
-        //    ballVcam.Priority = 10;
-        //}
+            trajectoryVcam.Priority = 20;
+            ballVcam.Priority = 10;
+        }
     }
 
     public void HideLine()

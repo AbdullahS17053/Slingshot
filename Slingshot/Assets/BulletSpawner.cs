@@ -8,13 +8,13 @@ public class BulletSpawner : MonoBehaviour
     public GameObject bulletPrefab;
     private GameObject currentBullet;
     public Transform spawnPoint;
-    public CinemachineFreeLook vcam;
+    //public CinemachineFreeLook vcam;
     public DragAndShoot gun;
     int spawnTime = 1;
 
     void Start()
     {
-        vcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineFreeLook>();
+        //vcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineFreeLook>();
         SpawnBullet();
     }
 
@@ -27,15 +27,15 @@ public class BulletSpawner : MonoBehaviour
 
         currentBullet = Instantiate(bulletPrefab,spawnPoint.position, transform.rotation);
         //currentBullet.transform.SetParent(spawnPoint.transform,true);
-        gun.setBullet(currentBullet);
-        gun.GetComponent<DragAndShoot>().OnShoot += HandleBulletShot;
-        SetLookAtTarget(currentBullet.transform);
+        //gun.setBullet(currentBullet);
+        currentBullet.GetComponent<DragAndShoot>().OnShoot += HandleBulletShot;
+        //SetLookAtTarget(currentBullet.transform);
     }
 
-    public void SetLookAtTarget(Transform target)
-    {
-        vcam.LookAt = target;
-    }
+    //public void SetLookAtTarget(Transform target)
+    //{
+    //    vcam.LookAt = target;
+    //}
 
     void HandleBulletShot()
     {

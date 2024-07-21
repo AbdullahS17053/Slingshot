@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4112171947832689066}
   - component: {fileID: 1033613677292047321}
   - component: {fileID: 304099138735596770}
-  - component: {fileID: 4350586507202476855}
+  - component: {fileID: 1967161226522739508}
   m_Layer: 0
   m_Name: Bullet 1
   m_TagString: Projectile
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 304099138735596770}
-  lineSegmentCount: 50
+  lineSegmentCount: 10
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -258,7 +258,7 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &4350586507202476855
+--- !u!114 &1967161226522739508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -270,12 +270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d206c2629cb39440be8708c8c348440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: 3
-  maxLeftDrag: -200
-  maxRightDrag: 200
+  forceMultiplier: 1
+  maxLeftDrag: -80
+  maxRightDrag: 80
   maxUpDrag: 0
   rotationSpeed: 0.1
   rb: {fileID: 0}
   pos: {fileID: 0}
-  vcam: {fileID: 0}
-  camMoveSpeed: 1

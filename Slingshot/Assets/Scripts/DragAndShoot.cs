@@ -1,7 +1,6 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -24,30 +23,22 @@ public class DragAndShoot : MonoBehaviour
     public event ShootAction OnShoot;
 
 
-    public CinemachineVirtualCamera vcam;
-    public float camMoveSpeed = 1f;
-
 
     void Start()
     {
-       
+       rb = GetComponent<Rigidbody>();
+
     }
 
     private void OnMouseDown()
     {
-        rb.constraints = RigidbodyConstraints.None;
         mousePressDownPos = Input.mousePosition;
+
 
     }
 
     private void OnMouseDrag()
     {
-        float XaxisRotation = Input.GetAxis("Mouse X") * rotationSpeed;
-        float YaxisRotation = Input.GetAxis("Mouse Y") * rotationSpeed;
-
-        transform.RotateAround(Vector3.down, XaxisRotation);
-        transform.RotateAround(Vector3.right, YaxisRotation);
-
         if (isShoot) return;
 
         Vector3 forceInit = (Input.mousePosition - mousePressDownPos);
@@ -56,7 +47,7 @@ public class DragAndShoot : MonoBehaviour
 
         Vector3 forceV = new Vector3(-forceInit.x, -forceInit.y, -forceInit.y) * forceMultiplier;
 
-        DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, pos.position);
+        DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
 
     }
 
