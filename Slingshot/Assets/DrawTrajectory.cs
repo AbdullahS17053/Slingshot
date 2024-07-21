@@ -83,7 +83,7 @@ public class DrawTrajectory : MonoBehaviour
             }
         }
 
-        if (!col) { } //ExtendTrajectoryBelow();
+        if (!col) ExtendTrajectoryBelow();
 
         lineRenderer.positionCount = linePoints.Count;
         lineRenderer.SetPositions(linePoints.ToArray());
@@ -98,14 +98,11 @@ public class DrawTrajectory : MonoBehaviour
         Vector3 secondLastPoint = linePoints[linePoints.Count - 2];
         Vector3 direction = lastPoint - secondLastPoint;
 
-        int pointsCount = 5; // Number of points to add
+        float extensionLength = 5f;  
+        Vector3 extendedPoint = lastPoint + direction.normalized * extensionLength;
 
-        for (int i = 0; i < pointsCount; i++)
-        {
-            Vector3 newPoint = lastPoint + direction.normalized * (i + 1);
-            linePoints.Add(newPoint);
-            fullTrajectoryPoints.Add(newPoint);
-        }
+        linePoints.Add(extendedPoint);
+        fullTrajectoryPoints.Add(extendedPoint);
     }
 
     private void UpdateTrajectoryCamera()

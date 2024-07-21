@@ -13,7 +13,9 @@ public class DragAndShoot : MonoBehaviour
     public float maxRightDrag = 200f;  
     public float maxUpDrag = 0f; // no upward drag
     public float rotationSpeed = 0.1f;
-
+    public float xMultiplier = 1f;
+    public float yMultiplier = 1f;
+    public float zMultiplier = 1f;
     public Rigidbody rb;
     public Transform pos;
 
@@ -45,7 +47,7 @@ public class DragAndShoot : MonoBehaviour
         forceInit.x = Mathf.Clamp(forceInit.x, maxLeftDrag, maxRightDrag);
         forceInit.y = Mathf.Clamp(forceInit.y, float.NegativeInfinity, maxUpDrag);
 
-        Vector3 forceV = new Vector3(-forceInit.x, -forceInit.y, -forceInit.y) * forceMultiplier;
+        Vector3 forceV = new Vector3(-forceInit.x * xMultiplier, -forceInit.y * yMultiplier, -forceInit.y * zMultiplier) * forceMultiplier;
 
         DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
 
@@ -66,7 +68,7 @@ public class DragAndShoot : MonoBehaviour
 
     void Shoot(Vector3 force)
     {
-        rb.AddForce(new Vector3(-force.x, -force.y, -force.y) * forceMultiplier);
+        rb.AddForce(new Vector3(-force.x * xMultiplier, -force.y * yMultiplier, -force.y * zMultiplier) * forceMultiplier);
         rb.useGravity = true;
         isShoot = true;
 
