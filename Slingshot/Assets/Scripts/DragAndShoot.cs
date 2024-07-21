@@ -29,6 +29,8 @@ public class DragAndShoot : MonoBehaviour
     void Start()
     {
        rb = GetComponent<Rigidbody>();
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
 
     }
 

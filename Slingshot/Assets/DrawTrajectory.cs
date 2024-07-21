@@ -38,6 +38,8 @@ public class DrawTrajectory : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
         ballVcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineVirtualCamera>();
         trajectoryVcam = GameObject.FindGameObjectWithTag("trajectoryVcam").GetComponent<CinemachineVirtualCamera>();
         lookAtTarget = new GameObject("TrajectoryLookAtTarget");
