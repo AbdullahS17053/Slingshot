@@ -1,9 +1,12 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DrawTrajectory : MonoBehaviour
 {
+    private GameObject lookAtTarget;
+
     [SerializeField]
     private LineRenderer lineRenderer;
 
@@ -20,6 +23,9 @@ public class DrawTrajectory : MonoBehaviour
 
     public static DrawTrajectory Instance;
 
+    private CinemachineVirtualCamera ballVcam;
+    private CinemachineVirtualCamera trajectoryVcam;
+
     private void Awake()
     {
         Instance = this;
@@ -27,6 +33,14 @@ public class DrawTrajectory : MonoBehaviour
 
     #endregion
 
+
+    private void Start()
+    {
+        ballVcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineVirtualCamera>();
+        trajectoryVcam = GameObject.FindGameObjectWithTag("trajectoryVcam").GetComponent<CinemachineVirtualCamera>();
+        lookAtTarget = new GameObject("TrajectoryLookAtTarget");
+
+    }
     public void UpdateTrajectory(Vector3 forceVector, Rigidbody rigidBody, Vector3 startPoint)
     {
         Vector3 velocity = (forceVector / rigidBody.mass) * Time.fixedDeltaTime;
@@ -74,6 +88,8 @@ public class DrawTrajectory : MonoBehaviour
 
         lineRenderer.positionCount = linePoints.Count;
         lineRenderer.SetPositions(linePoints.ToArray());
+        UpdateTrajectoryCamera();
+
     }
 
     private void ExtendTrajectoryBelow()
@@ -91,9 +107,27 @@ public class DrawTrajectory : MonoBehaviour
         linePoints.Add(extendedPoint);
     }
 
+    private void UpdateTrajectoryCamera()
+    {
+        if (linePoints.Count > 0)
+        {
+            Vector3 middlePoint = linePoints[linePoints.Count / 2];
+            lookAtTarget.transform.position = middlePoint;
+
+            trajectoryVcam.LookAt = lookAtTarget.transform;
+
+            // Increase priority of trajectory camera to make it active
+            trajectoryVcam.Priority = 20;
+            ballVcam.Priority = 10;
+        }
+    }
 
     public void HideLine()
     {
         lineRenderer.positionCount = 0;
+        trajectoryVcam.LookAt = null;
+
+        trajectoryVcam.Priority = 10;
+        ballVcam.Priority = 20;
     }
 }
