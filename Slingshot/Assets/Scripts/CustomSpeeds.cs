@@ -26,11 +26,21 @@ public class CustomSpeeds : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+        //transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+     
         // Set the Rigidbody's velocity to the desired value
         if (rb != null)
         {
             rb.velocity = new Vector3(0, -speed/10f, 0);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Projectile"))
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
         }
     }
 }

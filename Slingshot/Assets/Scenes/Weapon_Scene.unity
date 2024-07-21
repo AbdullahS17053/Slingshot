@@ -1063,7 +1063,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &477728542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObjects:
   - {fileID: 3733071557484738934, guid: 6423086f4c3c91941b15347f806e5496, type: 3}
-  - {fileID: 958334877814467608, guid: 7f267e1d230150340a654e923cf2609a, type: 3}
+  - {fileID: 4208630599157371214, guid: 3193c7f4a5f15774f852cd126f08b72a, type: 3}
   colNumbers: 
   waitTime: 0500000005000000
   spawnPoint: {fileID: 1353180902}
@@ -3256,7 +3256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1364472834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4141,7 +4141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1880251453
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class BulletSpawner : MonoBehaviour
     {
         if (currentBullet != null)
         {
-            Destroy(currentBullet);
+            StartCoroutine(DestroyBulletAfterDelay(currentBullet));
         }
 
         currentBullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
@@ -34,12 +34,12 @@ public class BulletSpawner : MonoBehaviour
 
     void HandleBulletShot()
     {
-        StartCoroutine(SpawnNewBulletAfterDelay());
+        SpawnBullet();
     }
 
-    IEnumerator SpawnNewBulletAfterDelay()
+    IEnumerator DestroyBulletAfterDelay(GameObject obj)
     {
         yield return new WaitForSeconds(1f); 
-        SpawnBullet();
+        Destroy(obj);
     }
 }
