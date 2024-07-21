@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4112171947832689066}
   - component: {fileID: 1033613677292047321}
   - component: {fileID: 304099138735596770}
+  - component: {fileID: 4350586507202476855}
   m_Layer: 0
   m_Name: Bullet 1
   m_TagString: Projectile
@@ -257,3 +258,24 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &4350586507202476855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065426748253760491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d206c2629cb39440be8708c8c348440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceMultiplier: 3
+  maxLeftDrag: -200
+  maxRightDrag: 200
+  maxUpDrag: 0
+  rotationSpeed: 0.1
+  rb: {fileID: 0}
+  pos: {fileID: 0}
+  vcam: {fileID: 0}
+  camMoveSpeed: 1
