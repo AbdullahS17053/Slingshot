@@ -127,7 +127,7 @@ public class DrawTrajectory : MonoBehaviour
         {
             Vector3 middlePoint = fullTrajectoryPoints[fullTrajectoryPoints.Count / 2]; 
             lookAtTarget.transform.position = middlePoint;
-
+            Debug.Log(lookAtTarget.transform.position);
             trajectoryVcam.LookAt = lookAtTarget.transform;
 
             trajectoryVcam.Priority = 20;

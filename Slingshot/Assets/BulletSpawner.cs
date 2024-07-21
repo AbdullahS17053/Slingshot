@@ -10,7 +10,7 @@ public class BulletSpawner : MonoBehaviour
     public Transform spawnPoint;
     //public CinemachineFreeLook vcam;
     public DragAndShoot gun;
-    int spawnTime = 1;
+    public float spawnTime = 1f;
 
     void Start()
     {

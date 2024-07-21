@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2045,8 +2045,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.041467275, y: 0.011669804, z: -0.0004843647, w: 0.9990716}
-  m_LocalPosition: {x: -0.25, y: 0.89, z: -10.7}
+  m_LocalRotation: {x: 0.04146218, y: 0.014376524, z: -0.00059665705, w: 0.9990365}
+  m_LocalPosition: {x: -0.317, y: 0.916, z: -11.012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2079,7 +2079,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
+  m_CustomBlends: {fileID: 11400000, guid: 1a07a9df06db40547a47ece5bfc32469, type: 2}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2336,8 +2336,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093694008}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.041467275, y: 0.011669804, z: -0.0004843647, w: 0.9990716}
-  m_LocalPosition: {x: -0.25, y: 0.89, z: -10.7}
+  m_LocalRotation: {x: 0.04146218, y: 0.014376524, z: -0.00059665705, w: 0.9990365}
+  m_LocalPosition: {x: -0.317, y: 0.916, z: -11.012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4304,7 +4304,7 @@ Transform:
   m_GameObject: {fileID: 1824065112}
   serializedVersion: 2
   m_LocalRotation: {x: 0.041467275, y: 0.011669804, z: -0.0004843647, w: 0.9990716}
-  m_LocalPosition: {x: -0.25, y: 0.89, z: -10.7}
+  m_LocalPosition: {x: -0.317, y: 0.916, z: -11.012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4469,6 +4469,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1065426748253760491, guid: bcd69d2a85d5e2f4a88d09c3b4c0a26a, type: 3}
   spawnPoint: {fileID: 1154412577}
   gun: {fileID: 1874127471}
+  spawnTime: 1
 --- !u!1 &1936279267
 GameObject:
   m_ObjectHideFlags: 0
@@ -4501,6 +4502,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1065426748253760491, guid: bcd69d2a85d5e2f4a88d09c3b4c0a26a, type: 3}
   spawnPoint: {fileID: 1936279269}
   gun: {fileID: 0}
+  spawnTime: 0.7
 --- !u!4 &1936279269
 Transform:
   m_ObjectHideFlags: 0
