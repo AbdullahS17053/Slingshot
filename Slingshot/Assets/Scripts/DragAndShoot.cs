@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,9 @@ public class DragAndShoot : MonoBehaviour
     public event ShootAction OnShoot;
 
 
+    public CinemachineVirtualCamera vcam;
+    public float camMoveSpeed = 1f;
+
 
     void Start()
     {
@@ -30,6 +34,7 @@ public class DragAndShoot : MonoBehaviour
     private void OnMouseDown()
     {
         mousePressDownPos = Input.mousePosition;
+
     }
 
     private void OnMouseDrag()
@@ -43,6 +48,7 @@ public class DragAndShoot : MonoBehaviour
         Vector3 forceV = new Vector3(-forceInit.x, -forceInit.y, -forceInit.y) * forceMultiplier;
 
         DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
+
     }
 
     private void OnMouseUp()
@@ -64,5 +70,8 @@ public class DragAndShoot : MonoBehaviour
         isShoot = true;
 
         OnShoot?.Invoke();
+
+
     }
+
 }
