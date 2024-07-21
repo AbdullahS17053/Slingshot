@@ -26,7 +26,7 @@ public class CustomSpeeds : MonoBehaviour
 
     void Update()
     {
-        //transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
         // Set the Rigidbody's velocity to the desired value
         if (rb != null)
         {
