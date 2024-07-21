@@ -24,6 +24,7 @@ public class DragAndShoot : MonoBehaviour
 
     public CinemachineVirtualCamera vcam;
     public float camMoveSpeed = 1f;
+    private Vector3 initialCameraPosition;
 
     // Constraints for camera movement
     public float maxCameraX = 1f;
@@ -40,6 +41,8 @@ public class DragAndShoot : MonoBehaviour
     private void OnMouseDown()
     {
         mousePressDownPos = Input.mousePosition;
+        initialCameraPosition = vcam.transform.position;
+
     }
 
     private void OnMouseDrag()
@@ -85,16 +88,14 @@ public class DragAndShoot : MonoBehaviour
 
     void MoveCamera(Vector3 dragInput) {
 
-        // Inverting the drag input for the desired effect
+        // Calculate the new camera position based on the initial position and drag input
         float cameraMovement = dragInput.x * camMoveSpeed * Time.deltaTime;
+        float newCameraPositionX = initialCameraPosition.x + cameraMovement;
 
-        // Get current camera position
-        float newCameraPositionX = vcam.transform.position.x + cameraMovement;
-
-        // Clamping the camera position
+        // Clamp the new camera position within the allowed range
         newCameraPositionX = Mathf.Clamp(newCameraPositionX, minCameraX, maxCameraX);
 
-        // Applying the new position
+        // Apply the new camera position
         vcam.transform.position = new Vector3(newCameraPositionX, vcam.transform.position.y, vcam.transform.position.z);
 
 
