@@ -9,6 +9,7 @@ TagManager:
   - Weapon
   - vcam
   - trajectoryVcam
+  - Window
   layers:
   - Default
   - TransparentFX

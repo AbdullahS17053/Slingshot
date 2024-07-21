@@ -26,6 +26,8 @@ public class DrawTrajectory : MonoBehaviour
 
     private CinemachineVirtualCamera ballVcam;
     private CinemachineVirtualCamera trajectoryVcam;
+    private GameObject hitObject = null;
+    bool glow = false;
 
     private void Awake()
     {
@@ -73,6 +75,17 @@ public class DrawTrajectory : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(previousPoint, newPoint - previousPoint, out hit, Vector3.Distance(previousPoint, newPoint), collisionMask))
             {
+                if(glow && hitObject !=  hit.collider.gameObject)
+                {
+                    hitObject.GetComponent<GlowWindow>().SetOff();
+                    glow = false;
+                }
+                if(hit.collider.gameObject.CompareTag("Window"))
+                {
+                    hitObject = hit.collider.gameObject;
+                    hitObject.GetComponent<GlowWindow>().SetOn();
+                    glow = true;
+                }
                 linePoints.Add(hit.point);
                 col = true;
             }
@@ -126,5 +139,12 @@ public class DrawTrajectory : MonoBehaviour
 
         trajectoryVcam.Priority = 10;
         ballVcam.Priority = 20;
+    }
+
+    public void turnOff()
+    {
+        hitObject.GetComponent<GlowWindow>().SetOff();
+        glow = false;
+        hitObject = null;
     }
 }

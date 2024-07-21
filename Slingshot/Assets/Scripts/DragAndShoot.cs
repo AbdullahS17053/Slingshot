@@ -71,6 +71,7 @@ public class DragAndShoot : MonoBehaviour
         isShoot = true;
 
         OnShoot?.Invoke();
+        DrawTrajectory.Instance.turnOff();
     }
 
     public void setBullet(GameObject obj)
