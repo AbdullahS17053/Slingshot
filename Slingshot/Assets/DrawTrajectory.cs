@@ -45,6 +45,7 @@ public class DrawTrajectory : MonoBehaviour
         lookAtTarget = new GameObject("TrajectoryLookAtTarget");
     }
 
+
     public void UpdateTrajectory(Vector3 forceVector, Rigidbody rigidBody, Vector3 startPoint)
     {
         Vector3 velocity = (forceVector / rigidBody.mass) * Time.fixedDeltaTime;
@@ -141,12 +142,16 @@ public class DrawTrajectory : MonoBehaviour
 
         trajectoryVcam.Priority = 10;
         ballVcam.Priority = 20;
+        Destroy(lookAtTarget);
     }
 
     public void turnOff()
     {
-        hitObject.GetComponent<GlowWindow>().SetOff();
-        glow = false;
-        hitObject = null;
+        if (hitObject != null)
+        { 
+            hitObject.GetComponent<GlowWindow>().SetOff();
+            glow = false;
+            hitObject = null;
+        }
     }
 }

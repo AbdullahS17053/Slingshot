@@ -1003,8 +1003,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameObjects:
-  - {fileID: 3733071557484738934, guid: 6423086f4c3c91941b15347f806e5496, type: 3}
-  - {fileID: 4208630599157371214, guid: 3193c7f4a5f15774f852cd126f08b72a, type: 3}
+  - {fileID: 3993196853935147428, guid: ba93ae1410e341d41be192f9d77df500, type: 3}
+  - {fileID: 1271865576400040978, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
   colNumbers: 
   waitTime: 0500000005000000
   spawnPoint: {fileID: 1353180902}
@@ -3273,8 +3273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameObjects:
-  - {fileID: 6974863519776962998, guid: 541d9093cad6d0945b37231b698e1f96, type: 3}
-  - {fileID: 3451360241762871633, guid: cb83f814934cfc140b16be0112da5872, type: 3}
+  - {fileID: 839233260410868668, guid: d6846055e97b9ac42a6e11a3ea4f1237, type: 3}
+  - {fileID: 2230530226155236490, guid: 869b55c0dc2962d41a835b0eeb3c4b36, type: 3}
   colNumbers: 
   waitTime: 0500000005000000
   spawnPoint: {fileID: 860189100}
@@ -4277,7 +4277,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 30
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -4303,14 +4303,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824065112}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.04146728, y: 0.011669805, z: -0.0004843648, w: 0.9990716}
-  m_LocalPosition: {x: -0.25, y: 0.47, z: -10.7}
+  m_LocalRotation: {x: 0.041467275, y: 0.011669804, z: -0.0004843647, w: 0.9990716}
+  m_LocalPosition: {x: -0.25, y: 0.89, z: -10.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1602705152}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 3.25, y: 1.338, z: 0}
+  m_LocalEulerAnglesHint: {x: 4.73, y: 1.338, z: 0}
 --- !u!4 &1857622976 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878514870548777852, guid: 01dd4e1f1e13818408de127ca9c0f9ff, type: 3}
