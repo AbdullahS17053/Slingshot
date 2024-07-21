@@ -35,8 +35,6 @@ public class DragAndShoot : MonoBehaviour
     private void OnMouseDown()
     {
         mousePressDownPos = Input.mousePosition;
-
-
     }
 
     private void OnMouseDrag()
