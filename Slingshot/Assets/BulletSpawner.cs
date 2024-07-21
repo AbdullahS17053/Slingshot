@@ -7,7 +7,10 @@ public class BulletSpawner : MonoBehaviour
 {
     public GameObject bulletPrefab;
     private GameObject currentBullet;
+    public Transform spawnPoint;
     public CinemachineFreeLook vcam;
+    public DragAndShoot gun;
+    int spawnTime = 1;
 
     void Start()
     {
@@ -19,11 +22,13 @@ public class BulletSpawner : MonoBehaviour
     {
         if (currentBullet != null)
         {
-            StartCoroutine(DestroyBulletAfterDelay(currentBullet));
+            Destroy(currentBullet);
         }
 
-        currentBullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-        currentBullet.GetComponent<DragAndShoot>().OnShoot += HandleBulletShot;
+        currentBullet = Instantiate(bulletPrefab,spawnPoint.position, transform.rotation);
+        //currentBullet.transform.SetParent(spawnPoint.transform,true);
+        gun.setBullet(currentBullet);
+        gun.GetComponent<DragAndShoot>().OnShoot += HandleBulletShot;
         SetLookAtTarget(currentBullet.transform);
     }
 
@@ -34,12 +39,12 @@ public class BulletSpawner : MonoBehaviour
 
     void HandleBulletShot()
     {
-        SpawnBullet();
+       StartCoroutine(SpawnBulletAfterDelay());
     }
 
-    IEnumerator DestroyBulletAfterDelay(GameObject obj)
+    IEnumerator SpawnBulletAfterDelay()
     {
-        yield return new WaitForSeconds(1f); 
-        Destroy(obj);
+        yield return new WaitForSeconds(spawnTime);
+        SpawnBullet();
     }
 }

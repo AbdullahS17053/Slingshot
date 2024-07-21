@@ -88,7 +88,7 @@ public class DrawTrajectory : MonoBehaviour
 
         lineRenderer.positionCount = linePoints.Count;
         lineRenderer.SetPositions(linePoints.ToArray());
-        UpdateTrajectoryCamera();
+        //UpdateTrajectoryCamera();
 
     }
 
@@ -109,17 +109,17 @@ public class DrawTrajectory : MonoBehaviour
 
     private void UpdateTrajectoryCamera()
     {
-        if (linePoints.Count > 0)
-        {
-            Vector3 middlePoint = linePoints[linePoints.Count / 2];
-            lookAtTarget.transform.position = middlePoint;
+        //if (linePoints.Count > 0)
+        //{
+        //    Vector3 middlePoint = linePoints[linePoints.Count / 2];
+        //    lookAtTarget.transform.position = middlePoint;
 
-            trajectoryVcam.LookAt = lookAtTarget.transform;
+        //    trajectoryVcam.LookAt = lookAtTarget.transform;
 
-            // Increase priority of trajectory camera to make it active
-            trajectoryVcam.Priority = 20;
-            ballVcam.Priority = 10;
-        }
+        //    // Increase priority of trajectory camera to make it active
+        //    trajectoryVcam.Priority = 20;
+        //    ballVcam.Priority = 10;
+        //}
     }
 
     public void HideLine()

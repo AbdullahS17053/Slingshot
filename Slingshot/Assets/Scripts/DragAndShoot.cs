@@ -1,9 +1,9 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
 public class DragAndShoot : MonoBehaviour
 {
@@ -13,8 +13,10 @@ public class DragAndShoot : MonoBehaviour
     public float maxLeftDrag = -200f;  
     public float maxRightDrag = 200f;  
     public float maxUpDrag = 0f; // no upward drag
+    public float rotationSpeed = 0.1f;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
+    public Transform pos;
 
     private bool isShoot;
 
@@ -28,17 +30,24 @@ public class DragAndShoot : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+       
     }
 
     private void OnMouseDown()
     {
+        rb.constraints = RigidbodyConstraints.None;
         mousePressDownPos = Input.mousePosition;
 
     }
 
     private void OnMouseDrag()
     {
+        float XaxisRotation = Input.GetAxis("Mouse X") * rotationSpeed;
+        float YaxisRotation = Input.GetAxis("Mouse Y") * rotationSpeed;
+
+        transform.RotateAround(Vector3.down, XaxisRotation);
+        transform.RotateAround(Vector3.right, YaxisRotation);
+
         if (isShoot) return;
 
         Vector3 forceInit = (Input.mousePosition - mousePressDownPos);
@@ -47,7 +56,7 @@ public class DragAndShoot : MonoBehaviour
 
         Vector3 forceV = new Vector3(-forceInit.x, -forceInit.y, -forceInit.y) * forceMultiplier;
 
-        DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
+        DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, pos.position);
 
     }
 
@@ -67,11 +76,18 @@ public class DragAndShoot : MonoBehaviour
     void Shoot(Vector3 force)
     {
         rb.AddForce(new Vector3(-force.x, -force.y, -force.y) * forceMultiplier);
+        rb.useGravity = true;
         isShoot = true;
 
         OnShoot?.Invoke();
-
-
     }
 
+    public void setBullet(GameObject obj)
+    {
+        rb = obj.GetComponent<Rigidbody>();
+        pos = obj.transform;
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        rb.constraints = RigidbodyConstraints.FreezePosition;
+    }
 }
