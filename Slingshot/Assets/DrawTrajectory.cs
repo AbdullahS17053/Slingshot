@@ -83,7 +83,7 @@ public class DrawTrajectory : MonoBehaviour
                     hitObject.GetComponent<GlowWindow>().SetOff();
                     glow = false;
                 }
-                if(hit.collider.gameObject.CompareTag("Window"))
+                if(hit.collider.gameObject.CompareTag("Window") || hit.collider.gameObject.CompareTag("Plate"))
                 {
                     hitObject = hit.collider.gameObject;
                     hitObject.GetComponent<GlowWindow>().SetOn();

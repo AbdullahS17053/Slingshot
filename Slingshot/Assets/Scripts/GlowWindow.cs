@@ -20,6 +20,7 @@ public class GlowWindow : MonoBehaviour
         
     }
 
+
     public void SetOn()
     {
         Material[] currentMaterials = meshRenderer.materials;
