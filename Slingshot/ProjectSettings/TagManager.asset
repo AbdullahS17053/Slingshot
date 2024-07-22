@@ -11,6 +11,7 @@ TagManager:
   - trajectoryVcam
   - Window
   - Plate
+  - WindowObject
   layers:
   - Default
   - TransparentFX

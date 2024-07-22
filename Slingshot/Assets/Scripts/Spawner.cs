@@ -24,7 +24,8 @@ public class Spawner : MonoBehaviour
 
         if(!waiting)
         {
-            Instantiate(gameObjects[index],spawnPoint);
+            if (gameObjects[index] != null)
+                Instantiate(gameObjects[index],spawnPoint);
             waiting = true;
             StartCoroutine(SleepCoroutine(waitTime[index]));
             index++;
