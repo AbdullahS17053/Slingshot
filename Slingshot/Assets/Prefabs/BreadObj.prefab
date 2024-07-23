@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  acceleration: 1
   rotationSpeed: 100
   fadeDuration: 1
   launchAngle: 45

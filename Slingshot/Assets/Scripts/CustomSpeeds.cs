@@ -6,6 +6,7 @@ public class CustomSpeeds : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float speed;
+    private float acceleration = 1.5f; // Change this value to control the rate of acceleration
     public float rotationSpeed = 100f;
     public float fadeDuration = 1.0f;
 
@@ -43,7 +44,7 @@ public class CustomSpeeds : MonoBehaviour
         else
         {
             // Disable the default gravity
-            rb.useGravity = false;
+            //rb.useGravity = false;
         }
 
         if (meshRenderer != null && meshRenderer.materials.Length > 2)
@@ -62,6 +63,7 @@ public class CustomSpeeds : MonoBehaviour
         // Set the Rigidbody's velocity to the desired value
         if (rb != null && !launched)
         {
+            speed += acceleration * Time.deltaTime;
             rb.velocity = new Vector3(0, -speed/10f, 0);
         }
     }

@@ -277,8 +277,8 @@ MonoBehaviour:
   maxUpDrag: 0
   rotationSpeed: 0.1
   xMultiplier: 1
-  yMultiplier: 3
-  zMultiplier: 4
+  yMultiplier: 1
+  zMultiplier: 65.63
   rb: {fileID: 0}
   pos: {fileID: 0}
 --- !u!1 &8178150287441387760

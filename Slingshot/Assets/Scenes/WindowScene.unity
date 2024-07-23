@@ -1536,12 +1536,12 @@ MonoBehaviour:
   - {fileID: 8202614754564459210, guid: 10ab30527b9bc8a4995e798ac0706a37, type: 3}
   colNumbers: 040000000200000002000000020000000300000003000000
   waitTime:
-  - 7
-  - 7
-  - 7
-  - 7
-  - 7
-  - 4
+  - 3
+  - 3
+  - 3
+  - 3
+  - 3
+  - 3
 --- !u!1001 &800935027
 PrefabInstance:
   m_ObjectHideFlags: 0

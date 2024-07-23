@@ -214,13 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4be40d797e93d54eaea843891fd9b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 3733071557484738934, guid: 6423086f4c3c91941b15347f806e5496, type: 3}
-  - {fileID: 3733071557484738934, guid: 6423086f4c3c91941b15347f806e5496, type: 3}
-  - {fileID: 3733071557484738934, guid: 6423086f4c3c91941b15347f806e5496, type: 3}
-  - {fileID: 3733071557484738934, guid: 6423086f4c3c91941b15347f806e5496, type: 3}
-  colNumbers: 
-  waitTime: 02000000020000000200000002000000
+  item: {fileID: 0}
   spawnPoint: {fileID: 1104344590}
 --- !u!4 &98952580
 Transform:
@@ -668,6 +662,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 556167186991853649, guid: b9d898824cf8b93418c46b3eb7d76731, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 7937694862724436696, guid: 941c7256844aa4e4cae46a1d66dbc31b, type: 3}
+    - target: {fileID: 556167186991853649, guid: b9d898824cf8b93418c46b3eb7d76731, type: 3}
       propertyPath: waitTime.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -964,11 +962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4be40d797e93d54eaea843891fd9b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 2641803198792526429, guid: 87e935960d5767f4280217dcb6959c85, type: 3}
-  - {fileID: 1649045489108745050, guid: 3c92cb637d80f0b47af726bf15087820, type: 3}
-  colNumbers: 
-  waitTime: 0500000002000000
+  item: {fileID: 0}
   spawnPoint: {fileID: 907718886}
 --- !u!4 &477728543
 Transform:
@@ -1036,11 +1030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4be40d797e93d54eaea843891fd9b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 3993196853935147428, guid: ba93ae1410e341d41be192f9d77df500, type: 3}
-  - {fileID: 1271865576400040978, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
-  colNumbers: 
-  waitTime: 0500000005000000
+  item: {fileID: 0}
   spawnPoint: {fileID: 1353180902}
 --- !u!4 &547564238
 Transform:
@@ -3275,11 +3265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4be40d797e93d54eaea843891fd9b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 839233260410868668, guid: d6846055e97b9ac42a6e11a3ea4f1237, type: 3}
-  - {fileID: 2230530226155236490, guid: 869b55c0dc2962d41a835b0eeb3c4b36, type: 3}
-  colNumbers: 
-  waitTime: 0500000005000000
+  item: {fileID: 0}
   spawnPoint: {fileID: 860189100}
 --- !u!4 &1364472835
 Transform:
@@ -4296,11 +4282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4be40d797e93d54eaea843891fd9b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 1011158907165738732, guid: 41ffe1a739b405340b5067d816dda9b3, type: 3}
-  - {fileID: 2776474626661073279, guid: 287ce34570989604593d1a0beaa007d1, type: 3}
-  colNumbers: 
-  waitTime: 0500000005000000
+  item: {fileID: 0}
   spawnPoint: {fileID: 549663813}
 --- !u!4 &1880251454
 Transform:
