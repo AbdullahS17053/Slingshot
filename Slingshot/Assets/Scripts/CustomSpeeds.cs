@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class CustomSpeeds : MonoBehaviour
@@ -30,7 +31,7 @@ public class CustomSpeeds : MonoBehaviour
     public GameObject FloatingText;
     private Vector3 initialContactPosition;
     private bool hasCollided = false;
-
+    private ScoreCounter ScoreScript;
 
     void Start()
     {
@@ -71,6 +72,8 @@ public class CustomSpeeds : MonoBehaviour
             speed += acceleration * Time.deltaTime;
             rb.velocity = new Vector3(0, -speed/10f, 0);
         }
+
+        ScoreScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ScoreCounter>();
     }
 
     public void Launch()
@@ -118,26 +121,30 @@ public class CustomSpeeds : MonoBehaviour
         if (position.y > 1.30f)
         {
             text.GetComponent<TextMesh>().text = "50";
-
+            ScoreScript.AddScore(50);
         }
         else if (position.y > 1.09f && position.y < 1.30f)
         {
 
             text.GetComponent<TextMesh>().text = "40";
+            ScoreScript.AddScore(40);
         }
         else if (position.y > 0.82f && position.y < 1.09f)
         {
 
             text.GetComponent<TextMesh>().text = "30";
+            ScoreScript.AddScore(30);
         }
         else if (position.y > 0.54f && position.y < 0.82f)
         {
 
             text.GetComponent<TextMesh>().text = "20";
+            ScoreScript.AddScore(20);
 
         }
         else if (position.y < 0.54f){
             text.GetComponent<TextMesh>().text = "10";
+            ScoreScript.AddScore(10);
 
         }
 
