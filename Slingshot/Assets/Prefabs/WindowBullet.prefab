@@ -271,9 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d206c2629cb39440be8708c8c348440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: 0.87
-  maxLeftDrag: -400
-  maxRightDrag: 400
+  forceMultiplier: 0.7
+  maxLeftDrag: -200
+  maxRightDrag: 200
   maxUpDrag: 0
   rotationSpeed: 0.1
   xMultiplier: 0.6
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 2141045859693783878}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

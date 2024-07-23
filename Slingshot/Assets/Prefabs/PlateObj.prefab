@@ -16,6 +16,14 @@ PrefabInstance:
       propertyPath: speed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4714433008753927671, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
+      propertyPath: FLoatingText
+      value: 
+      objectReference: {fileID: 4214440009317257263, guid: 287e76cf863c17441964208607d3e39f, type: 3}
+    - target: {fileID: 4714433008753927671, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
+      propertyPath: FloatingText
+      value: 
+      objectReference: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
     - target: {fileID: 4957510550617909972, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.5604649

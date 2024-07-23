@@ -245,6 +245,7 @@ MonoBehaviour:
   inFilled: 1
   flyRight: 1
   flyLeft: 0
+  FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
 --- !u!54 &3587150393631676530
 Rigidbody:
   m_ObjectHideFlags: 0
