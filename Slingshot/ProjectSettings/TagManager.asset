@@ -13,6 +13,7 @@ TagManager:
   - Plate
   - WindowObject
   - Wall
+  - GameManager
   layers:
   - Default
   - TransparentFX
