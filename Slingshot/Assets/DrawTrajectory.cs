@@ -106,6 +106,11 @@ public class DrawTrajectory : MonoBehaviour
         UpdateTrajectoryCamera();
     }
 
+    public Vector3 GetLastPoint()
+    {
+        return linePoints[linePoints.Count - 1];
+    }
+
     private void ExtendTrajectoryBelow()
     {
         if (linePoints.Count < 2) return;
@@ -127,7 +132,7 @@ public class DrawTrajectory : MonoBehaviour
         {
             Vector3 middlePoint = fullTrajectoryPoints[fullTrajectoryPoints.Count / 2]; 
             lookAtTarget.transform.position = middlePoint;
-            Debug.Log(lookAtTarget.transform.position);
+            //Debug.Log(lookAtTarget.transform.position);
             trajectoryVcam.LookAt = lookAtTarget.transform;
 
             trajectoryVcam.Priority = 20;

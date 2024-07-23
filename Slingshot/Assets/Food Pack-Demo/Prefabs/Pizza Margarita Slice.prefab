@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3342338530707967412}
   - component: {fileID: 1859288156377711121}
   - component: {fileID: 4479238795231557339}
+  - component: {fileID: 8142131580983541614}
   m_Layer: 0
   m_Name: Pizza Margarita Slice
   m_TagString: Untagged
@@ -84,3 +85,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8142131580983541614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2677829250333234958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e968d62904c8914d81a0b83422c9f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  rotationSpeed: 100
+  fadeDuration: 1
+  launchAngle: 45
+  deleteDelay: 5
+  inFilled: 1
+  flyRight: 1
+  flyLeft: 0

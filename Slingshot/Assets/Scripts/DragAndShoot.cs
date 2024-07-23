@@ -9,8 +9,8 @@ public class DragAndShoot : MonoBehaviour
     private Vector3 mousePressDownPos;
     private Vector3 mouseReleasePos;
     public float forceMultiplier = 3;
-    public float maxLeftDrag = -200f;  
-    public float maxRightDrag = 200f;  
+    public float maxLeftDrag = -200f;
+    public float maxRightDrag = 200f;
     public float maxUpDrag = 0f; // no upward drag
     public float rotationSpeed = 0.1f;
     public float xMultiplier = 1f;
@@ -28,7 +28,7 @@ public class DragAndShoot : MonoBehaviour
 
     void Start()
     {
-       rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
 
@@ -44,10 +44,11 @@ public class DragAndShoot : MonoBehaviour
         if (isShoot) return;
 
         Vector3 forceInit = (Input.mousePosition - mousePressDownPos);
+        Debug.Log(forceInit);
         forceInit.x = Mathf.Clamp(forceInit.x, maxLeftDrag, maxRightDrag);
         forceInit.y = Mathf.Clamp(forceInit.y, float.NegativeInfinity, maxUpDrag);
 
-        Vector3 forceV = new Vector3(-forceInit.x * xMultiplier, -forceInit.y * yMultiplier, -forceInit.y * zMultiplier) * forceMultiplier;
+        Vector3 forceV = new Vector3(-forceInit.x * xMultiplier, -forceInit.y * yMultiplier, -forceInit.y + zMultiplier) * forceMultiplier;
 
         DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
 
@@ -68,7 +69,8 @@ public class DragAndShoot : MonoBehaviour
 
     void Shoot(Vector3 force)
     {
-        rb.AddForce(new Vector3(-force.x * xMultiplier, -force.y * yMultiplier, -force.y * zMultiplier) * forceMultiplier);
+        rb.AddForce(new Vector3(-force.x * xMultiplier, -force.y * yMultiplier, -force.y + zMultiplier) * forceMultiplier);
+        //rb.AddForce(new Vector3(-force.x * xMultiplier, -force.y * yMultiplier, -force.y * zMultiplier) * forceMultiplier);
         rb.useGravity = true;
         isShoot = true;
 

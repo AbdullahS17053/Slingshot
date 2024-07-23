@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8699629684502325633}
   - component: {fileID: 5698338375476143652}
   - component: {fileID: 7561657875834835694}
+  - component: {fileID: 6767300078711386563}
   m_Layer: 0
   m_Name: Sushi Wood Table
   m_TagString: Untagged
@@ -84,3 +85,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6767300078711386563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354348516445008699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e968d62904c8914d81a0b83422c9f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  rotationSpeed: 100
+  fadeDuration: 1
+  launchAngle: 45
+  deleteDelay: 5
+  inFilled: 1
+  flyRight: 1
+  flyLeft: 0

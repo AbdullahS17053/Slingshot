@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3402286997658842822}
   - component: {fileID: 1772309848527845731}
   - component: {fileID: 4574660115281300905}
+  - component: {fileID: 1646299602362336715}
   m_Layer: 0
   m_Name: Lamb leg
   m_TagString: Untagged
@@ -84,3 +85,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1646299602362336715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629127272418962556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e968d62904c8914d81a0b83422c9f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  rotationSpeed: 100
+  fadeDuration: 1
+  launchAngle: 45
+  deleteDelay: 5
+  inFilled: 1
+  flyRight: 1
+  flyLeft: 0

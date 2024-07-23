@@ -54,7 +54,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065426748253760491}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -109,8 +109,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.59
-  m_Center: {x: -0.023027161, y: 0.013829866, z: 0}
+  m_Radius: 0.538534
+  m_Center: {x: -0.023027161, y: 0.5308444, z: 0}
 --- !u!54 &4112171947832689066
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -271,14 +271,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d206c2629cb39440be8708c8c348440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: 0.7
+  forceMultiplier: 0.87
   maxLeftDrag: -400
   maxRightDrag: 400
   maxUpDrag: 0
   rotationSpeed: 0.1
-  xMultiplier: 1
-  yMultiplier: 3
-  zMultiplier: 4
+  xMultiplier: 0.6
+  yMultiplier: 1.62
+  zMultiplier: 65
   rb: {fileID: 0}
   pos: {fileID: 0}
 --- !u!1 &8178150287441387760
@@ -298,7 +298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &215625127804033351
 Transform:
   m_ObjectHideFlags: 0
@@ -308,7 +308,7 @@ Transform:
   m_GameObject: {fileID: 8178150287441387760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.72, z: 0}
+  m_LocalPosition: {x: 0, y: 0.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

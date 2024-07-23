@@ -12,6 +12,7 @@ TagManager:
   - Window
   - Plate
   - WindowObject
+  - Wall
   layers:
   - Default
   - TransparentFX
