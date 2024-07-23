@@ -7,7 +7,7 @@ public class CustomSpeeds : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float speed;
-    private float acceleration = 1.5f; // Change this value to control the rate of acceleration
+    private float acceleration = 1.25f; // Change this value to control the rate of acceleration
     public float rotationSpeed = 100f;
     public float fadeDuration = 1.0f;
 
