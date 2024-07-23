@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CustomSpeeds : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class CustomSpeeds : MonoBehaviour
     private MeshRenderer meshRenderer;
     Color startColor;
     Color endColor;
+
+    public GameObject FloatingText;
+    private Vector3 initialContactPosition;
+    private bool hasCollided = false;
 
 
     void Start()
@@ -95,7 +100,8 @@ public class CustomSpeeds : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
-            //Destroy(gameObject);
+            initialContactPosition = transform.position;
+            ShowText(initialContactPosition);
             Launch();
             launched = true;
             rotationSpeed *= 15f;
@@ -103,6 +109,40 @@ public class CustomSpeeds : MonoBehaviour
         }
     }
 
+    public void ShowText(Vector3 position) {
+
+        
+
+        GameObject text =  Instantiate(FloatingText, position, Quaternion.identity);
+        text.GetComponent<TextMesh>().characterSize = 0.08f;
+        if (position.y > 1.30f)
+        {
+            text.GetComponent<TextMesh>().text = "50";
+
+        }
+        else if (position.y > 1.09f && position.y < 1.30f)
+        {
+
+            text.GetComponent<TextMesh>().text = "40";
+        }
+        else if (position.y > 0.82f && position.y < 1.09f)
+        {
+
+            text.GetComponent<TextMesh>().text = "30";
+        }
+        else if (position.y > 0.54f && position.y < 0.82f)
+        {
+
+            text.GetComponent<TextMesh>().text = "20";
+
+        }
+        else if (position.y < 0.54f){
+            text.GetComponent<TextMesh>().text = "10";
+
+        }
+
+        Destroy(text, 1f);
+    }
     IEnumerator DeleteAfterDelay()
     {
         yield return new WaitForSeconds(deleteDelay);
@@ -171,4 +211,9 @@ public class CustomSpeeds : MonoBehaviour
         inFilled = false;
         yield return StartCoroutine(Clear((meshRenderer.materials[2]), endColor, fadeDuration));
     }
+
+
+  
+
 }
+
