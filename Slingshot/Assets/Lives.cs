@@ -8,8 +8,11 @@ public class Lives : MonoBehaviour
 {
 
     public Text lives;
+    public Text Diamonds;
     public int CurrLives;
+    public int CurrDiamonds;
 
+    public GameObject bullet;
     public GameObject curtain1;
     public GameObject curtain2;
 
@@ -19,6 +22,8 @@ public class Lives : MonoBehaviour
 
     void Start()
     {
+        CurrLives = 5;
+        CurrDiamonds = 10;
         UpdateUI(CurrLives);
 
         curtain1 = GameObject.FindGameObjectWithTag("Curtain1");
@@ -36,6 +41,7 @@ public class Lives : MonoBehaviour
 
     private void Update()
     {
+
         if (CurrLives == 0 && isPlaying == false) {
             PlayAnimations(animator1 , "CurtainsMovementNew 1");
             PlayAnimations(animator1, "CurtainsMovementNew 2");
@@ -49,9 +55,23 @@ public class Lives : MonoBehaviour
         animator1.SetTrigger("CloseCurtain1");
         animator2.SetTrigger("CloseCurtain2");
 
-
+        bullet = GameObject.FindGameObjectWithTag("Projectile");
+        Destroy(bullet.gameObject, 0.5f);
     }
 
+    public void AddDiamond() {
+
+        CurrDiamonds++;
+        UpdateDiamond(CurrDiamonds);
+    }
+
+    public void RemoveDiamond(int price)
+    {
+        if (CurrDiamonds - price >= 0) { 
+        
+            CurrDiamonds -= price;
+        }
+    }
 
     public void AddLife() {
 
@@ -70,6 +90,9 @@ public class Lives : MonoBehaviour
         }
     }
 
+    private void UpdateDiamond(int sc) {
+        Diamonds.text = sc.ToString();
+    }
     private void UpdateUI(int sc)
     {
         lives.text = sc.ToString();

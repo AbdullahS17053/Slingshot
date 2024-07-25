@@ -13,8 +13,8 @@ public class CustomSpeeds : MonoBehaviour
     public float fadeDuration = 1.0f;
 
     [Header("Launch Settings")]
-    public float launchAngle = 45f;  // Angle in degrees
-    private float launchSpeed = 5f;  // Initial speed
+    public float launchAngle = 90f;  // Angle in degrees
+    private float launchSpeed = 3f;  // Initial speed
     public float deleteDelay = 5f;
     public bool inFilled = true;
 
@@ -33,6 +33,7 @@ public class CustomSpeeds : MonoBehaviour
     private bool hasCollided = false;
     private ScoreCounter ScoreScript;
     private Lives life;
+    private Lives diamond;
 
     void Start()
     {
@@ -76,11 +77,11 @@ public class CustomSpeeds : MonoBehaviour
 
         ScoreScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ScoreCounter>();
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
-        if (gameObject.transform.position.y < 0.23f && !gameObject.CompareTag("Heart")) {
+        if (gameObject.transform.position.y < 0.23f && !gameObject.CompareTag("Heart") && !gameObject.CompareTag("Diamond") ) {
             life.LifeLost();
             Destroy(gameObject);
         }
-        if (gameObject.CompareTag("Heart")) {
+        if (gameObject.CompareTag("Heart") || gameObject.CompareTag("Diamond") ) {
             if (gameObject.transform.position.y < 0.23f)
                 Destroy(gameObject);
         }
@@ -115,8 +116,15 @@ public class CustomSpeeds : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Heart") && !launched)
+        if (((collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Heart")) || (collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Diamond"))) && !launched )
         {
+            if (this.gameObject.CompareTag("Diamond")) {
+
+                life.AddDiamond();
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+                return;
+            }
             //Debug.Log("Heart fuck ball");
             life.AddLife();
             Destroy(collision.gameObject);

@@ -17,6 +17,7 @@ TagManager:
   - Heart
   - Curtain1
   - Curtain2
+  - Diamond
   layers:
   - Default
   - TransparentFX
