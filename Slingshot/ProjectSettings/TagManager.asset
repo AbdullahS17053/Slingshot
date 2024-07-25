@@ -14,6 +14,9 @@ TagManager:
   - WindowObject
   - Wall
   - GameManager
+  - Heart
+  - Curtain1
+  - Curtain2
   layers:
   - Default
   - TransparentFX

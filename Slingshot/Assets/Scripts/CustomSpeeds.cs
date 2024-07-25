@@ -32,6 +32,7 @@ public class CustomSpeeds : MonoBehaviour
     private Vector3 initialContactPosition;
     private bool hasCollided = false;
     private ScoreCounter ScoreScript;
+    private Lives life;
 
     void Start()
     {
@@ -74,6 +75,11 @@ public class CustomSpeeds : MonoBehaviour
         }
 
         ScoreScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ScoreCounter>();
+        life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
+        if (gameObject.transform.position.y < 0.23f && !gameObject.CompareTag("Heart")) {
+            life.LifeLost();
+            Destroy(gameObject);
+        }
     }
 
     public void Launch()
@@ -86,10 +92,12 @@ public class CustomSpeeds : MonoBehaviour
         if (flyRight)
         {
             launchDirection.x = Mathf.Abs(launchDirection.x); // Ensure positive x direction
+            Destroy(gameObject , 0.1f);
         }
         else if (flyLeft)
         {
             launchDirection.x = -Mathf.Abs(launchDirection.x); // Ensure negative x direction
+            Destroy(gameObject, 0.1f);
         }
 
         // Apply the launch velocity
@@ -101,7 +109,14 @@ public class CustomSpeeds : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Projectile") && !launched)
+        if (collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Heart") && !launched)
+        {
+            Debug.Log("Heart fuck ball");
+            life.AddLife();
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
             initialContactPosition = transform.position;
             ShowText(initialContactPosition);
@@ -110,6 +125,7 @@ public class CustomSpeeds : MonoBehaviour
             rotationSpeed *= 15f;
             Destroy(collision.gameObject);
         }
+        
     }
 
     public void ShowText(Vector3 position) {
@@ -142,11 +158,13 @@ public class CustomSpeeds : MonoBehaviour
             ScoreScript.AddScore(20);
 
         }
-        else if (position.y < 0.54f){
+        else if (position.y > 0.225f && position.y < 0.54f)
+        {
             text.GetComponent<TextMesh>().text = "10";
             ScoreScript.AddScore(10);
 
         }
+        
 
         Destroy(text, 1f);
     }

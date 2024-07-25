@@ -12,10 +12,6 @@ public class ScoreCounter : MonoBehaviour
         UpdateUI(CurrScore);
     }
 
-    private void Update()
-    {
-    }
-
     public void AddScore(int points)
     {
         CurrScore += points;
