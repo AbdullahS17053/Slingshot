@@ -80,6 +80,10 @@ public class CustomSpeeds : MonoBehaviour
             life.LifeLost();
             Destroy(gameObject);
         }
+        if (gameObject.CompareTag("Heart")) {
+            if (gameObject.transform.position.y < 0.23f)
+                Destroy(gameObject);
+        }
     }
 
     public void Launch()
