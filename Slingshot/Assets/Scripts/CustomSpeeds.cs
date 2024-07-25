@@ -92,26 +92,28 @@ public class CustomSpeeds : MonoBehaviour
         if (flyRight)
         {
             launchDirection.x = Mathf.Abs(launchDirection.x); // Ensure positive x direction
-            Destroy(gameObject , 0.1f);
+            //Destroy(gameObject , 0.1f);
         }
         else if (flyLeft)
         {
             launchDirection.x = -Mathf.Abs(launchDirection.x); // Ensure negative x direction
-            Destroy(gameObject, 0.1f);
+            //Destroy(gameObject, 0.1f);
         }
 
         // Apply the launch velocity
         rb.useGravity = true;
         gameObject.GetComponent<Collider>().enabled = false;
+        gameObject.tag = "Heart";
         rb.velocity = launchDirection * launchSpeed;
         StartCoroutine(DeleteAfterDelay());
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Heart") && !launched)
         {
-            Debug.Log("Heart fuck ball");
+            //Debug.Log("Heart fuck ball");
             life.AddLife();
             Destroy(collision.gameObject);
             Destroy(gameObject);
@@ -171,7 +173,6 @@ public class CustomSpeeds : MonoBehaviour
     IEnumerator DeleteAfterDelay()
     {
         yield return new WaitForSeconds(deleteDelay);
-        Destroy(gameObject);
     }
 
     private IEnumerator FadeMaterialAlpha(Material material)

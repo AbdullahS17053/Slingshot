@@ -6,6 +6,7 @@ public class Spawner : MonoBehaviour
 { 
     public GameObject item = null;
     public Transform spawnPoint;
+    public GameObject currItem = null;
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +19,16 @@ public class Spawner : MonoBehaviour
     {
         if (item)
         {
-            Instantiate(item, spawnPoint);
+            currItem = Instantiate(item, spawnPoint);
             item = null;
+        }
+    }
+
+    void destroyItem()
+    {
+        if (currItem != null)
+        {
+            Destroy(currItem);
         }
     }
 }

@@ -16,13 +16,13 @@ public class MainSpawner : MonoBehaviour
     {
         waiting = true;
         index = 0;
-        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("WindowObject");
+        //GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("WindowObject");
 
-        // Loop through each object and destroy it
-        foreach (GameObject obj in objectsToDestroy)
-        {
-            Destroy(obj);
-        }
+        //// Loop through each object and destroy it
+        //foreach (GameObject obj in objectsToDestroy)
+        //{
+        //    Destroy(obj);
+        //}
         StartCoroutine(SleepCoroutine(initialWait));
     }
 
