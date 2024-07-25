@@ -7640,6 +7640,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -3033667219593020291, guid: eb2cf7c49babeb14b9ca8b06a2e48512, type: 3}
+  - {fileID: 2100000, guid: 534f5547bbd661d419427429877d1461, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12549,11 +12550,11 @@ MonoBehaviour:
   initialWait: 0
   gameObjects:
   - {fileID: 839233260410868668, guid: d6846055e97b9ac42a6e11a3ea4f1237, type: 3}
+  - {fileID: 8780654592860833253, guid: cd5c0226d9d4b554885c988834915042, type: 3}
   - {fileID: 5422369957066220309, guid: 810d97bbc45b31d4fb1f35baeb74f7c6, type: 3}
   - {fileID: 7460025595189444612, guid: 19f1f2f7ead808d43b69e6fa89ed4b6a, type: 3}
   - {fileID: 3993196853935147428, guid: ba93ae1410e341d41be192f9d77df500, type: 3}
   - {fileID: 4048452204412134818, guid: d9cfa22190bbc59428b8c97cadfe5d7c, type: 3}
-  - {fileID: 8780654592860833253, guid: cd5c0226d9d4b554885c988834915042, type: 3}
   - {fileID: 8202614754564459210, guid: 10ab30527b9bc8a4995e798ac0706a37, type: 3}
   colNumbers: 04000000020000000200000002000000030000000300000003000000
   waitTime:
@@ -27787,6 +27788,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -3033667219593020291, guid: eb2cf7c49babeb14b9ca8b06a2e48512, type: 3}
+  - {fileID: 2100000, guid: 534f5547bbd661d419427429877d1461, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
