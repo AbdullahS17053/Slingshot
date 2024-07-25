@@ -24,10 +24,11 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    void destroyItem()
+    public void destroyItem()
     {
         if (currItem != null)
         {
+            Debug.Log("destroyed bc");
             Destroy(currItem);
         }
     }

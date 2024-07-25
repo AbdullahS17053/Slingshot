@@ -68,6 +68,7 @@ public class WindowLevel : MonoBehaviour
         {
             if(levelNum > 0)
             {
+                windows[levelNum - 1].GetComponentInChildren<MainSpawner>().destroyAll();
                 windows[levelNum - 1].SetActive(false);
                 originalParday.color = loadingParday.color;
 
@@ -76,6 +77,7 @@ public class WindowLevel : MonoBehaviour
 
             else
             {
+                windows[windows.Length - 1].GetComponentInChildren<MainSpawner>().destroyAll();
                 windows[windows.Length - 1].SetActive(false);
                 originalParday.color = defaultParday;
             }

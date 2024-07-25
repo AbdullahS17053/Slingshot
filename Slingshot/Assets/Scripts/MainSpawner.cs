@@ -16,13 +16,7 @@ public class MainSpawner : MonoBehaviour
     {
         waiting = true;
         index = 0;
-        //GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("WindowObject");
-
-        //// Loop through each object and destroy it
-        //foreach (GameObject obj in objectsToDestroy)
-        //{
-        //    Destroy(obj);
-        //}
+       
         StartCoroutine(SleepCoroutine(initialWait));
     }
 
@@ -51,5 +45,13 @@ public class MainSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         waiting = false;
+    }
+
+    public void destroyAll()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            transform.GetChild(i).GetComponent<Spawner>().destroyItem();
+        }
     }
 }
