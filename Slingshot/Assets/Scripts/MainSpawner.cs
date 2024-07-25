@@ -12,9 +12,17 @@ public class MainSpawner : MonoBehaviour
     bool waiting = false;
     int index = 0;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         waiting = true;
+        index = 0;
+        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("WindowObject");
+
+        // Loop through each object and destroy it
+        foreach (GameObject obj in objectsToDestroy)
+        {
+            Destroy(obj);
+        }
         StartCoroutine(SleepCoroutine(initialWait));
     }
 
