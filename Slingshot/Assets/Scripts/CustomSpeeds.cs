@@ -182,7 +182,7 @@ public class CustomSpeeds : MonoBehaviour
 
             while (true)
             {
-                Debug.Log(inFilled);
+                //Debug.Log(inFilled);
                 // Fade out (alpha to 0)
                 yield return StartCoroutine(FadeTo(material, endColor, fadeDuration));
 
