@@ -16,6 +16,4 @@ public class UpsideDownVMovement : MonoBehaviour
         // Apply the initial velocity upwards
         rb.velocity = new Vector3(X, Y, 0);
     }
-
-    
 }
