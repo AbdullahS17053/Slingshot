@@ -8,6 +8,7 @@ public class WindowLevel : MonoBehaviour
 {
     public GameObject[] windows;
     public GameObject[] loadingWindows;
+    public float loadTime;
 
     public Material originalParday;
     public Material[] parday;
@@ -106,7 +107,7 @@ public class WindowLevel : MonoBehaviour
 
     IEnumerator loadingLevel()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(loadTime);
         play = true;
         bullet.SetActive(true);
         bullet.GetComponent<BulletSpawner>().levelChange(0f);

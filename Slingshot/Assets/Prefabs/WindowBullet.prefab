@@ -106,7 +106,7 @@ SphereCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.538534
@@ -278,7 +278,7 @@ MonoBehaviour:
   rotationSpeed: 0.1
   xMultiplier: 0.6
   yMultiplier: 1.62
-  zMultiplier: 65
+  zMultiplier: 450
   rb: {fileID: 0}
   pos: {fileID: 0}
 --- !u!1 &8178150287441387760

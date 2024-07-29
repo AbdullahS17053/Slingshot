@@ -41,7 +41,7 @@ public class DrawTrajectory : MonoBehaviour
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
         ballVcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineVirtualCamera>();
-        trajectoryVcam = GameObject.FindGameObjectWithTag("trajectoryVcam").GetComponent<CinemachineVirtualCamera>();
+        //trajectoryVcam = GameObject.FindGameObjectWithTag("trajectoryVcam").GetComponent<CinemachineVirtualCamera>();
         lookAtTarget = new GameObject("TrajectoryLookAtTarget");
     }
 
@@ -133,9 +133,9 @@ public class DrawTrajectory : MonoBehaviour
             Vector3 middlePoint = fullTrajectoryPoints[fullTrajectoryPoints.Count / 2]; 
             lookAtTarget.transform.position = middlePoint;
             //Debug.Log(lookAtTarget.transform.position);
-            trajectoryVcam.LookAt = lookAtTarget.transform;
+            //trajectoryVcam.LookAt = lookAtTarget.transform;
 
-            trajectoryVcam.Priority = 20;
+           // trajectoryVcam.Priority = 20;
             ballVcam.Priority = 10;
         }
     }
@@ -143,10 +143,10 @@ public class DrawTrajectory : MonoBehaviour
     public void HideLine()
     {
         lineRenderer.positionCount = 0;
-        trajectoryVcam.LookAt = null;
+        //trajectoryVcam.LookAt = null;
 
-        trajectoryVcam.Priority = 10;
-        ballVcam.Priority = 20;
+        //trajectoryVcam.Priority = 10;
+        //ballVcam.Priority = 20;
         Destroy(lookAtTarget);
     }
 

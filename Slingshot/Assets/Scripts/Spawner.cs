@@ -28,7 +28,6 @@ public class Spawner : MonoBehaviour
     {
         if (currItem != null)
         {
-            Debug.Log("destroyed bc");
             Destroy(currItem);
         }
     }

@@ -22,9 +22,9 @@ public class Lives : MonoBehaviour
 
     void Start()
     {
-        CurrLives = 5;
-        CurrDiamonds = 10;
+        
         UpdateUI(CurrLives);
+        UpdateDiamond(CurrDiamonds);
 
         curtain1 = GameObject.FindGameObjectWithTag("Curtain1");
         curtain2 = GameObject.FindGameObjectWithTag("Curtain2");
