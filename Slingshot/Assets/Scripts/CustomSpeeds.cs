@@ -52,7 +52,7 @@ public class CustomSpeeds : MonoBehaviour
     private List<string> badWords;
 
     private bool hasBeenTeleported = false;
-
+    public GameManager gameManager;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -84,6 +84,8 @@ public class CustomSpeeds : MonoBehaviour
             endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
             StartCoroutine(FadeMaterialAlpha(meshRenderer.materials[2]));
         }
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -216,7 +218,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Ouch!";
                 text.GetComponent<TextMesh>().color = Color.red;
 
@@ -231,7 +233,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Oops!";
                 text.GetComponent<TextMesh>().color = Color.red;
             }
@@ -245,7 +247,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Wrong!";
                 text.GetComponent<TextMesh>().color = Color.red;
             }
@@ -259,7 +261,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Ouch!";
                 text.GetComponent<TextMesh>().color = Color.red;
             }
@@ -273,7 +275,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Fail!";
                 text.GetComponent<TextMesh>().color = Color.red;
             }
