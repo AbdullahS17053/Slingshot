@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8369077278640403282}
   - component: {fileID: -7247612560835856885}
   - component: {fileID: -1844351011811212763}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BreadObj
   m_TagString: WindowObject
   m_Icon: {fileID: 0}
@@ -150,6 +150,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   rotationSpeed: 100
+  xRot: 0
+  yRot: 0
+  zRot: 1
   fadeDuration: 1
   launchAngle: 45
   deleteDelay: 5
@@ -172,3 +175,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
+  pan: 0

@@ -47,6 +47,9 @@ public class CustomSpeeds : MonoBehaviour
     private Lives diamond;
     public bool pan = false;
 
+    private List<string> goodWords;
+    private List<string> badWords;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -55,6 +58,10 @@ public class CustomSpeeds : MonoBehaviour
         bool direction = Random.value > 0.5f;
         flyRight = direction;
         flyLeft = !direction;
+
+
+        goodWords = new List<string> { "Yummy", "Delicious", "Tasty", "Juicy", "Sweet" };
+        badWords = new List<string> { "Yuck", "Gross", "Eww", "Disgusting", "Nasty" };
 
 
         if (rb == null)
@@ -99,14 +106,27 @@ public class CustomSpeeds : MonoBehaviour
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
     }
 
-    public void inPan()
+    public void inPan(bool changeColor)
     {
         //rb.velocity = new Vector3(0,0,0);
         rb.useGravity = true;
         GameObject text = Instantiate(FloatingText, transform.position, Quaternion.identity);
         text.GetComponent<TextMesh>().characterSize = 0.1f;
-        text.GetComponent<TextMesh>().text = "Yummy";
-        ScoreScript.AddScore(20);
+
+        string randomWord;
+        if (changeColor) {
+            text.GetComponent<TextMesh>().color = Color.red;
+            randomWord = badWords[Random.Range(0, badWords.Count)];
+            text.GetComponent<TextMesh>().text = randomWord;
+            ScoreScript.SubtractScore(20);
+        
+        }
+        else
+        {
+            randomWord = goodWords[Random.Range(0, goodWords.Count)];
+            text.GetComponent<TextMesh>().text = randomWord;
+            ScoreScript.AddScore(20);
+        }
         Destroy(text, 2f);
     }
 
@@ -167,7 +187,8 @@ public class CustomSpeeds : MonoBehaviour
         //}
         if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
-            ShowText(currRow);
+            int foodlayer = this.gameObject.layer; //check layer of good foood or bad food
+            ShowText(currRow, foodlayer);
             Launch();
             launched = true;
             rotationSpeed *= 15f;
@@ -176,37 +197,89 @@ public class CustomSpeeds : MonoBehaviour
         
     }
 
-    public void ShowText(int layer) {
+    public void ShowText(int layer, int foodlayer)
+    {
 
-        
 
-        GameObject text =  Instantiate(FloatingText, transform.position, Quaternion.identity);
+
+        GameObject text = Instantiate(FloatingText, transform.position, Quaternion.identity);
         text.GetComponent<TextMesh>().characterSize = 0.08f;
-        // Check which layer the object is on and update the score
+        int badFood = LayerMask.NameToLayer("BadFood");
+        int goodFood = LayerMask.NameToLayer("GoodFood");
+
+       
+
         if (layer == Mathf.RoundToInt(Mathf.Log(window1Layer.value, 2)))
         {
-            text.GetComponent<TextMesh>().text = "50";
-            ScoreScript.AddScore(50);
+            if (foodlayer == badFood)
+            {
+
+                text.GetComponent<TextMesh>().text = "50";
+                ScoreScript.AddScore(50);
+            }
+            else if (foodlayer == goodFood)
+            {
+
+                text.GetComponent<TextMesh>().text = "Ouch!";
+                text.GetComponent<TextMesh>().color = Color.red;
+
+            }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window2Layer.value, 2)))
         {
-            text.GetComponent<TextMesh>().text = "40";
-            ScoreScript.AddScore(40);
+            if (foodlayer == badFood)
+            {
+                text.GetComponent<TextMesh>().text = "40";
+                ScoreScript.AddScore(40);
+            }
+            else if (foodlayer == goodFood)
+            {
+
+                text.GetComponent<TextMesh>().text = "Oops!";
+                text.GetComponent<TextMesh>().color = Color.red;
+            }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window3Layer.value, 2)))
         {
-            text.GetComponent<TextMesh>().text = "30";
-            ScoreScript.AddScore(30);
+            if (foodlayer == badFood)
+            {
+                text.GetComponent<TextMesh>().text = "30";
+                ScoreScript.AddScore(30);
+            }
+            else if (foodlayer == goodFood)
+            {
+
+                text.GetComponent<TextMesh>().text = "Wrong!";
+                text.GetComponent<TextMesh>().color = Color.red;
+            }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window4Layer.value, 2)))
         {
-            text.GetComponent<TextMesh>().text = "20";
-            ScoreScript.AddScore(20);
+            if (foodlayer == badFood)
+            {
+                text.GetComponent<TextMesh>().text = "20";
+                ScoreScript.AddScore(20);
+            }
+            else if (foodlayer == goodFood)
+            {
+
+                text.GetComponent<TextMesh>().text = "Ouch!";
+                text.GetComponent<TextMesh>().color = Color.red;
+            }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window5Layer.value, 2)))
         {
-            text.GetComponent<TextMesh>().text = "10";
-            ScoreScript.AddScore(10);
+            if (foodlayer == badFood)
+            {
+                text.GetComponent<TextMesh>().text = "10";
+                ScoreScript.AddScore(10);
+            }
+            else if (foodlayer == goodFood)
+            {
+
+                text.GetComponent<TextMesh>().text = "Fail!";
+                text.GetComponent<TextMesh>().color = Color.red;
+            }
         }
         Destroy(text, 1f);
     }
