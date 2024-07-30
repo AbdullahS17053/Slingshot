@@ -18,6 +18,7 @@ TagManager:
   - Curtain1
   - Curtain2
   - Diamond
+  - CurtainCam
   layers:
   - Default
   - TransparentFX

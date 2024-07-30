@@ -9,12 +9,13 @@ public class DragAndShoot : MonoBehaviour
     private Vector3 mousePressDownPos;
     private Vector3 mousePressDragPos;
     private Vector3 mouseReleasePos;
+    private Vector3 originalScale;
 
     public float forceMultiplier = 3;
     public float maxLeftDrag = -200f;
     public float maxRightDrag = 200f;
     public float maxUpDrag = 0f; // no upward drag
-    public float rotationSpeed = 100f;
+    public float rotationSpeed = -5000f;
     public float additionalAngle = 0f;
     public float xMultiplier = 1f;
     public float yMultiplier = 1f;
@@ -29,13 +30,15 @@ public class DragAndShoot : MonoBehaviour
     public delegate void ShootAction();
     public event ShootAction OnShoot;
 
-
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        originalScale = transform.localScale; // Store the original scale
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
+
+        // Ensure the Rigidbody constraints allow for rotation
+        rb.constraints = RigidbodyConstraints.None;
     }
 
     private void OnMouseDown()
@@ -58,7 +61,6 @@ public class DragAndShoot : MonoBehaviour
         }
 
         Vector3 forceInit = (mousePressDownPos - Input.mousePosition);
-        //Debug.Log(forceInit);
         forceInit.x = Mathf.Clamp(forceInit.x, maxLeftDrag, maxRightDrag);
         forceInit.y = Mathf.Clamp(forceInit.y, float.NegativeInfinity, maxUpDrag);
 
@@ -66,6 +68,7 @@ public class DragAndShoot : MonoBehaviour
 
         DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
 
+        transform.localScale = originalScale; // Reapply the original scale
     }
 
     private void OnMouseUp()
@@ -98,6 +101,8 @@ public class DragAndShoot : MonoBehaviour
         }
 
         rb.useGravity = true;
+        rb.angularVelocity = new Vector3(0, 0, rotationSpeed * Mathf.Deg2Rad); // Set angular velocity for z-axis rotation
+
         isShoot = true;
         OnShoot?.Invoke();
         DrawTrajectory.Instance.turnOff();
@@ -108,7 +113,7 @@ public class DragAndShoot : MonoBehaviour
         rb = obj.GetComponent<Rigidbody>();
         pos = obj.transform;
         rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-        rb.constraints = RigidbodyConstraints.FreezePosition;
+        rb.constraints = RigidbodyConstraints.None; // Ensure no constraints on Rigidbody
+        originalScale = transform.localScale; // Update the original scale if setting a new bullet
     }
 }

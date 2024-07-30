@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
@@ -50,6 +51,8 @@ public class CustomSpeeds : MonoBehaviour
     private List<string> goodWords;
     private List<string> badWords;
 
+    private bool hasBeenTeleported = false;
+    public GameManager gameManager;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -81,14 +84,16 @@ public class CustomSpeeds : MonoBehaviour
             endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
             StartCoroutine(FadeMaterialAlpha(meshRenderer.materials[2]));
         }
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
     {
         if (pan)
             return;
-        if(xRot)
-            transform.Rotate(rotationSpeed * Time.deltaTime,0, 0);
+        if (xRot)
+            transform.Rotate(rotationSpeed * Time.deltaTime, 0, 0);
         else if (yRot)
             transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
         else
@@ -96,10 +101,10 @@ public class CustomSpeeds : MonoBehaviour
 
         //Debug.Log(meshRenderer.materials[2].color);
         // Set the Rigidbody's velocity to the desired value
-        if (rb != null && !launched && !rb.useGravity)
+        if (rb != null && !launched)
         {
             //speed += acceleration * Time.deltaTime;
-            rb.velocity = new Vector3(0, -speed/10f, 0);
+            rb.velocity = new Vector3(0, -speed / 10f, 0);
         }
 
         ScoreScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ScoreCounter>();
@@ -108,7 +113,7 @@ public class CustomSpeeds : MonoBehaviour
 
     public void inPan(bool changeColor)
     {
-        //rb.velocity = new Vector3(0,0,0);
+        rb.velocity = new Vector3(0, 0, 0);
         rb.useGravity = true;
         GameObject text = Instantiate(FloatingText, transform.position, Quaternion.identity);
         text.GetComponent<TextMesh>().characterSize = 0.1f;
@@ -119,7 +124,7 @@ public class CustomSpeeds : MonoBehaviour
             randomWord = badWords[Random.Range(0, badWords.Count)];
             text.GetComponent<TextMesh>().text = randomWord;
             ScoreScript.SubtractScore(20);
-        
+
         }
         else
         {
@@ -140,12 +145,12 @@ public class CustomSpeeds : MonoBehaviour
         if (flyRight)
         {
             launchDirection.x = Mathf.Abs(launchDirection.x); // Ensure positive x direction
-            
+
         }
         else if (flyLeft)
         {
             launchDirection.x = -Mathf.Abs(launchDirection.x); // Ensure negative x direction
-            
+
         }
 
         // Apply the launch velocity
@@ -161,12 +166,6 @@ public class CustomSpeeds : MonoBehaviour
     {
         currRow = other.gameObject.layer;
         //Debug.Log(currRow);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == window5Layer)
-            rb.useGravity = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -194,7 +193,7 @@ public class CustomSpeeds : MonoBehaviour
             rotationSpeed *= 15f;
             Destroy(collision.gameObject);
         }
-        
+
     }
 
     public void ShowText(int layer, int foodlayer)
@@ -207,7 +206,7 @@ public class CustomSpeeds : MonoBehaviour
         int badFood = LayerMask.NameToLayer("BadFood");
         int goodFood = LayerMask.NameToLayer("GoodFood");
 
-       
+
 
         if (layer == Mathf.RoundToInt(Mathf.Log(window1Layer.value, 2)))
         {
@@ -219,7 +218,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Ouch!";
                 text.GetComponent<TextMesh>().color = Color.red;
 
@@ -234,7 +233,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Oops!";
                 text.GetComponent<TextMesh>().color = Color.red;
             }
@@ -248,7 +247,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Wrong!";
                 text.GetComponent<TextMesh>().color = Color.red;
             }
@@ -262,7 +261,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Ouch!";
                 text.GetComponent<TextMesh>().color = Color.red;
             }
@@ -276,7 +275,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else if (foodlayer == goodFood)
             {
-
+                gameManager.SubtractTime(2f);
                 text.GetComponent<TextMesh>().text = "Fail!";
                 text.GetComponent<TextMesh>().color = Color.red;
             }
@@ -324,7 +323,7 @@ public class CustomSpeeds : MonoBehaviour
         }
 
         // Ensure the final color is exactly the target color
-        if(inFilled)
+        if (inFilled)
             material.color = targetColor;
     }
 
@@ -352,7 +351,19 @@ public class CustomSpeeds : MonoBehaviour
     }
 
 
+
+    public void Teleport(Vector3 position, Quaternion rotation) {
+
+        if (hasBeenTeleported) return;
+
+        transform.position = position;
+        Physics.SyncTransforms();
+
+        hasBeenTeleported = true;
+    }
   
 
 }
+
+
 
