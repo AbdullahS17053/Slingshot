@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.5847165, y: -0.16177158, z: -0.21197158, w: 0.7661622}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6676127, y: 1.6676127, z: 1.6676127}
+  m_LocalScale: {x: 2.1053965, y: 2.1053965, z: 2.1053965}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -108,6 +108,21 @@ MonoBehaviour:
   inFilled: 1
   flyRight: 1
   flyLeft: 0
+  window1Layer:
+    serializedVersion: 2
+    m_Bits: 64
+  window2Layer:
+    serializedVersion: 2
+    m_Bits: 128
+  window3Layer:
+    serializedVersion: 2
+    m_Bits: 256
+  window4Layer:
+    serializedVersion: 2
+    m_Bits: 512
+  window5Layer:
+    serializedVersion: 2
+    m_Bits: 1024
   FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
 --- !u!65 &2182479361738646095
 BoxCollider:

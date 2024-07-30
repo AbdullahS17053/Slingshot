@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.039145958, y: -0.8620667, z: 0.022920897, w: -0.50476074}
   m_LocalPosition: {x: -0.000016504, y: -0.026846, z: 0.000019407}
-  m_LocalScale: {x: 3.0859241, y: 3.0859241, z: 3.0859241}
+  m_LocalScale: {x: 3.8536873, y: 3.8536873, z: 3.8536873}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -149,7 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  acceleration: 1
   rotationSpeed: 100
   fadeDuration: 1
   launchAngle: 45
@@ -157,4 +156,19 @@ MonoBehaviour:
   inFilled: 1
   flyRight: 1
   flyLeft: 0
+  window1Layer:
+    serializedVersion: 2
+    m_Bits: 64
+  window2Layer:
+    serializedVersion: 2
+    m_Bits: 128
+  window3Layer:
+    serializedVersion: 2
+    m_Bits: 256
+  window4Layer:
+    serializedVersion: 2
+    m_Bits: 512
+  window5Layer:
+    serializedVersion: 2
+    m_Bits: 1024
   FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}

@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalScale: {x: 0.15954, y: 0.15954, z: 0.15954}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 215625127804033351}
@@ -133,11 +133,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &1033613677292047321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,14 +271,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d206c2629cb39440be8708c8c348440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: 0.6
-  maxLeftDrag: -400
-  maxRightDrag: 400
+  forceMultiplier: 0.4
+  maxLeftDrag: -600
+  maxRightDrag: 500
   maxUpDrag: 0
   rotationSpeed: 0.1
   xMultiplier: 0.6
   yMultiplier: 1.62
-  zMultiplier: 450
+  zMultiplier: 900
   rb: {fileID: 0}
   pos: {fileID: 0}
 --- !u!1 &8178150287441387760

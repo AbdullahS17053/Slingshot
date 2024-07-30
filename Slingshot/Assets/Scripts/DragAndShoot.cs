@@ -7,17 +7,22 @@ using UnityEngine;
 public class DragAndShoot : MonoBehaviour
 {
     private Vector3 mousePressDownPos;
+    private Vector3 mousePressDragPos;
     private Vector3 mouseReleasePos;
+
     public float forceMultiplier = 3;
     public float maxLeftDrag = -200f;
     public float maxRightDrag = 200f;
     public float maxUpDrag = 0f; // no upward drag
-    public float rotationSpeed = 0.1f;
+    public float rotationSpeed = 100f;
+    public float additionalAngle = 0f;
     public float xMultiplier = 1f;
     public float yMultiplier = 1f;
     public float zMultiplier = 1f;
     public Rigidbody rb;
     public Transform pos;
+    public Collider aim;
+    public Collider shoot;
 
     private bool isShoot;
 
@@ -31,7 +36,6 @@ public class DragAndShoot : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
-
     }
 
     private void OnMouseDown()
@@ -42,6 +46,16 @@ public class DragAndShoot : MonoBehaviour
     private void OnMouseDrag()
     {
         if (isShoot) return;
+
+        Vector3 directionToTarget = DrawTrajectory.Instance.windowHit - transform.position;
+        if (DrawTrajectory.Instance.windowHit != Vector3.zero && directionToTarget != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
+            Vector3 eulerRotation = lookRotation.eulerAngles;
+            eulerRotation.x += additionalAngle;
+            Quaternion adjustedRotation = Quaternion.Euler(eulerRotation);
+            transform.rotation = adjustedRotation;
+        }
 
         Vector3 forceInit = (mousePressDownPos - Input.mousePosition);
         //Debug.Log(forceInit);
@@ -69,11 +83,22 @@ public class DragAndShoot : MonoBehaviour
 
     void Shoot(Vector3 force)
     {
+        aim.enabled = false;
+        shoot.enabled = true;
         rb.AddForce(new Vector3(-force.x * xMultiplier, -force.y * yMultiplier, -force.y + zMultiplier) * forceMultiplier);
-        //rb.AddForce(new Vector3(-force.x * xMultiplier, -force.y * yMultiplier, -force.y * zMultiplier) * forceMultiplier);
+
+        Vector3 directionToTarget = DrawTrajectory.Instance.windowHit - transform.position;
+        if (DrawTrajectory.Instance.windowHit != Vector3.zero && directionToTarget != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
+            Vector3 eulerRotation = lookRotation.eulerAngles;
+            eulerRotation.x += additionalAngle + 15f;
+            Quaternion adjustedRotation = Quaternion.Euler(eulerRotation);
+            transform.rotation = adjustedRotation;
+        }
+
         rb.useGravity = true;
         isShoot = true;
-
         OnShoot?.Invoke();
         DrawTrajectory.Instance.turnOff();
     }

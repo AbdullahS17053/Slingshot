@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8287379743490263111}
   m_Layer: 0
   m_Name: Pumpkin
-  m_TagString: Untagged
+  m_TagString: WindowObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,6 +66,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: df7fe48a4062d5448bff2a0f1470487e, type: 2}
   - {fileID: 2100000, guid: d2d07ef44c8ee1940aaabfd33b219104, type: 2}
+  - {fileID: 2100000, guid: 852f539423ca80440837a5d8f0fe6941, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -149,10 +150,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   rotationSpeed: 100
-  fadeDuration: 1
+  fadeDuration: 0.5
   launchAngle: 45
   deleteDelay: 5
   inFilled: 1
   flyRight: 1
   flyLeft: 0
+  window1Layer:
+    serializedVersion: 2
+    m_Bits: 64
+  window2Layer:
+    serializedVersion: 2
+    m_Bits: 128
+  window3Layer:
+    serializedVersion: 2
+    m_Bits: 256
+  window4Layer:
+    serializedVersion: 2
+    m_Bits: 512
+  window5Layer:
+    serializedVersion: 2
+    m_Bits: 1024
   FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}

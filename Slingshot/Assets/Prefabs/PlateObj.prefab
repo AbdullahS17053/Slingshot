@@ -24,6 +24,26 @@ PrefabInstance:
       propertyPath: FloatingText
       value: 
       objectReference: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
+    - target: {fileID: 4714433008753927671, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
+      propertyPath: window1Layer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714433008753927671, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
+      propertyPath: window2Layer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714433008753927671, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
+      propertyPath: window3Layer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714433008753927671, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
+      propertyPath: window4Layer.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714433008753927671, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
+      propertyPath: window5Layer.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 4957510550617909972, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.5604649
@@ -95,7 +115,7 @@ PrefabInstance:
     - target: {fileID: 6091031947189621179, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: d2d07ef44c8ee1940aaabfd33b219104, type: 2}
+      objectReference: {fileID: 2100000, guid: d43e76779c0523e498ee7316604873a0, type: 2}
     - target: {fileID: 6091031947189621179, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 

@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CustomSpeeds : MonoBehaviour
 {
@@ -22,6 +25,13 @@ public class CustomSpeeds : MonoBehaviour
     public bool flyRight = true;     // Boolean to fly right
     public bool flyLeft = false;     // Boolean to fly left
 
+    [Header("Window Layers")]
+    public LayerMask window1Layer;
+    public LayerMask window2Layer;
+    public LayerMask window3Layer;
+    public LayerMask window4Layer;
+    public LayerMask window5Layer;
+
     private Rigidbody rb;
     private bool launched = false;
     private MeshRenderer meshRenderer;
@@ -29,11 +39,12 @@ public class CustomSpeeds : MonoBehaviour
     Color endColor;
 
     public GameObject FloatingText;
-    private Vector3 initialContactPosition;
+    private int currRow;
     private bool hasCollided = false;
     private ScoreCounter ScoreScript;
     private Lives life;
     private Lives diamond;
+    public bool pan = false;
 
     void Start()
     {
@@ -66,25 +77,30 @@ public class CustomSpeeds : MonoBehaviour
 
     void Update()
     {
+        if (pan)
+            return;
         transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         //Debug.Log(meshRenderer.materials[2].color);
         // Set the Rigidbody's velocity to the desired value
         if (rb != null && !launched)
         {
-            speed += acceleration * Time.deltaTime;
+            //speed += acceleration * Time.deltaTime;
             rb.velocity = new Vector3(0, -speed/10f, 0);
         }
 
         ScoreScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ScoreCounter>();
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
-        if (gameObject.transform.position.y < 0.23f && !gameObject.CompareTag("Heart") && !gameObject.CompareTag("Diamond") ) {
-            life.LifeLost();
-            Destroy(gameObject);
-        }
-        if (gameObject.CompareTag("Heart") || gameObject.CompareTag("Diamond") ) {
-            if (gameObject.transform.position.y < 0.23f)
-                Destroy(gameObject);
-        }
+    }
+
+    public void inPan()
+    {
+        rb.velocity = new Vector3(0,0,0);
+        rb.useGravity = true;
+        GameObject text = Instantiate(FloatingText, transform.position, Quaternion.identity);
+        text.GetComponent<TextMesh>().characterSize = 0.1f;
+        text.GetComponent<TextMesh>().text = "Yummy";
+        ScoreScript.AddScore(20);
+        Destroy(text, 2f);
     }
 
     public void Launch()
@@ -97,12 +113,12 @@ public class CustomSpeeds : MonoBehaviour
         if (flyRight)
         {
             launchDirection.x = Mathf.Abs(launchDirection.x); // Ensure positive x direction
-            //Destroy(gameObject , 0.1f);
+            
         }
         else if (flyLeft)
         {
             launchDirection.x = -Mathf.Abs(launchDirection.x); // Ensure negative x direction
-            //Destroy(gameObject, 0.1f);
+            
         }
 
         // Apply the launch velocity
@@ -114,26 +130,31 @@ public class CustomSpeeds : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        currRow = other.gameObject.layer;
+        //Debug.Log(currRow);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (((collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Heart")) || (collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Diamond"))) && !launched )
-        {
-            if (this.gameObject.CompareTag("Diamond")) {
+        //if (((collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Heart")) || (collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Diamond"))) && !launched )
+        //{
+        //    if (this.gameObject.CompareTag("Diamond")) {
 
-                life.AddDiamond();
-                Destroy(collision.gameObject);
-                Destroy(gameObject);
-                return;
-            }
-            //Debug.Log("Heart fuck ball");
-            life.AddLife();
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-        }
-        else if (collision.gameObject.CompareTag("Projectile") && !launched)
+        //        life.AddDiamond();
+        //        Destroy(collision.gameObject);
+        //        Destroy(gameObject);
+        //        return;
+        //    }
+        //    //Debug.Log("Heart fuck ball");
+        //    life.AddLife();
+        //    Destroy(collision.gameObject);
+        //    Destroy(gameObject);
+        //}
+        if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
-            initialContactPosition = transform.position;
-            ShowText(initialContactPosition);
+            ShowText(currRow);
             Launch();
             launched = true;
             rotationSpeed *= 15f;
@@ -142,44 +163,38 @@ public class CustomSpeeds : MonoBehaviour
         
     }
 
-    public void ShowText(Vector3 position) {
+    public void ShowText(int layer) {
 
         
 
-        GameObject text =  Instantiate(FloatingText, position, Quaternion.identity);
+        GameObject text =  Instantiate(FloatingText, transform.position, Quaternion.identity);
         text.GetComponent<TextMesh>().characterSize = 0.08f;
-        if (position.y > 1.30f)
+        // Check which layer the object is on and update the score
+        if (layer == Mathf.RoundToInt(Mathf.Log(window1Layer.value, 2)))
         {
             text.GetComponent<TextMesh>().text = "50";
             ScoreScript.AddScore(50);
         }
-        else if (position.y > 1.09f && position.y < 1.30f)
+        else if (layer == Mathf.RoundToInt(Mathf.Log(window2Layer.value, 2)))
         {
-
             text.GetComponent<TextMesh>().text = "40";
             ScoreScript.AddScore(40);
         }
-        else if (position.y > 0.82f && position.y < 1.09f)
+        else if (layer == Mathf.RoundToInt(Mathf.Log(window3Layer.value, 2)))
         {
-
             text.GetComponent<TextMesh>().text = "30";
             ScoreScript.AddScore(30);
         }
-        else if (position.y > 0.54f && position.y < 0.82f)
+        else if (layer == Mathf.RoundToInt(Mathf.Log(window4Layer.value, 2)))
         {
-
             text.GetComponent<TextMesh>().text = "20";
             ScoreScript.AddScore(20);
-
         }
-        else if (position.y > 0.225f && position.y < 0.54f)
+        else if (layer == Mathf.RoundToInt(Mathf.Log(window5Layer.value, 2)))
         {
             text.GetComponent<TextMesh>().text = "10";
             ScoreScript.AddScore(10);
-
         }
-        
-
         Destroy(text, 1f);
     }
     IEnumerator DeleteAfterDelay()

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3131090656659784134}
   - component: {fileID: 5123136869978231023}
   - component: {fileID: 8174003722464578296}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OpenWindow
   m_TagString: Window
   m_Icon: {fileID: 0}

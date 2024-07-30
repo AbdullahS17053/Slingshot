@@ -16,6 +16,8 @@ public class DrawTrajectory : MonoBehaviour
 
     [SerializeField]
     private LayerMask collisionMask;
+    public bool hasHit = false;
+    public Vector3 windowHit;
 
     private List<Vector3> linePoints = new List<Vector3>();
     private List<Vector3> fullTrajectoryPoints = new List<Vector3>();
@@ -78,13 +80,18 @@ public class DrawTrajectory : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(previousPoint, newPoint - previousPoint, out hit, Vector3.Distance(previousPoint, newPoint), collisionMask))
             {
-                if(glow && hitObject !=  hit.collider.gameObject)
+                //Debug.Log(windowHit);
+                windowHit = hit.point;
+                if (glow && hitObject !=  hit.collider.gameObject)
                 {
                     hitObject.GetComponent<GlowWindow>().SetOff();
                     glow = false;
                 }
                 if(hit.collider.gameObject.CompareTag("Window") || hit.collider.gameObject.CompareTag("Plate"))
                 {
+
+                    
+                    
                     hitObject = hit.collider.gameObject;
                     hitObject.GetComponent<GlowWindow>().SetOn();
                     glow = true;
@@ -94,7 +101,9 @@ public class DrawTrajectory : MonoBehaviour
             }
             else
             {
+                //Debug.Log(windowHit);
                 linePoints.Add(newPoint);
+                windowHit = newPoint;
                 previousPoint = newPoint;
             }
         }
@@ -147,6 +156,7 @@ public class DrawTrajectory : MonoBehaviour
 
         //trajectoryVcam.Priority = 10;
         //ballVcam.Priority = 20;
+        hasHit = false;
         Destroy(lookAtTarget);
     }
 
