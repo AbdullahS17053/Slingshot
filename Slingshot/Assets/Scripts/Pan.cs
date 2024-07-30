@@ -24,8 +24,17 @@ public class Pan : MonoBehaviour
             if (other.gameObject.GetComponent<CustomSpeeds>().inFilled)
                 StartCoroutine(other.gameObject.GetComponent<CustomSpeeds>().isSeeThru());
             other.gameObject.GetComponent<CustomSpeeds>().pan = true;
-            other.gameObject.GetComponent<CustomSpeeds>().inPan();
+
+            int badFood = LayerMask.NameToLayer("BadFood");
+            bool ChangeColor = false;
+            if (other.gameObject.layer == badFood)
+            {
+                ChangeColor = true;
+            }
+
+            other.gameObject.GetComponent<CustomSpeeds>().inPan(ChangeColor);
             level.SetFiresToBoost();
+
         }
     }
 }

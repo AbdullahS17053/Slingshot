@@ -18,6 +18,15 @@ public class ScoreCounter : MonoBehaviour
         UpdateUI(CurrScore);
     }
 
+    public void SubtractScore(int points) {
+
+        if ((CurrScore - points) >= 0)
+        {
+            CurrScore -= points;
+            UpdateUI(CurrScore);
+        }
+    }
+
     private void UpdateUI(int sc)
     {
         Score.text = sc.ToString();

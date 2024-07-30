@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 256690179937131547}
   - component: {fileID: -7666774903713154090}
   - component: {fileID: 4516125134866080051}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AlarmPrefab
   m_TagString: WindowObject
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 5724179307562933941}
   - component: {fileID: 4446876182242797576}
   - component: {fileID: 4012909421528621610}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -101,6 +101,10 @@ PrefabInstance:
       value: PlateObj
       objectReference: {fileID: 0}
     - target: {fileID: 5730633957815660654, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5730633957815660654, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
       propertyPath: m_TagString
       value: WindowObject
       objectReference: {fileID: 0}

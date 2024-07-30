@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 970466757982322448}
   - component: {fileID: -4849408540137534872}
   - component: {fileID: -7506410754572624877}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SodaPrefab
   m_TagString: WindowObject
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 3766356635572659791}
   - component: {fileID: 9208993756503996116}
   - component: {fileID: 5139636667334160756}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
