@@ -95,13 +95,13 @@ public class DragAndShoot : MonoBehaviour
         {
             Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
             Vector3 eulerRotation = lookRotation.eulerAngles;
-            eulerRotation.x += additionalAngle + 15f;
+            eulerRotation.x += additionalAngle + 30f;
             Quaternion adjustedRotation = Quaternion.Euler(eulerRotation);
-            transform.rotation = adjustedRotation;
+            StartCoroutine(SmoothRotateTo(adjustedRotation));
         }
 
         rb.useGravity = true;
-        rb.angularVelocity = new Vector3(0, 0, rotationSpeed * Mathf.Deg2Rad); // Set angular velocity for z-axis rotation
+        //rb.angularVelocity = new Vector3(0, 0, rotationSpeed * Mathf.Deg2Rad); // Set angular velocity for z-axis rotation
 
         isShoot = true;
         OnShoot?.Invoke();
@@ -115,5 +115,23 @@ public class DragAndShoot : MonoBehaviour
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.None; // Ensure no constraints on Rigidbody
         originalScale = transform.localScale; // Update the original scale if setting a new bullet
+    }
+
+    private IEnumerator SmoothRotateTo(Quaternion targetRotation)
+    {
+        float duration = 0.5f; // Time to complete the rotation, adjust as needed
+        float timeElapsed = 0f;
+
+        Quaternion startRotation = transform.rotation;
+
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+            float lerpValue = timeElapsed / duration;
+            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, lerpValue);
+            yield return null;
+        }
+
+        transform.rotation = targetRotation; // Ensure the final rotation is exact
     }
 }

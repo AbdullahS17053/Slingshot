@@ -10,9 +10,10 @@ public class GameManager : MonoBehaviour
     private CinemachineVirtualCamera curtaincam;
     public float camTime;
 
-    public float startTime = 60f;
+    public float limit = 60f;
     private float currentTime;
     public Text timerText;
+    public bool start = false;
 
     void Start()
     {
@@ -21,14 +22,18 @@ public class GameManager : MonoBehaviour
 
         curtaincam.Priority = 20;
         StartCoroutine(StartGameDelay());
+    }
 
-        currentTime = startTime;
+    public void levelStart(float time)
+    {
+        currentTime = time;
+        start = true;
         StartCoroutine(StartTimer());
     }
 
     IEnumerator StartTimer()
     {
-        while (currentTime > 0)
+        while (currentTime > 0 && start)
         {
             currentTime -= Time.deltaTime;
             UpdateTimerText();
@@ -50,9 +55,9 @@ public class GameManager : MonoBehaviour
     public void AddTime(float timeToAdd)
     {
         currentTime += timeToAdd;
-        if (currentTime > startTime) // Optional: Cap the time to startTime
+        if (currentTime > limit) // Optional: Cap the time to startTime
         {
-            currentTime = startTime;
+            currentTime = limit;
         }
         UpdateTimerText();
     }
@@ -68,6 +73,12 @@ public class GameManager : MonoBehaviour
         UpdateTimerText();
     }
 
+    public void levelStop()
+    {
+        currentTime = 0;
+        start = false;
+        UpdateTimerText();
+    }
     void TimerEnded()
     {
         // Add any additional actions to perform when the timer ends

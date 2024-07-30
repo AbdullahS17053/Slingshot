@@ -20,7 +20,7 @@ public class Pan : MonoBehaviour
     {
         if (other.gameObject.CompareTag("WindowObject"))
         {
-            Debug.Log("pan");
+            //Debug.Log("pan");
             if (other.gameObject.GetComponent<CustomSpeeds>().inFilled)
                 StartCoroutine(other.gameObject.GetComponent<CustomSpeeds>().isSeeThru());
             other.gameObject.GetComponent<CustomSpeeds>().pan = true;

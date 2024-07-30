@@ -27,6 +27,8 @@ public class WindowLevel : MonoBehaviour
     public float boostTime = 5.0f; // Duration for which the fire boost should last
     bool fireBoosted = false;
 
+    public float[] time;
+
     bool load = true;
     bool play = false;
     bool level = false;
@@ -94,14 +96,13 @@ public class WindowLevel : MonoBehaviour
                 windows[windows.Length - 1].SetActive(false);
                 originalParday.color = defaultParday;
             }
-                
+              
             SetFiresLifetimeToZero();
             loadingWindows[levelNum].SetActive(true);
             originalBackground.color = loadingBackgroundMaterial.color;
             load = false;
             bullet.SetActive(false);
-
-            // cam
+            gameManager.levelStop();
             gameManager.ChangeCameraPriorityToCurtains();
 
             StartCoroutine(loadingLevel());
@@ -132,12 +133,14 @@ public class WindowLevel : MonoBehaviour
         bullet.SetActive(true);
         bullet.GetComponent<BulletSpawner>().levelChange(0f);
         SetFiresToNormal();
-        scoreCounter.ResetScore(); // reset score
+        //scoreCounter.ResetScore();
+        gameManager.levelStart(time[levelNum]);
+
     }
 
     IEnumerator startSpawner()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         windows[levelNum].GetComponentInChildren<MainSpawner>().enabled = true;
         windows[levelNum].GetComponentInChildren<MainSpawner>().Start();
     }
