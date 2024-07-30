@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class WindowLevel : MonoBehaviour
@@ -35,6 +36,10 @@ public class WindowLevel : MonoBehaviour
     int oldLevelNum = -1;
     public int levelChangeScore = 50;
 
+    ScoreCounter scoreCounter;
+    GameManager gameManager;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +62,8 @@ public class WindowLevel : MonoBehaviour
                 loadingWindows[i].SetActive(false);
             }
         }
+        
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -93,6 +100,10 @@ public class WindowLevel : MonoBehaviour
             originalBackground.color = loadingBackgroundMaterial.color;
             load = false;
             bullet.SetActive(false);
+
+            // cam
+            gameManager.ChangeCameraPriorityToCurtains();
+
             StartCoroutine(loadingLevel());
         }
 
@@ -102,6 +113,10 @@ public class WindowLevel : MonoBehaviour
             loadingWindows[levelNum].SetActive(false);
             windows[levelNum].SetActive(true);
             windows[levelNum].GetComponentInChildren<MainSpawner>().enabled = false;
+
+            // cam
+            gameManager.ChangeCameraPriorityToBall();
+
             StartCoroutine(startSpawner());
             originalBackground.color = backgroundMaterials[levelNum].color;
             originalParday.color = parday[levelNum].color;
@@ -117,6 +132,7 @@ public class WindowLevel : MonoBehaviour
         bullet.SetActive(true);
         bullet.GetComponent<BulletSpawner>().levelChange(0f);
         SetFiresToNormal();
+        scoreCounter.ResetScore(); // reset score
     }
 
     IEnumerator startSpawner()

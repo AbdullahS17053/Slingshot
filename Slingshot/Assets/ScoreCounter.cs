@@ -27,6 +27,11 @@ public class ScoreCounter : MonoBehaviour
         }
     }
 
+    public void ResetScore() { 
+    
+        CurrScore=0;
+        UpdateUI(CurrScore);
+    }
     private void UpdateUI(int sc)
     {
         Score.text = sc.ToString();
