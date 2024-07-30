@@ -12,9 +12,12 @@ GameObject:
   - component: {fileID: 33194236614317506}
   - component: {fileID: 23554545665707204}
   - component: {fileID: 95403967988887588}
+  - component: {fileID: -1186937435340477219}
+  - component: {fileID: -1643119431020150291}
+  - component: {fileID: -6228823125411943889}
   m_Layer: 0
   m_Name: 32_prop_remote control
-  m_TagString: Untagged
+  m_TagString: WindowObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -105,3 +108,88 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1186937435340477219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299534921457754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e968d62904c8914d81a0b83422c9f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  rotationSpeed: 100
+  fadeDuration: 1
+  launchAngle: 90
+  deleteDelay: 5
+  inFilled: 1
+  flyRight: 1
+  flyLeft: 0
+  window1Layer:
+    serializedVersion: 2
+    m_Bits: 64
+  window2Layer:
+    serializedVersion: 2
+    m_Bits: 128
+  window3Layer:
+    serializedVersion: 2
+    m_Bits: 256
+  window4Layer:
+    serializedVersion: 2
+    m_Bits: 512
+  window5Layer:
+    serializedVersion: 2
+    m_Bits: 1024
+  FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
+  pan: 0
+--- !u!54 &-1643119431020150291
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299534921457754}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &-6228823125411943889
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299534921457754}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.04668657, y: 0.026729465, z: 0.13628815}
+  m_Center: {x: 0, y: 0.013364727, z: 0}

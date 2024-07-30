@@ -20,6 +20,11 @@ public class WindowLevel : MonoBehaviour
     public Material loadingBackgroundMaterial;
     public Color defaultBackground;
     public GameObject bullet;
+    public ParticleSystem[] fires;
+    public float normalFireLifetime = 1.0f; // Default lifetime for normal fire
+    public float fireBoostLifetime = 2.0f; // Lifetime for boosted fire
+    public float boostTime = 5.0f; // Duration for which the fire boost should last
+    bool fireBoosted = false;
 
     bool load = true;
     bool play = false;
@@ -83,7 +88,7 @@ public class WindowLevel : MonoBehaviour
                 originalParday.color = defaultParday;
             }
                 
-
+            SetFiresLifetimeToZero();
             loadingWindows[levelNum].SetActive(true);
             originalBackground.color = loadingBackgroundMaterial.color;
             load = false;
@@ -111,6 +116,7 @@ public class WindowLevel : MonoBehaviour
         play = true;
         bullet.SetActive(true);
         bullet.GetComponent<BulletSpawner>().levelChange(0f);
+        SetFiresToNormal();
     }
 
     IEnumerator startSpawner()
@@ -118,5 +124,40 @@ public class WindowLevel : MonoBehaviour
         yield return new WaitForSeconds(2f);
         windows[levelNum].GetComponentInChildren<MainSpawner>().enabled = true;
         windows[levelNum].GetComponentInChildren<MainSpawner>().Start();
+    }
+    public void SetFiresLifetimeToZero()
+    {
+        foreach (ParticleSystem fire in fires)
+        {
+            var main = fire.main;
+            main.startLifetime = 0f;
+        }
+    }
+    public void SetFiresToNormal()
+    {
+        foreach (ParticleSystem fire in fires)
+        {
+            var main = fire.main;
+            main.startLifetime = normalFireLifetime;
+        }
+        fireBoosted = false;
+    }
+    public void SetFiresToBoost()
+    {
+        if (fireBoosted)
+            return;
+        fireBoosted = true;
+        foreach (ParticleSystem fire in fires)
+        {
+            var main = fire.main;
+            main.startLifetime = fireBoostLifetime;
+        }
+        StartCoroutine(RevertToNormalAfterBoost());
+    }
+
+    private IEnumerator RevertToNormalAfterBoost()
+    {
+        yield return new WaitForSeconds(boostTime);
+        SetFiresToNormal();
     }
 }

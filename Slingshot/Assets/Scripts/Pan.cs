@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pan : MonoBehaviour
 {
     public float fadeDuration = 5f;
+    public WindowLevel level;
     void Start()
     {
 
@@ -24,6 +25,7 @@ public class Pan : MonoBehaviour
                 StartCoroutine(other.gameObject.GetComponent<CustomSpeeds>().isSeeThru());
             other.gameObject.GetComponent<CustomSpeeds>().pan = true;
             other.gameObject.GetComponent<CustomSpeeds>().inPan();
+            level.SetFiresToBoost();
         }
     }
 }

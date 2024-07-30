@@ -13,6 +13,9 @@ public class CustomSpeeds : MonoBehaviour
     public float speed;
     private float acceleration = 1.25f; // Change this value to control the rate of acceleration
     public float rotationSpeed = 100f;
+    public bool xRot = false;
+    public bool yRot = false;
+    public bool zRot = true;
     public float fadeDuration = 1.0f;
 
     [Header("Launch Settings")]
@@ -79,7 +82,13 @@ public class CustomSpeeds : MonoBehaviour
     {
         if (pan)
             return;
-        transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+        if(xRot)
+            transform.Rotate(rotationSpeed * Time.deltaTime,0, 0);
+        else if (yRot)
+            transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
+        else
+            transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+
         //Debug.Log(meshRenderer.materials[2].color);
         // Set the Rigidbody's velocity to the desired value
         if (rb != null && !launched)
