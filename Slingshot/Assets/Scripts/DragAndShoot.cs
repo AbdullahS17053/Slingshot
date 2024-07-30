@@ -73,7 +73,7 @@ public class DragAndShoot : MonoBehaviour
         if (isShoot) return;
 
         mouseReleasePos = Input.mousePosition;
-        Vector3 force = (mousePressDownPos-mouseReleasePos);
+        Vector3 force = (mousePressDownPos - mouseReleasePos);
         force.x = Mathf.Clamp(force.x, maxLeftDrag, maxRightDrag);
         force.y = Mathf.Clamp(force.y, float.NegativeInfinity, maxUpDrag);
         Shoot(force);

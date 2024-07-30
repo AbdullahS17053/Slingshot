@@ -89,7 +89,7 @@ public class CustomSpeeds : MonoBehaviour
 
         //Debug.Log(meshRenderer.materials[2].color);
         // Set the Rigidbody's velocity to the desired value
-        if (rb != null && !launched)
+        if (rb != null && !launched && !rb.useGravity)
         {
             //speed += acceleration * Time.deltaTime;
             rb.velocity = new Vector3(0, -speed/10f, 0);
@@ -101,7 +101,7 @@ public class CustomSpeeds : MonoBehaviour
 
     public void inPan()
     {
-        rb.velocity = new Vector3(0,0,0);
+        //rb.velocity = new Vector3(0,0,0);
         rb.useGravity = true;
         GameObject text = Instantiate(FloatingText, transform.position, Quaternion.identity);
         text.GetComponent<TextMesh>().characterSize = 0.1f;
@@ -141,6 +141,12 @@ public class CustomSpeeds : MonoBehaviour
     {
         currRow = other.gameObject.layer;
         //Debug.Log(currRow);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == window5Layer)
+            rb.useGravity = true;
     }
 
     private void OnCollisionEnter(Collision collision)
