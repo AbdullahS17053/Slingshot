@@ -174,5 +174,11 @@ MonoBehaviour:
   window5Layer:
     serializedVersion: 2
     m_Bits: 1024
+  _replacement: {fileID: 5356848867032231328, guid: cf6e68501a3384a4d981a756ef121b8a, type: 3}
+  explosionForceX: 40
+  explosionForceY: 20
+  explosionRadius: 5
+  explosionPosition: {x: 0, y: 0, z: 0}
   FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
   pan: 0
+  gameManager: {fileID: 0}

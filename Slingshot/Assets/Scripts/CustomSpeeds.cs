@@ -34,7 +34,16 @@ public class CustomSpeeds : MonoBehaviour
     public LayerMask window4Layer;
     public LayerMask window5Layer;
 
+    [Header("Explosion Settings")]
+    [SerializeField] private GameObject _replacement;
+    public float explosionForceX = 15f; // Force magnitude in the x direction
+    public float explosionForceY = 10f; // Force magnitude in the y direction
+    public float explosionRadius = 5f;  // Radius of the explosion effect
+    public Vector3 explosionPosition;   // Position of the explosion in world space
+
+
     private Rigidbody rb;
+    private Prefracture pf;
     private bool launched = false;
     private MeshRenderer meshRenderer;
     Color startColor;
@@ -56,6 +65,7 @@ public class CustomSpeeds : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        pf = GetComponent<Prefracture>();
         meshRenderer = GetComponent<MeshRenderer>();
         // Randomly decide whether to fly right or left
         bool direction = Random.value > 0.5f;
@@ -70,11 +80,6 @@ public class CustomSpeeds : MonoBehaviour
         if (rb == null)
         {
             Debug.LogError("Rigidbody component not found.");
-        }
-        else
-        {
-            // Disable the default gravity
-            //rb.useGravity = false;
         }
 
         if (meshRenderer != null && meshRenderer.materials.Length > 2)
@@ -165,32 +170,42 @@ public class CustomSpeeds : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         currRow = other.gameObject.layer;
-        //Debug.Log(currRow);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (((collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Heart")) || (collision.gameObject.CompareTag("Projectile") && this.gameObject.CompareTag("Diamond"))) && !launched )
-        //{
-        //    if (this.gameObject.CompareTag("Diamond")) {
-
-        //        life.AddDiamond();
-        //        Destroy(collision.gameObject);
-        //        Destroy(gameObject);
-        //        return;
-        //    }
-        //    //Debug.Log("Heart fuck ball");
-        //    life.AddLife();
-        //    Destroy(collision.gameObject);
-        //    Destroy(gameObject);
-        //}
         if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
             int foodlayer = this.gameObject.layer; //check layer of good foood or bad food
             ShowText(currRow, foodlayer);
-            Launch();
             launched = true;
             rotationSpeed *= 15f;
+            var replacement = Instantiate(_replacement,transform.parent);
+            replacement.transform.position = transform.position;
+            replacement.transform.rotation = transform.rotation;
+            var rbs = replacement.GetComponentsInChildren<Rigidbody>();
+            foreach (var rb in rbs)
+            {
+                rb.constraints = RigidbodyConstraints.FreezePositionZ;
+                // Calculate the direction from the explosion to the object in world space
+                Vector3 explosionDirection = (rb.transform.position - collision.transform.position).normalized;
+
+                // Calculate the force to apply in the x and y directions only
+                Vector3 force = new Vector3(
+                    explosionDirection.x * explosionForceX,
+                    explosionDirection.y * explosionForceY,
+                    0 // Ensure no force is applied in the z direction
+                );
+
+                // Apply the calculated force
+                rb.AddForce(force, ForceMode.VelocityChange);
+
+                // Enable gravity
+                rb.useGravity = true;
+            }
+
+            
+            Destroy(gameObject);
             Destroy(collision.gameObject);
         }
 

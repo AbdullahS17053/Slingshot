@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
@@ -55,6 +56,7 @@ public class WindowLevel : MonoBehaviour
                 windows[i].SetActive(false);
             }
         }
+        
 
         // Turn off all GameObjects in the loadingWindows array
         for (int i = 0; i < loadingWindows.Length; i++)
