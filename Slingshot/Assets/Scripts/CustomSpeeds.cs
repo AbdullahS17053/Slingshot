@@ -68,7 +68,6 @@ public class CustomSpeeds : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        pf = GetComponent<Prefracture>();
         meshRenderer = GetComponent<MeshRenderer>();
         // Randomly decide whether to fly right or left
         bool direction = Random.value > 0.5f;
