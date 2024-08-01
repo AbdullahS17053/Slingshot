@@ -127,7 +127,7 @@ public class CustomSpeeds : MonoBehaviour
         GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
 
         // Get the TextMeshProUGUI component
-        TextMeshProUGUI textComponent = textObject.GetComponent<TextMeshProUGUI>();
+        TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
 
         if (textComponent == null)
         {
@@ -299,72 +299,43 @@ public class CustomSpeeds : MonoBehaviour
 
         if (layer == Mathf.RoundToInt(Mathf.Log(window1Layer.value, 2)))
         {
-            if (foodlayer == badFood)
+            if (foodlayer == goodFood)
             {
-                textComponent.text = "50";
-                ScoreScript.AddScore(50);
-            }
-            else if (foodlayer == goodFood)
-            {
-                gameManager.SubtractTime(2f);
                 textComponent.text = "500";
-                textComponent.color = Color.red;
+                ScoreScript.AddScore(500);
             }
+            
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window2Layer.value, 2)))
         {
-            if (foodlayer == badFood)
+            if (foodlayer == goodFood)
             {
-                textComponent.text = "40";
-                ScoreScript.AddScore(40);
-            }
-            else if (foodlayer == goodFood)
-            {
-                gameManager.SubtractTime(2f);
                 textComponent.text = "400";
-                textComponent.color = Color.red;
+                ScoreScript.AddScore(400);
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window3Layer.value, 2)))
         {
-            if (foodlayer == badFood)
+            if (foodlayer == goodFood)
             {
-                textComponent.text = "30";
-                ScoreScript.AddScore(30);
-            }
-            else if (foodlayer == goodFood)
-            {
-                gameManager.SubtractTime(2f);
                 textComponent.text = "300";
-                textComponent.color = Color.red;
+                ScoreScript.AddScore(300);
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window4Layer.value, 2)))
         {
-            if (foodlayer == badFood)
+            if (foodlayer == goodFood)
             {
-                textComponent.text = "20";
-                ScoreScript.AddScore(20);
-            }
-            else if (foodlayer == goodFood)
-            {
-                gameManager.SubtractTime(2f);
                 textComponent.text = "200";
-                textComponent.color = Color.red;
+                ScoreScript.AddScore(200);
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window5Layer.value, 2)))
         {
-            if (foodlayer == badFood)
+            if (foodlayer == goodFood)
             {
-                textComponent.text = "10";
-                ScoreScript.AddScore(10);
-            }
-            else if (foodlayer == goodFood)
-            {
-                gameManager.SubtractTime(2f);
                 textComponent.text = "100";
-                textComponent.color = Color.red;
+                ScoreScript.AddScore(100);
             }
         }
 
