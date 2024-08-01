@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ public class CoinSlider : MonoBehaviour
     private bool isEmpty = false;
     bool played = false;
 
-    public float lerpDuration = 0.5f; // Duration for the lerp
+    public float lerpDuration = 0.2f; // Duration for the lerp
 
     void Start()
     {
@@ -39,6 +40,7 @@ public class CoinSlider : MonoBehaviour
             anim.SetBool("isFull", false);
             played = false;
         }
+
     }
 
     public void HealthDecreaseSlider()
@@ -54,9 +56,13 @@ public class CoinSlider : MonoBehaviour
         StartCoroutine(LerpSliderValue(_slider.value, _slider.value + 1, lerpDuration));
     }
 
+    public void SetSliderBar(int v) {
+
+        _slider.value = v;
+    }
     public void ResetHealth()
     {
-        StartCoroutine(LerpSliderValue(_slider.value, value, lerpDuration));
+        _slider.value = value;
     }
 
     public int GetHealth()
