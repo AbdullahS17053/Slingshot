@@ -23,6 +23,7 @@ TagManager:
   - cubeZ
   - line
   - Boss
+  - HealthBar
   layers:
   - Default
   - TransparentFX

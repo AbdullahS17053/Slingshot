@@ -5,60 +5,87 @@ using UnityEngine.UI;
 
 public class CoinSlider : MonoBehaviour
 {
-    private Slider coinSlider;
-    private float value = 0;
-    public AudioSource full;
+    private Slider _slider;
+    public int value = 5;
+    public AudioSource empty;
     private Animator anim;
-    private bool isFull = false;
+    private bool isEmpty = false;
     bool played = false;
 
-    // Start is called before the first frame update
+    public float lerpDuration = 0.2f; // Duration for the lerp
+
+    private Coroutine lerpCoroutine;
+    private float targetValue;
+
     void Start()
     {
-        coinSlider = GetComponent<Slider>();
+        _slider = GetComponent<Slider>();
         anim = GetComponent<Animator>();
-        coinSlider.value = value;
+        _slider.value = value;
+        targetValue = value;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        coinSlider.value = Mathf.Lerp(coinSlider.value, value, Time.deltaTime * 3f);
-
-        if (value >= coinSlider.maxValue)
+        if (_slider.value == 0 && !played)
         {
-            isFull = true;
-        }
-
-        anim.SetBool("isFull", isFull);
-        if(isFull && !played)
-        {
-            full.Play();
+            isEmpty = true;
+            anim.SetBool("isFull", isEmpty);
+            empty.Play();
             played = true;
         }
-    }
-
-    public void CollectCoin()
-    {
-        value++;
-    }
-
-    public void PerformAction()
-    {
-        full.Stop();
-        //called when slider is full and then it is pressed
-        Debug.Log("Slider pressed");
-        PlaneMovement.poweredUp = true;
-        value = 0;
-        isFull = false;
-    }
-
-    private void OnMouseDown()
-    {
-        //Debug.Log("Slider pressed");
-        if (isFull)
+        else if (_slider.value > 0)
         {
-            PerformAction();
+            isEmpty = false;
+            anim.SetBool("isFull", false);
+            played = false;
         }
+    }
+
+    public void HealthDecreaseSlider()
+    {
+        if (_slider.value > 0)
+        {
+            targetValue = Mathf.Max(0, targetValue - 1);
+            if (lerpCoroutine != null)
+            {
+                StopCoroutine(lerpCoroutine);
+            }
+            lerpCoroutine = StartCoroutine(LerpSliderValue(_slider.value, targetValue, lerpDuration));
+        }
+    }
+
+    public void HealthIncreaseSlider()
+    {
+        targetValue = Mathf.Min(_slider.maxValue, targetValue + 1);
+        if (lerpCoroutine != null)
+        {
+            StopCoroutine(lerpCoroutine);
+        }
+        lerpCoroutine = StartCoroutine(LerpSliderValue(_slider.value, targetValue, lerpDuration));
+    }
+
+    public void ResetHealth()
+    {
+        _slider.value = value;
+    }
+
+    public int GetHealth()
+    {
+        return value;
+    }
+
+    private IEnumerator LerpSliderValue(float startValue, float endValue, float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            _slider.value = Mathf.Lerp(startValue, endValue, elapsed / duration);
+            yield return null;
+        }
+
+        _slider.value = endValue;
     }
 }
