@@ -48,7 +48,7 @@ public class CustomSpeeds : MonoBehaviour
 
 
     private Rigidbody rb;
-    private bool launched = false;
+    public bool launched = false;
     private MeshRenderer meshRenderer;
     Color startColor;
     Color endColor;
@@ -186,6 +186,7 @@ public class CustomSpeeds : MonoBehaviour
     {
         currRow = other.gameObject.layer;
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {

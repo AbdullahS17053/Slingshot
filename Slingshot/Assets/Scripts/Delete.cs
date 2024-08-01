@@ -16,9 +16,13 @@ public class Delete : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("WindowObject") && !collision.gameObject.GetComponent<CustomSpeeds>().launched)
+            Destroy(collision.gameObject);
+    }
     private void OnCollisionEnter(Collision collision)
     {
-        if(!collision.gameObject.CompareTag("Wall"))
-            Destroy(collision.gameObject);
+       
     }
 }
