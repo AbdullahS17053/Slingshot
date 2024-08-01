@@ -378,50 +378,8 @@ public class Trickster : MonoBehaviour
         }
 
 
-        int badFood = LayerMask.NameToLayer("BadFood");
-        int goodFood = LayerMask.NameToLayer("GoodFood");
-
-        if (layer == Mathf.RoundToInt(Mathf.Log(window1Layer.value, 2)))
-        {
-            if (foodlayer == goodFood)
-            {
-                textComponent.text = "50";
-                ScoreScript.AddScore(50);
-            }
-
-        }
-        else if (layer == Mathf.RoundToInt(Mathf.Log(window2Layer.value, 2)))
-        {
-            if (foodlayer == goodFood)
-            {
-                textComponent.text = "40";
-                ScoreScript.AddScore(40);
-            }
-        }
-        else if (layer == Mathf.RoundToInt(Mathf.Log(window3Layer.value, 2)))
-        {
-            if (foodlayer == goodFood)
-            {
-                textComponent.text = "30";
-                ScoreScript.AddScore(30);
-            }
-        }
-        else if (layer == Mathf.RoundToInt(Mathf.Log(window4Layer.value, 2)))
-        {
-            if (foodlayer == goodFood)
-            {
-                textComponent.text = "20";
-                ScoreScript.AddScore(20);
-            }
-        }
-        else if (layer == Mathf.RoundToInt(Mathf.Log(window5Layer.value, 2)))
-        {
-            if (foodlayer == goodFood)
-            {
-                textComponent.text = "10";
-                ScoreScript.AddScore(10);
-            }
-        }
+        textComponent.text = "Boss! 100!";
+        ScoreScript.AddScore(100);
 
         // Destroy the text object after a short delay
         Destroy(textObject, 1f);
