@@ -26238,7 +26238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1705543345121223929, guid: 66348be98092a894b892d0cb88c79c9d, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 3
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 1705543345121223929, guid: 66348be98092a894b892d0cb88c79c9d, type: 3}
       propertyPath: InitialModule.startRotation.scalar
@@ -37613,7 +37613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1705543345121223929, guid: 66348be98092a894b892d0cb88c79c9d, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 3
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 1705543345121223929, guid: 66348be98092a894b892d0cb88c79c9d, type: 3}
       propertyPath: InitialModule.startRotation.scalar

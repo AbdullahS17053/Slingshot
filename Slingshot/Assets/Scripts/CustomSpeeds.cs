@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static System.Net.Mime.MediaTypeNames;
 
 public class CustomSpeeds : MonoBehaviour
@@ -46,7 +48,6 @@ public class CustomSpeeds : MonoBehaviour
 
 
     private Rigidbody rb;
-    private Prefracture pf;
     private bool launched = false;
     private MeshRenderer meshRenderer;
     Color startColor;
@@ -122,24 +123,36 @@ public class CustomSpeeds : MonoBehaviour
     {
         rb.velocity = new Vector3(0, 0, 0);
         rb.useGravity = true;
-        GameObject text = Instantiate(FloatingText, transform.position, Quaternion.identity);
-        text.GetComponent<TextMesh>().characterSize = 0.1f;
+
+        GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
+
+        // Get the TextMeshProUGUI component
+        TextMeshProUGUI textComponent = textObject.GetComponent<TextMeshProUGUI>();
+
+        if (textComponent == null)
+        {
+            Debug.LogError("TextMeshProUGUI component not found on the prefab.");
+            return;
+        }
+
+        // Set the size and color based on the context
+        textComponent.fontSize = 36; // Adjust font size as needed
 
         string randomWord;
-        if (changeColor) {
-            text.GetComponent<TextMesh>().color = Color.red;
+        if (changeColor)
+        {
+            textComponent.color = Color.red;
             randomWord = badWords[Random.Range(0, badWords.Count)];
-            text.GetComponent<TextMesh>().text = randomWord;
             ScoreScript.SubtractScore(20);
-
         }
         else
         {
             randomWord = goodWords[Random.Range(0, goodWords.Count)];
-            text.GetComponent<TextMesh>().text = randomWord;
             ScoreScript.AddScore(20);
         }
-        Destroy(text, 2f);
+
+        textComponent.SetText(randomWord);
+        Destroy(textComponent, 2f);
     }
 
     public void Launch()
@@ -267,86 +280,95 @@ public class CustomSpeeds : MonoBehaviour
 
 
 
-        GameObject text = Instantiate(FloatingText, transform.position, Quaternion.identity);
-        text.GetComponent<TextMesh>().characterSize = 0.08f;
+        GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
+
+        // Get the TMP_Text component
+        TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
+
+        if (textComponent == null)
+        {
+            Debug.LogError("TMP_Text component not found on the prefab.");
+            return;
+        }
+
+        textComponent.fontSize = 4.0f; // Adjust the size as necessary
+
         int badFood = LayerMask.NameToLayer("BadFood");
         int goodFood = LayerMask.NameToLayer("GoodFood");
-
-
 
         if (layer == Mathf.RoundToInt(Mathf.Log(window1Layer.value, 2)))
         {
             if (foodlayer == badFood)
             {
-
-                text.GetComponent<TextMesh>().text = "50";
+                textComponent.text = "50";
                 ScoreScript.AddScore(50);
             }
             else if (foodlayer == goodFood)
             {
                 gameManager.SubtractTime(2f);
-                text.GetComponent<TextMesh>().text = "Ouch!";
-                text.GetComponent<TextMesh>().color = Color.red;
-
+                textComponent.text = "500";
+                textComponent.color = Color.red;
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window2Layer.value, 2)))
         {
             if (foodlayer == badFood)
             {
-                text.GetComponent<TextMesh>().text = "40";
+                textComponent.text = "40";
                 ScoreScript.AddScore(40);
             }
             else if (foodlayer == goodFood)
             {
                 gameManager.SubtractTime(2f);
-                text.GetComponent<TextMesh>().text = "Oops!";
-                text.GetComponent<TextMesh>().color = Color.red;
+                textComponent.text = "400";
+                textComponent.color = Color.red;
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window3Layer.value, 2)))
         {
             if (foodlayer == badFood)
             {
-                text.GetComponent<TextMesh>().text = "30";
+                textComponent.text = "30";
                 ScoreScript.AddScore(30);
             }
             else if (foodlayer == goodFood)
             {
                 gameManager.SubtractTime(2f);
-                text.GetComponent<TextMesh>().text = "Wrong!";
-                text.GetComponent<TextMesh>().color = Color.red;
+                textComponent.text = "300";
+                textComponent.color = Color.red;
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window4Layer.value, 2)))
         {
             if (foodlayer == badFood)
             {
-                text.GetComponent<TextMesh>().text = "20";
+                textComponent.text = "20";
                 ScoreScript.AddScore(20);
             }
             else if (foodlayer == goodFood)
             {
                 gameManager.SubtractTime(2f);
-                text.GetComponent<TextMesh>().text = "Ouch!";
-                text.GetComponent<TextMesh>().color = Color.red;
+                textComponent.text = "200";
+                textComponent.color = Color.red;
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window5Layer.value, 2)))
         {
             if (foodlayer == badFood)
             {
-                text.GetComponent<TextMesh>().text = "10";
+                textComponent.text = "10";
                 ScoreScript.AddScore(10);
             }
             else if (foodlayer == goodFood)
             {
                 gameManager.SubtractTime(2f);
-                text.GetComponent<TextMesh>().text = "Fail!";
-                text.GetComponent<TextMesh>().color = Color.red;
+                textComponent.text = "100";
+                textComponent.color = Color.red;
             }
         }
-        Destroy(text, 1f);
+
+        // Destroy the text object after a short delay
+        Destroy(textObject, 1f);
     }
     IEnumerator DeleteAfterDelay()
     {
