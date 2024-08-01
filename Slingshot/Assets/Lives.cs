@@ -53,8 +53,7 @@ public class Lives : MonoBehaviour
             isPlaying = true;
 
         }
-        //if(slider!=null)
-        //slider.SetSliderBar(CurrLives);
+
     }
     private void PlayAnimations(Animator animator , string animationName) {
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,54 +14,65 @@ public class CoinSlider : MonoBehaviour
 
     public float lerpDuration = 0.2f; // Duration for the lerp
 
+    private Coroutine lerpCoroutine;
+    private float targetValue;
+
     void Start()
     {
         _slider = GetComponent<Slider>();
         anim = GetComponent<Animator>();
         _slider.value = value;
+        targetValue = value;
     }
 
     void Update()
     {
-
         if (_slider.value == 0 && !played)
         {
             isEmpty = true;
             anim.SetBool("isFull", isEmpty);
             empty.Play();
             played = true;
-
         }
-        else if (_slider.value > 0) {
-
-
+        else if (_slider.value > 0)
+        {
             isEmpty = false;
             anim.SetBool("isFull", false);
             played = false;
         }
-
     }
 
     public void HealthDecreaseSlider()
     {
         if (_slider.value > 0)
         {
-            StartCoroutine(LerpSliderValue(_slider.value, _slider.value - 1, lerpDuration));
+            targetValue = Mathf.Max(0, targetValue - 1);
+            if (lerpCoroutine != null)
+            {
+                StopCoroutine(lerpCoroutine);
+            }
+            lerpCoroutine = StartCoroutine(LerpSliderValue(_slider.value, targetValue, lerpDuration));
         }
     }
 
     public void HealthIncreaseSlider()
     {
-        StartCoroutine(LerpSliderValue(_slider.value, _slider.value + 1, lerpDuration));
+        targetValue = Mathf.Min(_slider.maxValue, targetValue + 1);
+        if (lerpCoroutine != null)
+        {
+            StopCoroutine(lerpCoroutine);
+        }
+        lerpCoroutine = StartCoroutine(LerpSliderValue(_slider.value, targetValue, lerpDuration));
     }
 
-    public void SetSliderBar(int v) {
-
-        _slider.value = v;
-    }
     public void ResetHealth()
     {
-        _slider.value = value;
+        targetValue = value;
+        if (lerpCoroutine != null)
+        {
+            StopCoroutine(lerpCoroutine);
+        }
+        lerpCoroutine = StartCoroutine(LerpSliderValue(_slider.value, targetValue, lerpDuration));
     }
 
     public int GetHealth()
