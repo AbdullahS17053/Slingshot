@@ -67,17 +67,12 @@ public class CoinSlider : MonoBehaviour
 
     public void ResetHealth()
     {
-        targetValue = value;
-        if (lerpCoroutine != null)
-        {
-            StopCoroutine(lerpCoroutine);
-        }
-        lerpCoroutine = StartCoroutine(LerpSliderValue(_slider.value, targetValue, lerpDuration));
+        _slider.value = value;
     }
 
     public int GetHealth()
     {
-        return (int)_slider.value;
+        return value;
     }
 
     private IEnumerator LerpSliderValue(float startValue, float endValue, float duration)
