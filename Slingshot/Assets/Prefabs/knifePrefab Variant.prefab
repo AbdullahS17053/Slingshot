@@ -129,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 304099138735596770, guid: bcd69d2a85d5e2f4a88d09c3b4c0a26a, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 304099138735596770, guid: bcd69d2a85d5e2f4a88d09c3b4c0a26a, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -139,6 +139,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 5728563305211742226, guid: 30b2d5ef486e90c4f84072fe791deea3, type: 3}
+    - target: {fileID: 1033613677292047321, guid: bcd69d2a85d5e2f4a88d09c3b4c0a26a, type: 3}
+      propertyPath: line
+      value: 
+      objectReference: {fileID: 2506274069409516747, guid: 4d783bab4518ee9479311fb83c6cb147, type: 3}
+    - target: {fileID: 1033613677292047321, guid: bcd69d2a85d5e2f4a88d09c3b4c0a26a, type: 3}
+      propertyPath: bigLine
+      value: 
+      objectReference: {fileID: 2506274069409516747, guid: 4892023a425ea5f4cb4dce7e4328b20e, type: 3}
     - target: {fileID: 1065426748253760491, guid: bcd69d2a85d5e2f4a88d09c3b4c0a26a, type: 3}
       propertyPath: m_Name
       value: knifePrefab Variant

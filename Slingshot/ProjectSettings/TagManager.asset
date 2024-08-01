@@ -21,6 +21,8 @@ TagManager:
   - CurtainCam
   - cubeX
   - cubeZ
+  - line
+  - Boss
   layers:
   - Default
   - TransparentFX

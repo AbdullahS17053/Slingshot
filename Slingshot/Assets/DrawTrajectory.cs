@@ -6,6 +6,8 @@ using UnityEngine;
 public class DrawTrajectory : MonoBehaviour
 {
     private GameObject lookAtTarget;
+    public GameObject line;
+    public GameObject bigLine;
 
     [SerializeField]
     private LineRenderer lineRenderer;
@@ -50,6 +52,13 @@ public class DrawTrajectory : MonoBehaviour
 
     public void UpdateTrajectory(Vector3 forceVector, Rigidbody rigidBody, Vector3 startPoint)
     {
+        GameObject[] lines = GameObject.FindGameObjectsWithTag("line");
+
+        // Iterate through each object and destroy it
+        foreach (GameObject line in lines)
+        {
+            Destroy(line);
+        }
         Vector3 velocity = (forceVector / rigidBody.mass) * Time.fixedDeltaTime;
         float flightDuration = (2 * velocity.y) / Physics.gravity.y;
         float stepTime = flightDuration / lineSegmentCount;
@@ -59,6 +68,7 @@ public class DrawTrajectory : MonoBehaviour
 
         Vector3 previousPoint = startPoint;
         linePoints.Add(previousPoint);
+        //Instantiate(line,previousPoint, Quaternion.identity);
         fullTrajectoryPoints.Add(previousPoint);
 
         bool col = false;
@@ -97,12 +107,16 @@ public class DrawTrajectory : MonoBehaviour
                     glow = true;
                 }
                 linePoints.Add(hit.point);
+                if(i > 1)
+                    Instantiate(bigLine, hit.point, Quaternion.identity);
                 col = true;
             }
             else
             {
                 //Debug.Log(windowHit);
                 linePoints.Add(newPoint);
+                if (i > 1)
+                    Instantiate(line, newPoint, Quaternion.identity);
                 windowHit = newPoint;
                 previousPoint = newPoint;
             }
@@ -132,6 +146,7 @@ public class DrawTrajectory : MonoBehaviour
         Vector3 extendedPoint = lastPoint + direction.normalized * extensionLength;
 
         linePoints.Add(extendedPoint);
+        Instantiate(line, extendedPoint, Quaternion.identity);
         fullTrajectoryPoints.Add(extendedPoint);
     }
 
@@ -158,6 +173,14 @@ public class DrawTrajectory : MonoBehaviour
         //ballVcam.Priority = 20;
         hasHit = false;
         Destroy(lookAtTarget);
+
+        GameObject[] lines = GameObject.FindGameObjectsWithTag("line");
+
+        // Iterate through each object and destroy it
+        foreach (GameObject line in lines)
+        {
+            Destroy(line);
+        }
     }
 
     public void turnOff()

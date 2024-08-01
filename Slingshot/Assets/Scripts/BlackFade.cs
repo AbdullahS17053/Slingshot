@@ -22,8 +22,22 @@ public class BlackFade : MonoBehaviour
     {
         if (other.gameObject.CompareTag("WindowObject"))
         {
-            if(other.gameObject.GetComponent<CustomSpeeds>().inFilled)
-                StartCoroutine(other.gameObject.GetComponent<CustomSpeeds>().isSeeThru());
+            CustomSpeeds customSpeeds = other.gameObject.GetComponent<CustomSpeeds>();
+
+            // Check if the component exists
+            if (customSpeeds != null)
+            {
+                // If the component exists, perform the operations
+                if (customSpeeds.inFilled)
+                {
+                    // Start the coroutine defined in the CustomSpeeds component
+                    StartCoroutine(customSpeeds.isSeeThru());
+                }
+            }
+            else
+            {
+                //Debug.Log("CustomSpeeds component not found on the GameObject.");
+            }
         }
     }
 
