@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
@@ -38,8 +39,10 @@ public class CustomSpeeds : MonoBehaviour
     [SerializeField] private GameObject _replacement;
     public float explosionForceX = 15f; // Force magnitude in the x direction
     public float explosionForceY = 10f; // Force magnitude in the y direction
-    public float explosionRadius = 5f;  // Radius of the explosion effect
-    public Vector3 explosionPosition;   // Position of the explosion in world space
+    public Transform cube1;      // First cube for x-position randomization
+    public Transform cube2;      // Second cube for x-position randomization
+    public Transform cube3;      // First cube for z-position randomization
+    public Transform cube4;      // Second cube for z-position randomization
 
 
     private Rigidbody rb;
@@ -95,7 +98,7 @@ public class CustomSpeeds : MonoBehaviour
 
     void Update()
     {
-        if (pan)
+        if (pan || launched)
             return;
         if (xRot)
             transform.Rotate(rotationSpeed * Time.deltaTime, 0, 0);
@@ -188,24 +191,73 @@ public class CustomSpeeds : MonoBehaviour
             {
                 rb.constraints = RigidbodyConstraints.FreezePositionZ;
                 // Calculate the direction from the explosion to the object in world space
-                Vector3 explosionDirection = (rb.transform.position - collision.transform.position).normalized;
-
+                Vector3 force;
                 // Calculate the force to apply in the x and y directions only
-                Vector3 force = new Vector3(
-                    explosionDirection.x * explosionForceX,
-                    explosionDirection.y * explosionForceY,
-                    0 // Ensure no force is applied in the z direction
-                );
+                if (rb == rbs[0]) // First Rigidbody
+                {
+                    force = new Vector3(
+                        -explosionForceX, // Negative x direction
+                        explosionForceY,
+                        0 // No force in z direction
+                    );
+                }
+                else if (rb == rbs[1]) // Second Rigidbody
+                {
+                    force = new Vector3(
+                        explosionForceX, // Positive x direction
+                        explosionForceY,
+                        0 // No force in z direction
+                    );
+                }
+                else
+                {
+                    // For any other Rigidbodies, if applicable
+                    force = new Vector3(
+                        explosionForceX,
+                        explosionForceY,
+                        0
+                    );
+                }
 
                 // Apply the calculated force
-                rb.AddForce(force, ForceMode.VelocityChange);
+                rb.AddForce(force, ForceMode.Impulse);
 
                 // Enable gravity
                 rb.useGravity = true;
             }
 
-            
-            Destroy(gameObject);
+
+            //Destroy(gameObject);
+            transform.SetParent(null);
+            rb.useGravity = true;
+
+            GameObject[] cubesX = GameObject.FindGameObjectsWithTag("cubeX");
+            GameObject[] cubesZ = GameObject.FindGameObjectsWithTag("cubeZ");
+
+            // Check if the correct number of cubes were found
+            if (cubesX.Length < 2 || cubesZ.Length < 2)
+            {
+                Debug.LogError("Not enough cubes found with specified tags.");
+                return;
+            }
+
+            // Assign the transforms of the found cubes
+            cube1 = cubesX[0].transform;
+            cube2 = cubesX[1].transform;
+            cube3 = cubesZ[0].transform;
+            cube4 = cubesZ[1].transform;
+
+            float randomX = Random.Range(cube1.position.x, cube2.position.x);
+
+            // Randomize the z-position between cube3 and cube4
+            float randomZ = Random.Range(cube3.position.z, cube4.position.z);
+
+            // Use the y-position from cube1 (assuming all cubes have the same y-position)
+            float yPosition = cube1.position.y;
+
+            // Set the Food object's position to the random values
+            transform.position = new Vector3(randomX, yPosition, randomZ);
+            rb.velocity = new Vector3(0,0,0);
             Destroy(collision.gameObject);
         }
 

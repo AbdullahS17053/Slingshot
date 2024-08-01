@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreCounter : MonoBehaviour
 {
-    public Text Score; 
+    public TMP_Text Score; 
     private int CurrScore;
 
     private void Start()
@@ -34,6 +35,6 @@ public class ScoreCounter : MonoBehaviour
     }
     private void UpdateUI(int sc)
     {
-        Score.text = sc.ToString();
+        Score.SetText(sc.ToString());
     }
 }

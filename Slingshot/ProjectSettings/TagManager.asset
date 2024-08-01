@@ -19,6 +19,8 @@ TagManager:
   - Curtain2
   - Diamond
   - CurtainCam
+  - cubeX
+  - cubeZ
   layers:
   - Default
   - TransparentFX

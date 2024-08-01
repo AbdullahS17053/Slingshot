@@ -34,7 +34,6 @@ public class Pan : MonoBehaviour
 
             other.gameObject.GetComponent<CustomSpeeds>().inPan(ChangeColor);
             level.SetFiresToBoost();
-
         }
     }
 }

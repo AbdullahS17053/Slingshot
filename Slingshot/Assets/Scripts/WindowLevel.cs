@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using TMPro;
 
 public class WindowLevel : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class WindowLevel : MonoBehaviour
     public Color defaultParday;
 
     public Material originalBackground;
+    public Material baseBg;
     public Material[] backgroundMaterials;
     public Material loadingBackgroundMaterial;
     public Color defaultBackground;
@@ -34,7 +36,7 @@ public class WindowLevel : MonoBehaviour
     bool play = false;
     bool level = false;
 
-    public Text Score;
+    public TMP_Text Score;
     int levelNum = 0;
     int oldLevelNum = -1;
     public int levelChangeScore = 50;
@@ -66,7 +68,12 @@ public class WindowLevel : MonoBehaviour
                 loadingWindows[i].SetActive(false);
             }
         }
-        
+
+        foreach (ParticleSystem fire in fires)
+        {
+            fire.Play();
+        }
+
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
@@ -85,7 +92,7 @@ public class WindowLevel : MonoBehaviour
         {
             if(levelNum > 0)
             {
-                windows[levelNum - 1].GetComponentInChildren<MainSpawner>().destroyAll();
+               
                 windows[levelNum - 1].SetActive(false);
                 originalParday.color = loadingParday.color;
 
@@ -94,7 +101,7 @@ public class WindowLevel : MonoBehaviour
 
             else
             {
-                windows[windows.Length - 1].GetComponentInChildren<MainSpawner>().destroyAll();
+               
                 windows[windows.Length - 1].SetActive(false);
                 originalParday.color = defaultParday;
             }
@@ -102,6 +109,7 @@ public class WindowLevel : MonoBehaviour
             SetFiresLifetimeToZero();
             loadingWindows[levelNum].SetActive(true);
             originalBackground.color = loadingBackgroundMaterial.color;
+            baseBg.color = loadingBackgroundMaterial.color;
             load = false;
             bullet.SetActive(false);
             gameManager.levelStop();
@@ -122,6 +130,7 @@ public class WindowLevel : MonoBehaviour
 
             StartCoroutine(startSpawner());
             originalBackground.color = backgroundMaterials[levelNum].color;
+            baseBg.color = backgroundMaterials[levelNum].color;
             originalParday.color = parday[levelNum].color;
             load = true;
             level = false;
@@ -131,6 +140,14 @@ public class WindowLevel : MonoBehaviour
     IEnumerator loadingLevel()
     {
         yield return new WaitForSeconds(loadTime);
+
+        GameObject[] objectsToDelete = GameObject.FindGameObjectsWithTag("WindowObject");
+
+        // Loop through and delete each object
+        foreach (GameObject obj in objectsToDelete)
+        {
+            Destroy(obj);
+        }
         play = true;
         bullet.SetActive(true);
         bullet.GetComponent<BulletSpawner>().levelChange(0f);

@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0015565, y: -0.042785, z: 0.00073554}
-  m_LocalScale: {x: 4.743815, y: 4.743815, z: 4.743815}
+  m_LocalScale: {x: 5.1, y: 5.1, z: 5.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -174,11 +174,13 @@ MonoBehaviour:
   window5Layer:
     serializedVersion: 2
     m_Bits: 1024
-  _replacement: {fileID: 5356848867032231328, guid: cf6e68501a3384a4d981a756ef121b8a, type: 3}
-  explosionForceX: 40
-  explosionForceY: 20
-  explosionRadius: 5
-  explosionPosition: {x: 0, y: 0, z: 0}
+  _replacement: {fileID: 3605295933082343770, guid: ebad447a82ecad04797d38f297bd2c20, type: 3}
+  explosionForceX: 1.5
+  explosionForceY: 3.5
+  cube1: {fileID: 0}
+  cube2: {fileID: 0}
+  cube3: {fileID: 0}
+  cube4: {fileID: 0}
   FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
   pan: 0
   gameManager: {fileID: 0}
