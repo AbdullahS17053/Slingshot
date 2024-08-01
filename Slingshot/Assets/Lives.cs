@@ -21,9 +21,12 @@ public class Lives : MonoBehaviour
     private Animator animator2;
     bool isPlaying = false;
 
+    private CoinSlider slider;
+
     void Start()
     {
-        
+        slider = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<CoinSlider>();
+        CurrLives = slider.GetHealth();
         UpdateUI(CurrLives);
         UpdateDiamond(CurrDiamonds);
 
@@ -75,8 +78,8 @@ public class Lives : MonoBehaviour
     }
 
     public void resetLives() {
-
-        CurrLives = 5;
+        CurrLives = slider.GetHealth();
+        slider.ResetHealth();
         UpdateUI(CurrLives);
 
     }
@@ -85,6 +88,7 @@ public class Lives : MonoBehaviour
         if (CurrLives != 0) { 
         
             CurrLives++;
+            slider.HealthIncreaseSlider();
             UpdateUI(CurrLives);
         }
     }
@@ -93,6 +97,7 @@ public class Lives : MonoBehaviour
         if (CurrLives != 0) { 
         
             CurrLives--;
+            slider.HealthDecreaseSlider();
             UpdateUI(CurrLives);
         }
     }

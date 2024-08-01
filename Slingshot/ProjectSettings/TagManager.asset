@@ -21,6 +21,7 @@ TagManager:
   - CurtainCam
   - cubeX
   - cubeZ
+  - HealthBar
   layers:
   - Default
   - TransparentFX
