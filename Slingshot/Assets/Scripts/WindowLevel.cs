@@ -43,6 +43,7 @@ public class WindowLevel : MonoBehaviour
 
     ScoreCounter scoreCounter;
     GameManager gameManager;
+    Lives life;
 
 
     // Start is called before the first frame update
@@ -75,6 +76,7 @@ public class WindowLevel : MonoBehaviour
         }
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
     }
 
     // Update is called once per frame
@@ -120,6 +122,10 @@ public class WindowLevel : MonoBehaviour
 
         if (level && play)
         {
+            //new level 
+
+            life.resetLives();
+
             play = false;
             loadingWindows[levelNum].SetActive(false);
             windows[levelNum].SetActive(true);

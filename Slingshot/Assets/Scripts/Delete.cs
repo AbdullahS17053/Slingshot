@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Delete : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    private Lives life;
+    private int food;
     void Start()
     {
-        
+        life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
+        food = LayerMask.NameToLayer("GoodFood");
+
     }
 
     // Update is called once per frame
@@ -19,7 +23,13 @@ public class Delete : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("WindowObject") && !collision.gameObject.GetComponent<CustomSpeeds>().launched)
+        {
+            if (collision.gameObject.layer == food) { 
+                life.LifeLost();
+                Destroy(collision.gameObject);
+            }
             Destroy(collision.gameObject);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {

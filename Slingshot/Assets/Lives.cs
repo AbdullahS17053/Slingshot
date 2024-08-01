@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
@@ -7,8 +8,8 @@ using UnityEngine.UI;
 public class Lives : MonoBehaviour
 {
 
-    public Text lives;
-    public Text Diamonds;
+    public TMP_Text lives;
+    public TMP_Text Diamonds;
     public int CurrLives;
     public int CurrDiamonds;
 
@@ -73,6 +74,12 @@ public class Lives : MonoBehaviour
         }
     }
 
+    public void resetLives() {
+
+        CurrLives = 5;
+        UpdateUI(CurrLives);
+
+    }
     public void AddLife() {
 
         if (CurrLives != 0) { 
