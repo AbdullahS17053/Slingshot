@@ -153,10 +153,10 @@ MonoBehaviour:
   yRot: 1
   zRot: 0
   fadeDuration: 0
-  health: 10
+  health: 30
   hitValue: 10
   colorWindows:
-  - {fileID: 3680733937212151674, guid: 80fe33056dfddaf499ae588da0d8979f, type: 3}
+  - {fileID: 7298837984332117279, guid: 46638785b43bf0645a5f08755355890d, type: 3}
   - {fileID: 3188543500267096648, guid: 77a41191429f10246a9bc330f67edda2, type: 3}
   - {fileID: 1672863540083105222, guid: 71686c3b1b19d5d42abd0498c89d5a80, type: 3}
   - {fileID: 4891678716435926704, guid: 5b15317f45da64046acbb49941487459, type: 3}
@@ -185,4 +185,6 @@ MonoBehaviour:
   launched: 0
   FloatingText: {fileID: 6268443548526796336, guid: 2cb8f8ef15d273845ac679fdcb7099bd, type: 3}
   pan: 0
+  lerpDuration: 1
+  increaseAmount: 0.1
   gameManager: {fileID: 0}

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.ProBuilder.Shapes;
@@ -64,6 +63,13 @@ public class Trickster : MonoBehaviour
 
     private List<string> goodWords;
     private List<string> badWords;
+    private float lerpDuration = 0.5f;
+    private float bigDuration = 0.25f;// Duration for lerping to and from zero
+    private float increaseAmount = 1f; // Amount to increase scale before lerping to zero
+
+    private Vector3 originalScale;
+    private Vector3 increasedScale;
+    private bool lerping = false;
 
     private bool hasBeenTeleported = false;
     public GameManager gameManager;
@@ -77,9 +83,10 @@ public class Trickster : MonoBehaviour
 
         ScoreScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ScoreCounter>();
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
+        originalScale = transform.localScale;
+        increasedScale = originalScale + new Vector3(increaseAmount, increaseAmount, increaseAmount);
 
-        Move();
-        spawnWindows();
+        StartCoroutine(InitialDelay());
     }
 
     public void Move()
@@ -181,9 +188,6 @@ public class Trickster : MonoBehaviour
         // Clear the list of selected windows
         selectedWindows.Clear();
 
-
-
-
         // Delete all instantiated color windows
         foreach (GameObject window in instantiatedWindows)
         {
@@ -193,15 +197,11 @@ public class Trickster : MonoBehaviour
         // Clear the list of instantiated windows
         instantiatedWindows.Clear();
 
-        // Reactivate all the original open windows
-        
-
-       
-
-        //Debug.Log("Hit function executed: All color windows removed, open windows reactivated.");
         if(health > 0)
         {
-            meshRenderer.enabled = false;
+            // Start the scale lerping coroutine
+            StartCoroutine(LerpToZeroScaleRoutine());
+            //meshRenderer.enabled = false;
             StartCoroutine(RemoveWindowAfterDelay());
         }
         else
@@ -212,17 +212,67 @@ public class Trickster : MonoBehaviour
 
     IEnumerator RemoveWindowAfterDelay()
     {
-        // Wait for 5 seconds
-        yield return new WaitForSeconds(3);
-        meshRenderer.enabled = true;
+        yield return new WaitForSeconds(lerpDuration + bigDuration);
         Move();
+        StartCoroutine(LerpToNormalScaleRoutine());
+        yield return new WaitForSeconds(lerpDuration + bigDuration);
         spawnWindows();
+    }
+
+    IEnumerator InitialDelay()
+    {
+        Move();
+        StartCoroutine(LerpToNormalScaleRoutine());
+        yield return new WaitForSeconds(lerpDuration + bigDuration);
+        spawnWindows();
+    }
+
+    IEnumerator LerpToZeroScaleRoutine()
+    {
+        lerping = true;
+        // Lerp to slightly increased scale
+        yield return StartCoroutine(LerpScale(transform.localScale, increasedScale, bigDuration));
+
+        // Lerp to zero
+        yield return StartCoroutine(LerpScale(increasedScale, Vector3.zero, lerpDuration));
+      
+    }
+
+    IEnumerator LerpToNormalScaleRoutine()
+    {
+
+        // Lerp back to slightly increased scale
+        yield return StartCoroutine(LerpScale(Vector3.zero, increasedScale, lerpDuration));
+
+        // Lerp back to original scale
+        yield return StartCoroutine(LerpScale(increasedScale, originalScale, bigDuration));
+        lerping = false;
+    }
+
+    IEnumerator LerpScale(Vector3 startScale, Vector3 endScale, float duration)
+    {
+        float timeElapsed = 0f;
+
+        while (timeElapsed < duration)
+        {
+            // Calculate the lerp value
+            float lerpValue = Mathf.Clamp01(timeElapsed / duration);
+
+            // Lerp the scale
+            transform.localScale = Vector3.Lerp(startScale, endScale, lerpValue);
+
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the final scale is exactly the endScale
+        transform.localScale = endScale;
     }
 
 
 
 
-        public void death()
+    public void death()
     {
         int foodlayer = this.gameObject.layer; //check layer of good foood or bad food
         ShowText(currRow, foodlayer);

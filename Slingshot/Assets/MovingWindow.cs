@@ -10,8 +10,10 @@ public class MovingWindow : MonoBehaviour
     public float speed;
     public Vector3 initialDirection = Vector3.right;
     private Vector3 direction;
+    private WindowLevel level;
     void Start()
     {
+        level = GameObject.FindGameObjectWithTag("GameManager").GetComponent<WindowLevel>();
         maxLeftPoint = -1.07f;
         maxRightPoint = 0.88f;
         speed = 0.3f;
@@ -20,6 +22,8 @@ public class MovingWindow : MonoBehaviour
 
     void Update()
     {
+        if (level.level)
+            return;
         transform.Translate(direction * speed * Time.deltaTime);
 
         if (transform.position.x >= maxRightPoint)

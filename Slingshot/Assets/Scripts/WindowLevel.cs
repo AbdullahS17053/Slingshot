@@ -32,9 +32,9 @@ public class WindowLevel : MonoBehaviour
 
     public float[] time;
 
-    bool load = true;
+    public bool load = true;
     bool play = false;
-    bool level = false;
+    public bool level = false;
 
     public TMP_Text Score;
     int levelNum = 0;
