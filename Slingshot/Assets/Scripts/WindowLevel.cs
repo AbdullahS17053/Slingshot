@@ -44,6 +44,7 @@ public class WindowLevel : MonoBehaviour
     ScoreCounter scoreCounter;
     GameManager gameManager;
     Lives life;
+    public GameObject orderImages;
 
 
     // Start is called before the first frame update
@@ -131,6 +132,16 @@ public class WindowLevel : MonoBehaviour
             windows[levelNum].SetActive(true);
             windows[levelNum].GetComponentInChildren<MainSpawner>().enabled = false;
 
+            //if blue windows then show order images only
+            if (windows[levelNum].name == "Blue Windows") {
+                if (orderImages != null) { 
+                
+                    orderImages.SetActive(true);
+                }
+
+            }
+            else orderImages.SetActive(false);
+
             // cam
             gameManager.ChangeCameraPriorityToBall();
 
@@ -199,9 +210,13 @@ public class WindowLevel : MonoBehaviour
         StartCoroutine(RevertToNormalAfterBoost());
     }
 
+    public int GetLevelChangeScore() { return levelChangeScore; }
+    public string GetLevelName() { return windows[levelNum].name; }
+
     private IEnumerator RevertToNormalAfterBoost()
     {
         yield return new WaitForSeconds(boostTime);
         SetFiresToNormal();
     }
+
 }

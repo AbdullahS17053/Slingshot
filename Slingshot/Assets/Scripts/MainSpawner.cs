@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainSpawner : MonoBehaviour
 {
@@ -14,22 +15,22 @@ public class MainSpawner : MonoBehaviour
     [Header("Order Settings")]
     public List<GameObject> correctOrder = new List<GameObject>();
     private int currentOrderIndex = 0;
+  
+    [Header("UI Settings")]
+    public List<Image> orderImages = new List<Image>(); // List of UI Images
+    public Sprite[] fruitSprites; // Array of sprites for fruits
 
-    [Header("Spawn Settings")]
-    public GameObject spawnContainer;
-    public List<Transform> spawnPoints = new List<Transform>();
+    private Dictionary<string, Sprite> fruitSpriteMap = new Dictionary<string, Sprite>();
+    private Lives life;
 
     public void Start()
     {
         waiting = true;
         index = 0;
+        life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
+        InitializeFruitSpriteMap();
 
-        foreach (Transform child in spawnContainer.transform)
-        {
-            spawnPoints.Add(child);
-        }
-
-        SpawnCorrectOrderFruits();
+        SpawnCorrectOrderFruitsInCanvas();  //spawn the images of the fruits in order.
 
         StartCoroutine(SleepCoroutine(initialWait));
     }
@@ -53,11 +54,20 @@ public class MainSpawner : MonoBehaviour
         }
     }
 
-    public void OnFruitShot(GameObject fruit)
+    public bool OnFruitShot(GameObject fruit)
     {
         string fruitName = fruit.name.Replace("(Clone)", "").Trim();
         if (correctOrder[currentOrderIndex].name == fruitName)
         {
+
+            // delete the image from the canvas
+
+            if (currentOrderIndex < orderImages.Count)
+            {
+                //Destroy(orderImages[currentOrderIndex].gameObject);
+                orderImages[currentOrderIndex].color = Color.black;
+            }
+
             currentOrderIndex++;
             Debug.Log("Correct Fruit");
 
@@ -65,67 +75,56 @@ public class MainSpawner : MonoBehaviour
             {
                 LevelCompleted();
             }
+
+            return true;
         }
         else
         {
             Debug.Log("Wrong Fruit");
+            life.RemoveHealth(20);
             LevelFailed();
+            return false;
         }
     }
 
-    public void SpawnCorrectOrderFruits()
+
+    public bool LevelCompleted() {
+
+        return true;
+    }
+    public void LevelFailed() { }
+
+    public void SpawnCorrectOrderFruitsInCanvas()
     {
-        for (int i = 0; i < correctOrder.Count; i++)
+        for (int i = 0; i < correctOrder.Count && i < orderImages.Count; i++)
         {
-            if (i < spawnPoints.Count)
+            string fruitName = correctOrder[i].name.Replace("(Clone)", "").Trim();
+            if (fruitSpriteMap.TryGetValue(fruitName, out Sprite fruitSprite))
             {
-                GameObject fruit = Instantiate(correctOrder[i], spawnPoints[i].position, spawnPoints[i].rotation);
-                fruit.transform.SetParent(spawnContainer.transform);
-
-                Collider[] colliders = fruit.GetComponents<Collider>();
-                foreach (Collider collider in colliders)
-                {
-                    collider.enabled = false;
-                }
-
-                Rigidbody rb = fruit.GetComponent<Rigidbody>();
-                if (rb == null)
-                {
-                    rb = fruit.AddComponent<Rigidbody>();
-                }
-
-                rb.constraints = RigidbodyConstraints.FreezePosition |
-                                 RigidbodyConstraints.FreezeRotationX |
-                                 RigidbodyConstraints.FreezeRotationZ;
-
-                Destroy(fruit.GetComponent<CustomSpeeds>());
-                Renderer renderer = fruit.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    Material[] materials = renderer.materials;
-                    List<Material> materialsList = new List<Material>(materials);
-
-                    Material materialToRemove = materialsList.Find(m => m.name == "BlackedOut");
-
-                    if (materialToRemove != null)
-                    {
-                        materialsList.Remove(materialToRemove);
-                        renderer.materials = materialsList.ToArray();
-                        Destroy(materialToRemove);
-                    }
-                }
-
-                fruit.AddComponent<Rotator>().rotationSpeed = new Vector3( 0f, 20f, 0f);
+                orderImages[i].sprite = fruitSprite;
             }
             else
             {
-                break;
+                //orderImages[i].sprite = defaultSprite; // Fallback to a default sprite if the fruit name is not found
+                orderImages[i].color = Color.black;
             }
         }
     }
 
-    public void LevelCompleted() { }
-    public void LevelFailed() { }
+    private void InitializeFruitSpriteMap()
+    {
+        // Populate the fruitSpriteMap dictionary
+        // Make sure fruitSprites array corresponds to fruit names properly
+        for (int i = 0; i < fruitSprites.Length; i++)
+        {
+            // Assuming fruit names are unique and match sprites names
+            // For example, "Apple" should match with "Apple" sprite
+            fruitSpriteMap[fruitSprites[i].name] = fruitSprites[i];
+        }
+    }
+
+
+
 
     IEnumerator SleepCoroutine(float time)
     {
