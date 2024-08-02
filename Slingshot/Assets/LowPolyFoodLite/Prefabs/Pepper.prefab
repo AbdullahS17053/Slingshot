@@ -150,6 +150,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   rotationSpeed: 100
+  xRot: 0
+  yRot: 0
+  zRot: 1
   fadeDuration: 0.5
   launchAngle: 45
   deleteDelay: 5
@@ -171,4 +174,14 @@ MonoBehaviour:
   window5Layer:
     serializedVersion: 2
     m_Bits: 1024
+  _replacement: {fileID: 0}
+  explosionForceX: 15
+  explosionForceY: 10
+  cube1: {fileID: 0}
+  cube2: {fileID: 0}
+  cube3: {fileID: 0}
+  cube4: {fileID: 0}
+  launched: 0
   FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
+  pan: 0
+  gameManager: {fileID: 0}
