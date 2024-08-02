@@ -66,6 +66,9 @@ public class CustomSpeeds : MonoBehaviour
 
     private bool hasBeenTeleported = false;
     public GameManager gameManager;
+
+    private MainSpawner mainSpawner;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -94,6 +97,8 @@ public class CustomSpeeds : MonoBehaviour
         }
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+        mainSpawner = FindObjectOfType<MainSpawner>();
     }
 
     void Update()
@@ -192,6 +197,8 @@ public class CustomSpeeds : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
+            mainSpawner.OnFruitShot(this.gameObject);
+
             int foodlayer = this.gameObject.layer; //check layer of good foood or bad food
             ShowText(currRow, foodlayer);
             launched = true;
@@ -273,6 +280,8 @@ public class CustomSpeeds : MonoBehaviour
             rb.velocity = new Vector3(0, 0, 0);
             Destroy(collision.gameObject);
         }
+
+
 
     }
 

@@ -126,8 +126,17 @@ MonoBehaviour:
   window5Layer:
     serializedVersion: 2
     m_Bits: 1024
-  FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
+  _replacement: {fileID: 0}
+  explosionForceX: 15
+  explosionForceY: 10
+  cube1: {fileID: 0}
+  cube2: {fileID: 0}
+  cube3: {fileID: 0}
+  cube4: {fileID: 0}
+  launched: 0
+  FloatingText: {fileID: 6268443548526796336, guid: 2cb8f8ef15d273845ac679fdcb7099bd, type: 3}
   pan: 0
+  gameManager: {fileID: 0}
 --- !u!65 &2182479361738646095
 BoxCollider:
   m_ObjectHideFlags: 0
