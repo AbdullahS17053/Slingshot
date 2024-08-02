@@ -198,16 +198,20 @@ public class CustomSpeeds : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
-            bool isOrderShot;
-            isOrderShot = mainSpawner.OnFruitShot(this.gameObject);
+            Debug.Log("collision");
+            if(windowLevel.GetLevelName() == "Blue Windows"){
+                bool isOrderShot;
+                isOrderShot = mainSpawner.OnFruitShot(this.gameObject);
+                Debug.Log(isOrderShot);
 
-            if (!isOrderShot) {
-                
-                Destroy(gameObject);
-                
-                return;
+                if (isOrderShot == false) {
+
+                    Destroy(gameObject);
+
+                    return;
+                }
             }
-
+            Debug.Log(windowLevel.GetLevelName());
             int foodlayer = this.gameObject.layer; //check layer of good foood or bad food
 
             //custom scores for order shoot level
@@ -225,7 +229,12 @@ public class CustomSpeeds : MonoBehaviour
                 return;
             }
 
-            else { ShowText(currRow, foodlayer); }
+            else {
+                Debug.Log("showing text");
+
+                ShowText(currRow, foodlayer);
+
+            }
             launched = true;
             rotationSpeed *= 15f;
             var replacement = Instantiate(_replacement, transform.parent);
