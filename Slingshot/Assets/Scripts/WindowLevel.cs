@@ -124,7 +124,7 @@ public class WindowLevel : MonoBehaviour
         {
             //new level 
 
-            life.resetLives();
+            life.resetHealth();
 
             play = false;
             loadingWindows[levelNum].SetActive(false);

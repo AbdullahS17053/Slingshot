@@ -1,113 +1,130 @@
+using Microlight.MicroBar;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Lives : MonoBehaviour
 {
+    [Header("Microbar Prefab")]
+    [SerializeField] MicroBar healthBar;
 
-    public TMP_Text lives;
-    public TMP_Text Diamonds;
-    public int CurrLives;
-    public int CurrDiamonds;
+    [Header("Sounds")]
+    [SerializeField] AudioClip hurtSound;
+    [SerializeField] AudioClip healSound;
+    [SerializeField] AudioSource soundSource;
+    [SerializeField] Text soundButtonText;
+    public bool soundOn = false;
+
+    public TMP_Text health;
+    public TMP_Text diamonds;
+    public int currLives;
+    public int currDiamonds;
+    public int maxHP = 100;
 
     public GameObject bullet;
-    public GameObject curtain1;
-    public GameObject curtain2;
+    public GameObject curtainLeft;
+    public GameObject curtainRight;
 
     private Animator animator1;
     private Animator animator2;
     bool isPlaying = false;
 
-    private CoinSlider slider;
-
     void Start()
     {
-        slider = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<CoinSlider>();
-        CurrLives = slider.GetHealth();
-        UpdateUI(CurrLives);
-        UpdateDiamond(CurrDiamonds);
+        currLives = maxHP;
+        healthBar.Initialize(maxHP);
+        UpdateHealth(currLives);
+        //UpdateDiamond(currDiamonds);
 
-        curtain1 = GameObject.FindGameObjectWithTag("Curtain1");
-        curtain2 = GameObject.FindGameObjectWithTag("Curtain2");
+        curtainLeft = GameObject.FindGameObjectWithTag("Curtain1");
+        curtainRight = GameObject.FindGameObjectWithTag("Curtain2");
 
-        if (curtain1 != null) { 
+        if (curtainLeft != null) { 
         
-            animator1 = curtain1.GetComponent<Animator>();
+            animator1 = curtainLeft.GetComponent<Animator>();
         }
-        if (curtain2 != null)
+        if (curtainRight != null)
         {
-            animator2 = curtain2.GetComponent<Animator>();
+            animator2 = curtainRight.GetComponent<Animator>();
         }
     }
 
     private void Update()
     {
 
-        if (CurrLives == 0 && isPlaying == false) {
+        if (currLives == 0 && isPlaying == false) {
             PlayAnimations(animator1 , "CurtainsMovementNew 1");
             PlayAnimations(animator1, "CurtainsMovementNew 2");
 
             isPlaying = true;
 
         }
-
     }
     private void PlayAnimations(Animator animator , string animationName) {
 
-        animator1.SetTrigger("CloseCurtain1");
+        animator1.SetTrigger("Closecurtain1");
         animator2.SetTrigger("CloseCurtain2");
 
         bullet = GameObject.FindGameObjectWithTag("Projectile");
         Destroy(bullet.gameObject, 0.5f);
     }
 
+    private void UpdateDiamond(int sc)
+    {
+        diamonds.text = sc.ToString();
+    }
+
     public void AddDiamond() {
 
-        CurrDiamonds++;
-        UpdateDiamond(CurrDiamonds);
+        currDiamonds++;
+        UpdateDiamond(currDiamonds);
     }
 
     public void RemoveDiamond(int price)
     {
-        if (CurrDiamonds - price >= 0) { 
+        if (currDiamonds - price >= 0) { 
         
-            CurrDiamonds -= price;
+            currDiamonds -= price;
         }
     }
 
-    public void resetLives() {
-        CurrLives = slider.GetHealth();
-        slider.ResetHealth();
-        UpdateUI(CurrLives);
-
-    }
-    public void AddLife() {
-
-        if (CurrLives != 0) { 
-        
-            CurrLives++;
-            slider.HealthIncreaseSlider();
-            UpdateUI(CurrLives);
-        }
-    }
-    public void LifeLost() {
-
-        if (CurrLives != 0) { 
-        
-            CurrLives--;
-            slider.HealthDecreaseSlider();
-            UpdateUI(CurrLives);
-        }
-    }
-
-    private void UpdateDiamond(int sc) {
-        Diamonds.text = sc.ToString();
-    }
-    private void UpdateUI(int sc)
+    private void UpdateHealth(int sc)
     {
-        lives.text = sc.ToString();
+        health.text = sc.ToString() + "HP";
+    }
+
+    public void AddHealth(int value) {
+
+        currLives += value;
+        if (currLives > maxHP) currLives = maxHP;
+        soundSource.clip = healSound;
+        if (soundOn) soundSource.Play();
+
+        // Update HealthBar
+        if (healthBar != null) healthBar.UpdateBar(currLives, false, UpdateAnim.Heal);
+        //leftAnimator.SetTrigger("Heal");
+        UpdateHealth(currLives);
+    }
+    public void RemoveHealth(int value) {
+
+        currLives -= value;
+        if (currLives < 0f) currLives = 0;
+        soundSource.clip = hurtSound;
+        if (soundOn) soundSource.Play();
+
+        // Update HealthBar
+        if (healthBar != null) healthBar.UpdateBar(currLives, false, UpdateAnim.Damage);
+        //leftAnimator.SetTrigger("Damage");
+        UpdateHealth(currLives);
+    }
+
+    public void resetHealth()
+    {
+        AddHealth(maxHP);
     }
 }

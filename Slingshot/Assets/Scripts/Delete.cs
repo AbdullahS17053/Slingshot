@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Delete : MonoBehaviour
 {
-
+    public int perHitHealth = 10;
     private Lives life;
     private int food;
     void Start()
@@ -25,7 +25,7 @@ public class Delete : MonoBehaviour
         if (collision.gameObject.CompareTag("WindowObject") && !collision.gameObject.GetComponent<CustomSpeeds>().launched)
         {
             if (collision.gameObject.layer == food) { 
-                life.LifeLost();
+                life.RemoveHealth(perHitHealth);
                 Destroy(collision.gameObject);
             }
             Destroy(collision.gameObject);
