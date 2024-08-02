@@ -41492,14 +41492,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windows:
-  - {fileID: 1271628764}
   - {fileID: 1443666178}
+  - {fileID: 1271628764}
   - {fileID: 431483430}
   - {fileID: 1049225118}
   - {fileID: 697708240}
   loadingWindows:
-  - {fileID: 1542233553}
   - {fileID: 1908492579}
+  - {fileID: 1542233553}
   - {fileID: 565117897}
   - {fileID: 1622938047}
   - {fileID: 1097935993}
@@ -41539,7 +41539,7 @@ MonoBehaviour:
   load: 1
   level: 0
   Score: {fileID: 2115931800}
-  levelChangeScore: 100
+  levelChangeScore: 500
   orderImages: {fileID: 1978148889}
 --- !u!114 &1904571775
 MonoBehaviour:
