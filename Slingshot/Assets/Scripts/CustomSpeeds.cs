@@ -153,8 +153,6 @@ public class CustomSpeeds : MonoBehaviour
         else
         {
             randomWord = goodWords[Random.Range(0, goodWords.Count)];
-            if (windowLevel.GetLevelName() != "Blue Windows") { ScoreScript.AddScore(20); }
-            
         }
 
         textComponent.SetText(randomWord);
@@ -198,7 +196,7 @@ public class CustomSpeeds : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
-            Debug.Log("collision");
+            //Debug.Log("collision");
             if(windowLevel.GetLevelName() == "Blue Windows"){
                 bool isOrderShot;
                 isOrderShot = mainSpawner.OnFruitShot(this.gameObject);
@@ -211,7 +209,7 @@ public class CustomSpeeds : MonoBehaviour
                     return;
                 }
             }
-            Debug.Log(windowLevel.GetLevelName());
+            //Debug.Log(windowLevel.GetLevelName());
             int foodlayer = this.gameObject.layer; //check layer of good foood or bad food
 
             //custom scores for order shoot level
@@ -230,7 +228,7 @@ public class CustomSpeeds : MonoBehaviour
             }
 
             else {
-                Debug.Log("showing text");
+                //Debug.Log("showing text");
 
                 ShowText(currRow, foodlayer);
 

@@ -1,3 +1,4 @@
+using Microlight.MicroBar;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,7 @@ public class Trickster : MonoBehaviour
     GameObject currentWindow;
     private List<GameObject> selectedWindows; // Stores the original open windows
     private List<GameObject> instantiatedWindows; // Stores the instantiated color windows
+    public float time = 8f;
 
     [Header("Window Layers")]
     public LayerMask window1Layer;
@@ -45,6 +47,7 @@ public class Trickster : MonoBehaviour
     public Transform cube2;      // Second cube for x-position randomization
     public Transform cube3;      // First cube for z-position randomization
     public Transform cube4;      // Second cube for z-position randomization
+    public MicroBar bar;
 
 
     private Rigidbody rb;
