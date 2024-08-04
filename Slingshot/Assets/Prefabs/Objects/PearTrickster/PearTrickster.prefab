@@ -154,7 +154,7 @@ MonoBehaviour:
   zRot: 0
   fadeDuration: 0
   health: 30
-  hitValue: 10
+  hitValue: 5
   colorWindows:
   - {fileID: 7298837984332117279, guid: 46638785b43bf0645a5f08755355890d, type: 3}
   - {fileID: 3188543500267096648, guid: 77a41191429f10246a9bc330f67edda2, type: 3}
@@ -185,6 +185,7 @@ MonoBehaviour:
   launched: 0
   FloatingText: {fileID: 6268443548526796336, guid: 2cb8f8ef15d273845ac679fdcb7099bd, type: 3}
   pan: 0
-  lerpDuration: 1
-  increaseAmount: 0.1
   gameManager: {fileID: 0}
+  windowLevel: {fileID: 0}
+  tricksterHealthBar: {fileID: 0}
+  healthtext: {fileID: 0}
