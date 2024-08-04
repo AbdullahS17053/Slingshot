@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.ProBuilder.Shapes;
@@ -23,8 +24,8 @@ public class Trickster : MonoBehaviour
     public float fadeDuration = 1.0f;
 
     [Header("Trickster")]
-    public float health = 30f;
-    public float hitValue = 10f;
+    public int health = 30;
+    public int hitValue = 10;
     public GameObject[] colorWindows;
     GameObject targetWindow;
     GameObject currentWindow;
@@ -77,11 +78,21 @@ public class Trickster : MonoBehaviour
     private bool hasBeenTeleported = false;
     public GameManager gameManager;
     public WindowLevel windowLevel;
+
+    [SerializeField] MicroBar tricksterHealthBar;
+    public TMP_Text healthtext;
+    private int currrHealth;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
-
+        tricksterHealthBar = GameObject.FindGameObjectWithTag("TricksterHealthBar").GetComponent<MicroBar>();
+        healthtext = GameObject.FindGameObjectWithTag("TricksterHealthText").GetComponentInChildren<TMP_Text>();
+        currrHealth = health;
+        tricksterHealthBar.Initialize(health);
+        UpdateHealth(health);
         goodWords = new List<string> { "Yummy", "Delicious", "Tasty", "Juicy", "Sweet" };
         badWords = new List<string> { "Yuck", "Gross", "Eww", "Disgusting", "Nasty" };
 
@@ -92,6 +103,25 @@ public class Trickster : MonoBehaviour
         increasedScale = originalScale + new Vector3(increaseAmount, increaseAmount, increaseAmount);
 
         StartCoroutine(InitialDelay());
+    }
+
+    public void RemoveHealth(int value)
+    {
+
+        currrHealth -= value;
+        if (currrHealth < 0f)  currrHealth  = 0;
+        //soundSource.clip = hurtSound;
+        //if (soundOn) soundSource.Play();
+
+        // Update HealthBar
+        if (tricksterHealthBar != null) tricksterHealthBar.UpdateBar(currrHealth, false, UpdateAnim.Damage);
+        //leftAnimator.SetTrigger("Damage");
+        UpdateHealth(currrHealth);
+    }
+
+    private void UpdateHealth(int sc)
+    {
+        healthtext.text = sc.ToString() + "HP";
     }
 
     public void Move()
@@ -184,7 +214,7 @@ public class Trickster : MonoBehaviour
     public void Hit()
     {
         health -= hitValue;
-        
+        RemoveHealth(hitValue);
         foreach (GameObject window in selectedWindows)
         {
             window.SetActive(true);
@@ -324,6 +354,8 @@ public class Trickster : MonoBehaviour
 
             // Enable gravity
             rb.useGravity = true;
+
+            tricksterHealthBar.gameObject.SetActive(false);
         }
 
 

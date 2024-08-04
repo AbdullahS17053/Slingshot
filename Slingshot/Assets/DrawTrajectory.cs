@@ -71,6 +71,7 @@ public class DrawTrajectory : MonoBehaviour
         //Instantiate(line,previousPoint, Quaternion.identity);
         fullTrajectoryPoints.Add(previousPoint);
 
+
         bool col = false;
 
         for (int i = 0; i < lineSegmentCount; i++)
@@ -84,6 +85,8 @@ public class DrawTrajectory : MonoBehaviour
 
             Vector3 newPoint = -movementVector + startPoint;
             fullTrajectoryPoints.Add(newPoint);
+            Instantiate(line, newPoint, Quaternion.identity);
+
 
             if (col) continue; // continue to add points to fullTrajectoryPoints but not to linePoints
 
@@ -115,8 +118,8 @@ public class DrawTrajectory : MonoBehaviour
             {
                 //Debug.Log(windowHit);
                 linePoints.Add(newPoint);
-                if (i > 1)
-                    Instantiate(line, newPoint, Quaternion.identity);
+                //if (i > 1)
+                //    Instantiate(line, newPoint, Quaternion.identity);
                 windowHit = newPoint;
                 previousPoint = newPoint;
             }
