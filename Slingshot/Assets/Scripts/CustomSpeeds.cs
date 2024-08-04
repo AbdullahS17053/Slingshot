@@ -60,6 +60,7 @@ public class CustomSpeeds : MonoBehaviour
     private Lives life;
     private Lives diamond;
     public bool pan = false;
+    public GameObject boom;
 
     private List<string> goodWords;
     private List<string> badWords;
