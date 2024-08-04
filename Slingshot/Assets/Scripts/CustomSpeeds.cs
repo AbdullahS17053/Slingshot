@@ -65,7 +65,10 @@ public class CustomSpeeds : MonoBehaviour
     private List<string> badWords;
 
     private bool hasBeenTeleported = false;
-    public GameManager gameManager;
+    private GameManager gameManager;            //  //
+    private WindowLevel windowLevel;
+    private MainSpawner mainSpawner;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -94,6 +97,8 @@ public class CustomSpeeds : MonoBehaviour
         }
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        windowLevel = GameObject.FindGameObjectWithTag("GameManager").GetComponent<WindowLevel>();
+        mainSpawner = FindObjectOfType<MainSpawner>();
     }
 
     void Update()
@@ -148,7 +153,8 @@ public class CustomSpeeds : MonoBehaviour
         else
         {
             randomWord = goodWords[Random.Range(0, goodWords.Count)];
-            ScoreScript.AddScore(20);
+            if (windowLevel.GetLevelName() != "Blue Windows") { ScoreScript.AddScore(20); }
+            
         }
 
         textComponent.SetText(randomWord);
@@ -192,8 +198,43 @@ public class CustomSpeeds : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
+            Debug.Log("collision");
+            if(windowLevel.GetLevelName() == "Blue Windows"){
+                bool isOrderShot;
+                isOrderShot = mainSpawner.OnFruitShot(this.gameObject);
+                Debug.Log(isOrderShot);
+
+                if (isOrderShot == false) {
+
+                    Destroy(gameObject);
+
+                    return;
+                }
+            }
+            Debug.Log(windowLevel.GetLevelName());
             int foodlayer = this.gameObject.layer; //check layer of good foood or bad food
-            ShowText(currRow, foodlayer);
+
+            //custom scores for order shoot level
+            if (windowLevel.GetLevelName() == "Blue Windows")
+            {
+                GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
+
+                // Get the TMP_Text component
+                TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
+                textComponent.fontSize = 2;
+                int scoreForShot = windowLevel.GetLevelChangeScore();
+                scoreForShot = scoreForShot / 5; // for 1 shot
+                textComponent.text = scoreForShot.ToString();
+                ScoreScript.AddScore(scoreForShot);
+                return;
+            }
+
+            else {
+                Debug.Log("showing text");
+
+                ShowText(currRow, foodlayer);
+
+            }
             launched = true;
             rotationSpeed *= 15f;
             var replacement = Instantiate(_replacement, transform.parent);
@@ -274,12 +315,12 @@ public class CustomSpeeds : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
+
+
     }
 
     public void ShowText(int layer, int foodlayer)
-    {
-
-
+    {   
 
         GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
 
@@ -287,15 +328,12 @@ public class CustomSpeeds : MonoBehaviour
         TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
         textComponent.fontSize = 2;
 
-        if (textComponent == null)
-        {
-            Debug.LogError("TMP_Text component not found on the prefab.");
-            return;
-        }
-
 
         int badFood = LayerMask.NameToLayer("BadFood");
         int goodFood = LayerMask.NameToLayer("GoodFood");
+
+
+       
 
         if (layer == Mathf.RoundToInt(Mathf.Log(window1Layer.value, 2)))
         {

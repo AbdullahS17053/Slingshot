@@ -73,6 +73,7 @@ public class Trickster : MonoBehaviour
 
     private bool hasBeenTeleported = false;
     public GameManager gameManager;
+    public WindowLevel windowLevel;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -82,6 +83,7 @@ public class Trickster : MonoBehaviour
         badWords = new List<string> { "Yuck", "Gross", "Eww", "Disgusting", "Nasty" };
 
         ScoreScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ScoreCounter>();
+        windowLevel = GameObject.FindGameObjectWithTag("GameManager").GetComponent<WindowLevel>();                  
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
         originalScale = transform.localScale;
         increasedScale = originalScale + new Vector3(increaseAmount, increaseAmount, increaseAmount);
@@ -427,9 +429,9 @@ public class Trickster : MonoBehaviour
             return;
         }
 
-
-        textComponent.text = "Boss! 100!";
-        ScoreScript.AddScore(100);
+        int score = windowLevel.GetLevelChangeScore();
+        textComponent.text = "Boss! " + score.ToString() + "!";
+        ScoreScript.AddScore(score);
 
         // Destroy the text object after a short delay
         Destroy(textObject, 1f);

@@ -7,8 +7,10 @@ public class Delete : MonoBehaviour
     public int perHitHealth = 10;
     private Lives life;
     private int food;
+    private WindowLevel windowLevel;
     void Start()
     {
+        windowLevel = GameObject.FindGameObjectWithTag("GameManager").GetComponent<WindowLevel>();
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
         food = LayerMask.NameToLayer("GoodFood");
 
@@ -24,8 +26,12 @@ public class Delete : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("WindowObject") && !collision.gameObject.GetComponent<CustomSpeeds>().launched)
         {
-            if (collision.gameObject.layer == food) { 
-                life.RemoveHealth(perHitHealth);
+            if (collision.gameObject.layer == food) {
+
+                if (windowLevel.GetLevelName() != "Blue Windows")
+                {
+                    life.RemoveHealth(perHitHealth);
+                }
                 Destroy(collision.gameObject);
             }
             Destroy(collision.gameObject);
