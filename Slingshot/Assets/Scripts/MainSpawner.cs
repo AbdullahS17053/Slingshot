@@ -1,5 +1,7 @@
+using Microlight.MicroBar;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,22 +17,35 @@ public class MainSpawner : MonoBehaviour
     [Header("Order Settings")]
     public List<GameObject> correctOrder = new List<GameObject>();
     private int currentOrderIndex = 0;
-  
+
     [Header("UI Settings")]
-    public List<Image> orderImages = new List<Image>(); // List of UI Images
+    public Image orderImage; // Single UI Image slot
     public Sprite[] fruitSprites; // Array of sprites for fruits
 
     private Dictionary<string, Sprite> fruitSpriteMap = new Dictionary<string, Sprite>();
     private Lives life;
+    public MicroBar patterHealthBar;
+    private int currrHealth;
+    public TMP_Text healthtext;
+    private int fruitNum;
+    private int maxHealth;
 
     public void Start()
     {
+
         waiting = true;
         index = 0;
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
+        patterHealthBar = GameObject.FindGameObjectWithTag("PatternHealthBar").GetComponent<MicroBar>();
+        healthtext = GameObject.FindGameObjectWithTag("PatternHealthText").GetComponentInChildren<TMP_Text>();
+        fruitNum = correctOrder.Count;
+        currrHealth = correctOrder.Count * 10;
+        maxHealth = currrHealth;
+        patterHealthBar.Initialize(currrHealth);
+        UpdateHealth(currrHealth);
         InitializeFruitSpriteMap();
 
-        SpawnCorrectOrderFruitsInCanvas();  //spawn the images of the fruits in order.
+        SpawnNextFruitInCanvas();
 
         StartCoroutine(SleepCoroutine(initialWait));
     }
@@ -54,28 +69,34 @@ public class MainSpawner : MonoBehaviour
         }
     }
 
+
+    public void RemoveHealth(int value)
+    {
+
+        currrHealth -= value;
+        if (currrHealth < 0f) currrHealth = 0;
+        //soundSource.clip = hurtSound;
+        //if (soundOn) soundSource.Play();
+
+        // Update HealthBar
+        if (patterHealthBar != null) patterHealthBar.UpdateBar(currrHealth, false, UpdateAnim.Damage);
+        //leftAnimator.SetTrigger("Damage");
+        UpdateHealth(currrHealth);
+    }
+
+    private void UpdateHealth(int sc)
+    {
+        healthtext.text = sc.ToString() + "HP";
+    }
+
+
     public bool OnFruitShot(GameObject fruit)
     {
         string fruitName = fruit.name.Replace("(Clone)", "").Trim();
         if (correctOrder[currentOrderIndex].name == fruitName)
         {
-
-            // delete the image from the canvas
-
-            if (currentOrderIndex < orderImages.Count)
-            {
-                //Destroy(orderImages[currentOrderIndex].gameObject);
-                orderImages[currentOrderIndex].color = Color.black;
-            }
-
-            currentOrderIndex++;
-            Debug.Log("Correct Fruit");
-
-            if (currentOrderIndex == correctOrder.Count)
-            {
-                LevelCompleted();
-            }
-
+            RemoveHealth(maxHealth / fruitNum);
+            StartCoroutine(HandleCorrectFruitShot());
             return true;
         }
         else
@@ -87,26 +108,49 @@ public class MainSpawner : MonoBehaviour
         }
     }
 
+    private IEnumerator HandleCorrectFruitShot()
+    {
+        // Temporarily turn the sprite image black
+        orderImage.color = Color.black;
 
-    public bool LevelCompleted() {
+        // Wait for 0.5 seconds
+        yield return new WaitForSeconds(0.5f);
 
+        // Move to the next fruit in the queue
+        currentOrderIndex++;
+
+        // Check if the level is completed
+        if (currentOrderIndex == correctOrder.Count)
+        {
+            LevelCompleted();
+        }
+        else
+        {
+            SpawnNextFruitInCanvas(); // Replace the sprite with the next fruit
+        }
+    }
+
+    public bool LevelCompleted()
+    {
+        Debug.Log("Level Completed");
         return true;
     }
     public void LevelFailed() { }
 
-    public void SpawnCorrectOrderFruitsInCanvas()
+    private void SpawnNextFruitInCanvas()
     {
-        for (int i = 0; i < correctOrder.Count && i < orderImages.Count; i++)
+        if (currentOrderIndex < correctOrder.Count)
         {
-            string fruitName = correctOrder[i].name.Replace("(Clone)", "").Trim();
+            string fruitName = correctOrder[currentOrderIndex].name.Replace("(Clone)", "").Trim();
             if (fruitSpriteMap.TryGetValue(fruitName, out Sprite fruitSprite))
             {
-                orderImages[i].sprite = fruitSprite;
+                orderImage.sprite = fruitSprite;
+                orderImage.color = Color.white; // Make the image visible
             }
             else
             {
-                //orderImages[i].sprite = defaultSprite; // Fallback to a default sprite if the fruit name is not found
-                orderImages[i].color = Color.black;
+                // Optionally, handle the case where the sprite is not found
+                orderImage.color = Color.black; // Set image to black as fallback
             }
         }
     }
@@ -114,17 +158,11 @@ public class MainSpawner : MonoBehaviour
     private void InitializeFruitSpriteMap()
     {
         // Populate the fruitSpriteMap dictionary
-        // Make sure fruitSprites array corresponds to fruit names properly
         for (int i = 0; i < fruitSprites.Length; i++)
         {
-            // Assuming fruit names are unique and match sprites names
-            // For example, "Apple" should match with "Apple" sprite
             fruitSpriteMap[fruitSprites[i].name] = fruitSprites[i];
         }
     }
-
-
-
 
     IEnumerator SleepCoroutine(float time)
     {

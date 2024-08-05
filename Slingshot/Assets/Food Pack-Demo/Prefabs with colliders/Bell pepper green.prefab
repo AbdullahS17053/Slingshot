@@ -30,9 +30,9 @@ Transform:
   m_GameObject: {fileID: 3451360241762871633}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.00011141, y: -0.0057688, z: 0.000039629}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -66,6 +66,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 30c5e465dc21c534bada8d020bae91f4, type: 2}
   - {fileID: 2100000, guid: d2d07ef44c8ee1940aaabfd33b219104, type: 2}
+  - {fileID: 2100000, guid: 852f539423ca80440837a5d8f0fe6941, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,3 +151,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   rotationSpeed: 100
+  xRot: 0
+  yRot: 0
+  zRot: 1
+  fadeDuration: 1
+  launchAngle: 45
+  deleteDelay: 5
+  inFilled: 1
+  flyRight: 1
+  flyLeft: 0
+  window1Layer:
+    serializedVersion: 2
+    m_Bits: 0
+  window2Layer:
+    serializedVersion: 2
+    m_Bits: 0
+  window3Layer:
+    serializedVersion: 2
+    m_Bits: 0
+  window4Layer:
+    serializedVersion: 2
+    m_Bits: 0
+  window5Layer:
+    serializedVersion: 2
+    m_Bits: 0
+  _replacement: {fileID: 0}
+  explosionForceX: 15
+  explosionForceY: 10
+  cube1: {fileID: 0}
+  cube2: {fileID: 0}
+  cube3: {fileID: 0}
+  cube4: {fileID: 0}
+  launched: 0
+  FloatingText: {fileID: 0}
+  pan: 0
+  boom: {fileID: 0}
