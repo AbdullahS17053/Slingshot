@@ -26,6 +26,7 @@ TagManager:
   - HealthBar
   - TricksterHealthBar
   - TricksterHealthText
+  - panFruit
   layers:
   - Default
   - TransparentFX

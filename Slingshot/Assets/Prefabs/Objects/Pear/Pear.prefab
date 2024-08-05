@@ -151,8 +151,8 @@ MonoBehaviour:
   speed: 2
   rotationSpeed: 100
   xRot: 0
-  yRot: 0
-  zRot: 1
+  yRot: 1
+  zRot: 0
   fadeDuration: 0.5
   launchAngle: 45
   deleteDelay: 5

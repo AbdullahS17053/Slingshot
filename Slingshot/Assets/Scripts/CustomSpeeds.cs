@@ -19,11 +19,6 @@ public class CustomSpeeds : MonoBehaviour
     public bool yRot = false;
     public bool zRot = true;
     public float fadeDuration = 1.0f;
-
-    [Header("Launch Settings")]
-    public float launchAngle = 90f;  // Angle in degrees
-    private float launchSpeed = 3f;  // Initial speed
-    public float deleteDelay = 5f;
     public bool inFilled = true;
 
     [Header("Direction Settings")]
@@ -45,6 +40,7 @@ public class CustomSpeeds : MonoBehaviour
     public Transform cube2;      // Second cube for x-position randomization
     public Transform cube3;      // First cube for z-position randomization
     public Transform cube4;      // Second cube for z-position randomization
+    private GameObject panobj;
 
 
     private Rigidbody rb;
@@ -81,7 +77,6 @@ public class CustomSpeeds : MonoBehaviour
 
 
         goodWords = new List<string> { "Yummy", "Delicious", "Tasty", "Juicy", "Sweet" };
-        badWords = new List<string> { "Yuck", "Gross", "Eww", "Disgusting", "Nasty" };
 
 
         if (rb == null)
@@ -112,9 +107,6 @@ public class CustomSpeeds : MonoBehaviour
             transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
         else
             transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
-
-        //Debug.Log(meshRenderer.materials[2].color);
-        // Set the Rigidbody's velocity to the desired value
         if (rb != null && !launched)
         {
             //speed += acceleration * Time.deltaTime;
@@ -148,7 +140,7 @@ public class CustomSpeeds : MonoBehaviour
         if (changeColor)
         {
             textComponent.color = Color.red;
-            randomWord = badWords[Random.Range(0, badWords.Count)];
+            randomWord = "Cherry Bomb";
             ScoreScript.SubtractScore(20);
         }
         else
@@ -160,33 +152,6 @@ public class CustomSpeeds : MonoBehaviour
         Destroy(textComponent, 2f);
     }
 
-    public void Launch()
-    {
-        // Calculate the launch direction
-        float angleInRadians = launchAngle * Mathf.Deg2Rad;
-        Vector3 launchDirection = new Vector3(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians), 0);
-
-        // Adjust direction based on the booleans
-        if (flyRight)
-        {
-            launchDirection.x = Mathf.Abs(launchDirection.x); // Ensure positive x direction
-
-        }
-        else if (flyLeft)
-        {
-            launchDirection.x = -Mathf.Abs(launchDirection.x); // Ensure negative x direction
-
-        }
-
-        // Apply the launch velocity
-        rb.useGravity = true;
-        gameObject.GetComponent<Collider>().enabled = false;
-        gameObject.tag = "Heart";
-        rb.velocity = launchDirection * launchSpeed;
-        StartCoroutine(DeleteAfterDelay());
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         currRow = other.gameObject.layer;
@@ -195,6 +160,7 @@ public class CustomSpeeds : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
             //Debug.Log("collision");
@@ -230,13 +196,13 @@ public class CustomSpeeds : MonoBehaviour
 
             else {
                 //Debug.Log("showing text");
-
-                ShowText(currRow, foodlayer);
+                    ShowText(currRow, foodlayer);
 
             }
             launched = true;
             rotationSpeed *= 15f;
             var replacement = Instantiate(_replacement, transform.parent);
+            Destroy(replacement, 10f);
             replacement.transform.position = transform.position;
             replacement.transform.rotation = transform.rotation;
             var rbs = replacement.GetComponentsInChildren<Rigidbody>();
@@ -278,10 +244,19 @@ public class CustomSpeeds : MonoBehaviour
                 // Enable gravity
                 rb.useGravity = true;
             }
+            int badFood = LayerMask.NameToLayer("BadFood");
+
+            if(this.gameObject.layer == badFood)
+            {
+                Destroy(collision.gameObject);
+                Destroy(this.gameObject);
+            }
+
 
 
             //Destroy(gameObject);
-            transform.SetParent(null);
+            panobj = GameObject.FindGameObjectWithTag("panFruit");
+            transform.SetParent(panobj.transform);
             rb.useGravity = true;
 
             GameObject[] cubesX = GameObject.FindGameObjectsWithTag("cubeX");
@@ -313,9 +288,6 @@ public class CustomSpeeds : MonoBehaviour
             rb.velocity = new Vector3(0, 0, 0);
             Destroy(collision.gameObject);
         }
-
-
-
     }
 
     public void ShowText(int layer, int foodlayer)
@@ -341,6 +313,11 @@ public class CustomSpeeds : MonoBehaviour
                 textComponent.text = "50";
                 ScoreScript.AddScore(50);
             }
+            else
+            {
+                textComponent.text = "BOOM!";
+                life.RemoveHealth(30);
+            }
 
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window2Layer.value, 2)))
@@ -350,6 +327,11 @@ public class CustomSpeeds : MonoBehaviour
                 textComponent.text = "40";
                 ScoreScript.AddScore(40);
             }
+            else
+            {
+                textComponent.text = "BOOM!";
+                life.RemoveHealth(30);
+            }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window3Layer.value, 2)))
         {
@@ -357,6 +339,11 @@ public class CustomSpeeds : MonoBehaviour
             {
                 textComponent.text = "30";
                 ScoreScript.AddScore(30);
+            }
+            else
+            {
+                textComponent.text = "BOOM!";
+                life.RemoveHealth(30);
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window4Layer.value, 2)))
@@ -366,6 +353,11 @@ public class CustomSpeeds : MonoBehaviour
                 textComponent.text = "20";
                 ScoreScript.AddScore(20);
             }
+            else
+            {
+                textComponent.text = "BOOM!";
+                life.RemoveHealth(30);
+            }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window5Layer.value, 2)))
         {
@@ -374,14 +366,15 @@ public class CustomSpeeds : MonoBehaviour
                 textComponent.text = "10";
                 ScoreScript.AddScore(10);
             }
+            else
+            {
+                textComponent.text = "BOOM!";
+                life.RemoveHealth(30);
+            }
         }
 
         // Destroy the text object after a short delay
         Destroy(textObject, 1f);
-    }
-    IEnumerator DeleteAfterDelay()
-    {
-        yield return new WaitForSeconds(deleteDelay);
     }
 
     private IEnumerator FadeMaterialAlpha(Material material)

@@ -28,56 +28,13 @@ public class GameManager : MonoBehaviour
     {
         currentTime = time;
         start = true;
-        StartCoroutine(StartTimer());
+       
     }
-
-    IEnumerator StartTimer()
-    {
-        while (currentTime > 0 && start)
-        {
-            currentTime -= Time.deltaTime;
-            UpdateTimerText();
-            yield return null;
-        }
-
-        currentTime = 0;
-        UpdateTimerText();
-        TimerEnded();
-    }
-
-    void UpdateTimerText()
-    {
-        int minutes = Mathf.FloorToInt(currentTime / 60);
-        int seconds = Mathf.FloorToInt(currentTime % 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-    }
-
-    public void AddTime(float timeToAdd)
-    {
-        currentTime += timeToAdd;
-        if (currentTime > limit) // Optional: Cap the time to startTime
-        {
-            currentTime = limit;
-        }
-        UpdateTimerText();
-    }
-
-    public void SubtractTime(float timeToSubtract)
-    {
-        currentTime -= timeToSubtract;
-        if (currentTime < 0)
-        {
-            currentTime = 0;
-            TimerEnded(); // Ensure timer ends if it goes below zero
-        }
-        UpdateTimerText();
-    }
-
     public void levelStop()
     {
         currentTime = 0;
         start = false;
-        UpdateTimerText();
+        
     }
     void TimerEnded()
     {
