@@ -63,7 +63,7 @@ public class DragAndShoot : MonoBehaviour
         Vector3 forceInit = (mousePressDownPos - Input.mousePosition);
         forceInit.x = Mathf.Clamp(forceInit.x, maxLeftDrag, maxRightDrag);
         forceInit.y = Mathf.Clamp(forceInit.y, -700f, maxUpDrag);
-        Debug.Log(forceInit.y);
+        //Debug.Log(forceInit.y);
 
         Vector3 forceV = new Vector3(-forceInit.x * xMultiplier, -forceInit.y * yMultiplier, -forceInit.y + zMultiplier) * forceMultiplier;
 
