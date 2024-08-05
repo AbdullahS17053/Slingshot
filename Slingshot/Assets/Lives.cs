@@ -12,6 +12,8 @@ public class Lives : MonoBehaviour
 {
     [Header("Microbar Prefab")]
     [SerializeField] MicroBar healthBar;
+    [SerializeField] MicroBar PatternHealthBar;
+
 
     [Header("Sounds")]
     [SerializeField] AudioClip hurtSound;
