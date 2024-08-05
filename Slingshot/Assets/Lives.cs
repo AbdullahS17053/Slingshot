@@ -2,6 +2,7 @@ using Microlight.MicroBar;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
@@ -12,7 +13,8 @@ public class Lives : MonoBehaviour
 {
     [Header("Microbar Prefab")]
     [SerializeField] MicroBar healthBar;
-    [SerializeField] MicroBar PatternHealthBar;
+    public MicroBar TricksterHealthBar;
+    public MicroBar PatternHealthBar;
 
 
     [Header("Sounds")]
@@ -41,10 +43,13 @@ public class Lives : MonoBehaviour
         currLives = maxHP;
         healthBar.Initialize(maxHP);
         UpdateHealth(currLives);
-        //UpdateDiamond(currDiamonds);
 
         curtainLeft = GameObject.FindGameObjectWithTag("Curtain1");
         curtainRight = GameObject.FindGameObjectWithTag("Curtain2");
+        TricksterHealthBar = GameObject.FindGameObjectWithTag("TricksterHealthBar").GetComponent<MicroBar>();
+        TricksterHealthBar.gameObject.SetActive(false);
+        //PatternHealthBar = GameObject.FindGameObjectWithTag("PatternHealthBar").GetComponent<MicroBar>();
+        //PatternHealthBar.gameObject.SetActive(false);
 
         if (curtainLeft != null) { 
         

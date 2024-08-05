@@ -50,6 +50,18 @@ public class DragAndShoot : MonoBehaviour
     {
         if (isShoot) return;
 
+        Vector3 forceInit = (mousePressDownPos - Input.mousePosition);
+        forceInit.x = Mathf.Clamp(forceInit.x, maxLeftDrag, maxRightDrag);
+        forceInit.y = Mathf.Clamp(forceInit.y, -700f, maxUpDrag);
+        if (forceInit.y > -120f)
+            return;
+
+        Vector3 forceV = new Vector3(-forceInit.x * xMultiplier, -forceInit.y * yMultiplier, -forceInit.y + zMultiplier) * forceMultiplier;
+
+        DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
+
+        transform.localScale = originalScale; // Reapply the original scale
+
         Vector3 directionToTarget = DrawTrajectory.Instance.windowHit - transform.position;
         if (DrawTrajectory.Instance.windowHit != Vector3.zero && directionToTarget != Vector3.zero)
         {
@@ -60,16 +72,7 @@ public class DragAndShoot : MonoBehaviour
             transform.rotation = adjustedRotation;
         }
 
-        Vector3 forceInit = (mousePressDownPos - Input.mousePosition);
-        forceInit.x = Mathf.Clamp(forceInit.x, maxLeftDrag, maxRightDrag);
-        forceInit.y = Mathf.Clamp(forceInit.y, -700f, maxUpDrag);
-        //Debug.Log(forceInit.y);
-
-        Vector3 forceV = new Vector3(-forceInit.x * xMultiplier, -forceInit.y * yMultiplier, -forceInit.y + zMultiplier) * forceMultiplier;
-
-        DrawTrajectory.Instance.UpdateTrajectory(forceV, rb, transform.position);
-
-        transform.localScale = originalScale; // Reapply the original scale
+       
     }
 
     private void OnMouseUp()
@@ -80,7 +83,8 @@ public class DragAndShoot : MonoBehaviour
         Vector3 force = (mousePressDownPos - mouseReleasePos);
         force.x = Mathf.Clamp(force.x, maxLeftDrag, maxRightDrag);
         force.y = Mathf.Clamp(force.y, float.NegativeInfinity, maxUpDrag);
-        Shoot(force);
+        if(force.y < -120f)
+            Shoot(force);
 
         DrawTrajectory.Instance.HideLine();
     }

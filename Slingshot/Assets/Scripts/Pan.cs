@@ -22,17 +22,19 @@ public class Pan : MonoBehaviour
         {
             //Debug.Log("pan");
             if (other.gameObject.GetComponent<CustomSpeeds>()!= null && other.gameObject.GetComponent<CustomSpeeds>().inFilled)
-                StartCoroutine(other.gameObject.GetComponent<CustomSpeeds>().isSeeThru());
-            other.gameObject.GetComponent<CustomSpeeds>().pan = true;
-
-            int badFood = LayerMask.NameToLayer("BadFood");
-            bool ChangeColor = false;
-            if (other.gameObject.layer == badFood)
             {
-                ChangeColor = true;
-            }
+                StartCoroutine(other.gameObject.GetComponent<CustomSpeeds>().isSeeThru());
+                other.gameObject.GetComponent<CustomSpeeds>().pan = true;
 
-            other.gameObject.GetComponent<CustomSpeeds>().inPan(ChangeColor);
+                int badFood = LayerMask.NameToLayer("BadFood");
+                bool ChangeColor = false;
+                if (other.gameObject.layer == badFood)
+                {
+                    ChangeColor = true;
+                }
+
+                other.gameObject.GetComponent<CustomSpeeds>().inPan(ChangeColor);
+            }
             level.SetFiresToBoost();
         }
     }

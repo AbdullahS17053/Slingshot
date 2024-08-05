@@ -21,7 +21,7 @@ public class juiceBar : MonoBehaviour
     [SerializeField] AudioSource soundSource;
     public bool soundOn = false;
 
-    private int currJuice = 0;
+    public int currJuice = 0;
     public int maxJuice = 100;
 
     void Start()

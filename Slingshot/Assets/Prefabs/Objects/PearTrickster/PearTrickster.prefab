@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4841372314594298938}
   - component: {fileID: -5846242839464169607}
   - component: {fileID: -8085503756689040084}
+  - component: {fileID: -8581373389536868839}
   m_Layer: 12
   m_Name: PearTrickster
   m_TagString: Boss
@@ -154,12 +155,13 @@ MonoBehaviour:
   zRot: 0
   fadeDuration: 0
   health: 30
-  hitValue: 5
+  hitValue: 10
   colorWindows:
-  - {fileID: 7298837984332117279, guid: 46638785b43bf0645a5f08755355890d, type: 3}
+  - {fileID: 3680733937212151674, guid: 80fe33056dfddaf499ae588da0d8979f, type: 3}
   - {fileID: 3188543500267096648, guid: 77a41191429f10246a9bc330f67edda2, type: 3}
   - {fileID: 1672863540083105222, guid: 71686c3b1b19d5d42abd0498c89d5a80, type: 3}
   - {fileID: 4891678716435926704, guid: 5b15317f45da64046acbb49941487459, type: 3}
+  time: 8
   window1Layer:
     serializedVersion: 2
     m_Bits: 64
@@ -182,6 +184,7 @@ MonoBehaviour:
   cube2: {fileID: 0}
   cube3: {fileID: 0}
   cube4: {fileID: 0}
+  bar: {fileID: 0}
   launched: 0
   FloatingText: {fileID: 6268443548526796336, guid: 2cb8f8ef15d273845ac679fdcb7099bd, type: 3}
   pan: 0
@@ -189,3 +192,103 @@ MonoBehaviour:
   windowLevel: {fileID: 0}
   tricksterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  choiceSound: {fileID: 8300000, guid: 03c65eeafe1eb4547a3fb399018dcba9, type: 3}
+  hurtSound: {fileID: 8300000, guid: 224c864280e96fa418a724825f0c606b, type: 3}
+  soundSource: {fileID: -8581373389536868839}
+  soundOn: 1
+--- !u!82 &-8581373389536868839
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3993196853935147428}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

@@ -79,16 +79,25 @@ public class Trickster : MonoBehaviour
     public GameManager gameManager;
     public WindowLevel windowLevel;
 
+    [Header("Microbar Prefab")]
     [SerializeField] MicroBar tricksterHealthBar;
     public TMP_Text healthtext;
+
+    [Header("Sounds")]
+    [SerializeField] AudioClip choiceSound;
+    [SerializeField] AudioClip hurtSound;
+    [SerializeField] AudioSource soundSource;
+    public bool soundOn = false;
     private int currrHealth;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
         meshRenderer = GetComponent<MeshRenderer>();
-        tricksterHealthBar = GameObject.FindGameObjectWithTag("TricksterHealthBar").GetComponent<MicroBar>();
+        tricksterHealthBar = life.TricksterHealthBar;
+        tricksterHealthBar.gameObject.SetActive(true);
         healthtext = GameObject.FindGameObjectWithTag("TricksterHealthText").GetComponentInChildren<TMP_Text>();
         currrHealth = health;
         tricksterHealthBar.Initialize(health);
@@ -98,7 +107,6 @@ public class Trickster : MonoBehaviour
 
         ScoreScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ScoreCounter>();
         windowLevel = GameObject.FindGameObjectWithTag("GameManager").GetComponent<WindowLevel>();                  
-        life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
         originalScale = transform.localScale;
         increasedScale = originalScale + new Vector3(increaseAmount, increaseAmount, increaseAmount);
 
@@ -110,8 +118,8 @@ public class Trickster : MonoBehaviour
 
         currrHealth -= value;
         if (currrHealth < 0f)  currrHealth  = 0;
-        //soundSource.clip = hurtSound;
-        //if (soundOn) soundSource.Play();
+        soundSource.clip = choiceSound;
+        if (soundOn) soundSource.Play();
 
         // Update HealthBar
         if (tricksterHealthBar != null) tricksterHealthBar.UpdateBar(currrHealth, false, UpdateAnim.Damage);
@@ -351,6 +359,8 @@ public class Trickster : MonoBehaviour
 
             // Apply the calculated force
             rb.AddForce(force, ForceMode.Impulse);
+            soundSource.clip = hurtSound;
+            if (soundOn) soundSource.Play();
 
             // Enable gravity
             rb.useGravity = true;
@@ -449,9 +459,6 @@ public class Trickster : MonoBehaviour
 
     public void ShowText(int layer, int foodlayer)
     {
-
-
-
         GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
 
         // Get the TMP_Text component
@@ -464,7 +471,7 @@ public class Trickster : MonoBehaviour
             return;
         }
 
-        int score = windowLevel.GetLevelChangeScore();
+        int score = 200;
         textComponent.text = "Boss! " + score.ToString() + "!";
         ScoreScript.AddScore(score);
 

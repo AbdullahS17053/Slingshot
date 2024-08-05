@@ -43,6 +43,10 @@ public class CustomSpeeds : MonoBehaviour
     private GameObject panobj;
     private juiceBar juicebar;
 
+    [Header("Sounds")]
+    [SerializeField] AudioClip hurtSound;
+    [SerializeField] AudioSource soundSource;
+
 
     private Rigidbody rb;
     public bool launched = false;
@@ -57,7 +61,6 @@ public class CustomSpeeds : MonoBehaviour
     private Lives life;
     private Lives diamond;
     public bool pan = false;
-    public GameObject boom;
 
     private List<string> goodWords;
     private List<string> badWords;
@@ -242,6 +245,8 @@ public class CustomSpeeds : MonoBehaviour
 
                 // Apply the calculated force
                 rb.AddForce(force, ForceMode.Impulse);
+                soundSource.clip = hurtSound;
+                soundSource.Play();
 
                 // Enable gravity
                 rb.useGravity = true;
@@ -253,7 +258,8 @@ public class CustomSpeeds : MonoBehaviour
                 Destroy(collision.gameObject);
                 Destroy(this.gameObject);
             }
-            juicebar.AddJuice(10);
+            if(this.gameObject.layer != badFood)
+                juicebar.AddJuice(10);
 
 
 
