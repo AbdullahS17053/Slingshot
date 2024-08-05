@@ -29,23 +29,29 @@ public class MainSpawner : MonoBehaviour
     public TMP_Text healthtext;
     private int fruitNum;
     private int maxHealth;
-
+    private WindowLevel windowLevel;
     public void Start()
     {
 
         waiting = true;
         index = 0;
-        life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
-        patterHealthBar = GameObject.FindGameObjectWithTag("PatternHealthBar").GetComponent<MicroBar>();
-        healthtext = GameObject.FindGameObjectWithTag("PatternHealthText").GetComponentInChildren<TMP_Text>();
-        fruitNum = correctOrder.Count;
-        currrHealth = correctOrder.Count * 10;
-        maxHealth = currrHealth;
-        patterHealthBar.Initialize(currrHealth);
-        UpdateHealth(currrHealth);
-        InitializeFruitSpriteMap();
+        windowLevel = GameObject.FindGameObjectWithTag("GameManager").GetComponent<WindowLevel>();
+        if (windowLevel.GetLevelName() == "Blue Windows")
+        {
+            patterHealthBar = GameObject.FindGameObjectWithTag("PatternHealthBar").GetComponent<MicroBar>();
+            healthtext = GameObject.FindGameObjectWithTag("PatternHealthText").GetComponentInChildren<TMP_Text>();
+            fruitNum = correctOrder.Count;
+            currrHealth = correctOrder.Count * 10;
+            maxHealth = currrHealth;
+            patterHealthBar.Initialize(currrHealth);
+            UpdateHealth(currrHealth);
+            InitializeFruitSpriteMap();
 
-        SpawnNextFruitInCanvas();
+            SpawnNextFruitInCanvas();
+        }
+        life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
+
+       
 
         StartCoroutine(SleepCoroutine(initialWait));
     }
