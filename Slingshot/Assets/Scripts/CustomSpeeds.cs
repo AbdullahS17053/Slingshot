@@ -222,7 +222,7 @@ public class CustomSpeeds : MonoBehaviour
                 TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
                 textComponent.fontSize = 2;
                 int scoreForShot = windowLevel.GetLevelChangeScore();
-                scoreForShot = scoreForShot / 5; // for 1 shot
+                scoreForShot = scoreForShot / mainSpawner.correctOrder.Count; // for 1 shot
                 textComponent.text = scoreForShot.ToString();
                 ScoreScript.AddScore(scoreForShot);
                 return;
