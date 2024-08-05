@@ -304,7 +304,7 @@ public class CustomSpeeds : MonoBehaviour
         int goodFood = LayerMask.NameToLayer("GoodFood");
 
 
-       
+
 
         if (layer == Mathf.RoundToInt(Mathf.Log(window1Layer.value, 2)))
         {
@@ -312,11 +312,15 @@ public class CustomSpeeds : MonoBehaviour
             {
                 textComponent.text = "50";
                 ScoreScript.AddScore(50);
+
             }
             else
             {
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
+                CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
+
+
             }
 
         }
@@ -326,11 +330,15 @@ public class CustomSpeeds : MonoBehaviour
             {
                 textComponent.text = "40";
                 ScoreScript.AddScore(40);
+
             }
             else
             {
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
+                CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
+
+
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window3Layer.value, 2)))
@@ -339,11 +347,16 @@ public class CustomSpeeds : MonoBehaviour
             {
                 textComponent.text = "30";
                 ScoreScript.AddScore(30);
+
+
             }
             else
             {
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
+                CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
+
+
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window4Layer.value, 2)))
@@ -352,11 +365,15 @@ public class CustomSpeeds : MonoBehaviour
             {
                 textComponent.text = "20";
                 ScoreScript.AddScore(20);
+
+
             }
             else
             {
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
+                CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
+
             }
         }
         else if (layer == Mathf.RoundToInt(Mathf.Log(window5Layer.value, 2)))
@@ -365,11 +382,14 @@ public class CustomSpeeds : MonoBehaviour
             {
                 textComponent.text = "10";
                 ScoreScript.AddScore(10);
+
             }
             else
             {
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
+                CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
+
             }
         }
 
