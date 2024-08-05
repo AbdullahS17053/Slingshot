@@ -41,6 +41,7 @@ public class CustomSpeeds : MonoBehaviour
     public Transform cube3;      // First cube for z-position randomization
     public Transform cube4;      // Second cube for z-position randomization
     private GameObject panobj;
+    private juiceBar juicebar;
 
 
     private Rigidbody rb;
@@ -70,6 +71,7 @@ public class CustomSpeeds : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
+        juicebar = GameObject.FindGameObjectWithTag("juiceBar").GetComponent<juiceBar>();
         // Randomly decide whether to fly right or left
         bool direction = Random.value > 0.5f;
         flyRight = direction;
@@ -251,6 +253,7 @@ public class CustomSpeeds : MonoBehaviour
                 Destroy(collision.gameObject);
                 Destroy(this.gameObject);
             }
+            juicebar.AddJuice(10);
 
 
 

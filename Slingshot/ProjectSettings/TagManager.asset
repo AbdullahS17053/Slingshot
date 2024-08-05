@@ -29,6 +29,7 @@ TagManager:
   - panFruit
   - PatternHealthBar
   - PatternHealthText
+  - juiceBar
   layers:
   - Default
   - TransparentFX

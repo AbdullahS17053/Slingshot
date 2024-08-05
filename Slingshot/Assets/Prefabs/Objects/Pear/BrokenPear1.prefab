@@ -71,11 +71,15 @@ PrefabInstance:
     - target: {fileID: -2157077522496565549, guid: 828a30b3d2c13c049abe70d8848cbdd3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: df7fe48a4062d5448bff2a0f1470487e, type: 2}
+      objectReference: {fileID: 2100000, guid: 97d8cb49f4595fe4aa1720d9a87eaf13, type: 2}
     - target: {fileID: -2157077522496565549, guid: 828a30b3d2c13c049abe70d8848cbdd3, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: d2d07ef44c8ee1940aaabfd33b219104, type: 2}
+      objectReference: {fileID: 2100000, guid: df7fe48a4062d5448bff2a0f1470487e, type: 2}
+    - target: {fileID: -2157077522496565549, guid: 828a30b3d2c13c049abe70d8848cbdd3, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: df7fe48a4062d5448bff2a0f1470487e, type: 2}
     - target: {fileID: -1322326543194710306, guid: 828a30b3d2c13c049abe70d8848cbdd3, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -91,7 +95,7 @@ PrefabInstance:
     - target: {fileID: 460006378993461046, guid: 828a30b3d2c13c049abe70d8848cbdd3, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: d2d07ef44c8ee1940aaabfd33b219104, type: 2}
+      objectReference: {fileID: 2100000, guid: 97d8cb49f4595fe4aa1720d9a87eaf13, type: 2}
     - target: {fileID: 919132149155446097, guid: 828a30b3d2c13c049abe70d8848cbdd3, type: 3}
       propertyPath: m_Name
       value: BrokenPear1

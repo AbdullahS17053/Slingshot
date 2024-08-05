@@ -154,8 +154,6 @@ MonoBehaviour:
   yRot: 1
   zRot: 0
   fadeDuration: 0.5
-  launchAngle: 45
-  deleteDelay: 5
   inFilled: 1
   flyRight: 1
   flyLeft: 0
@@ -184,3 +182,4 @@ MonoBehaviour:
   launched: 0
   FloatingText: {fileID: 6268443548526796336, guid: 2cb8f8ef15d273845ac679fdcb7099bd, type: 3}
   pan: 0
+  boom: {fileID: 0}

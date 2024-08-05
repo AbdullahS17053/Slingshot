@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5821086348794049204}
   - component: {fileID: 154471198881216604}
   - component: {fileID: 1798999147781847989}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Watermelon
   m_TagString: WindowObject
   m_Icon: {fileID: 0}
@@ -29,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5175267955941368727}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.836357, y: 1.836357, z: 1.836357}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &8878343022998697608
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -150,9 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   rotationSpeed: 100
+  xRot: 1
+  yRot: 0
+  zRot: 0
   fadeDuration: 0.5
-  launchAngle: 45
-  deleteDelay: 5
   inFilled: 1
   flyRight: 1
   flyLeft: 0
@@ -171,4 +172,14 @@ MonoBehaviour:
   window5Layer:
     serializedVersion: 2
     m_Bits: 1024
-  FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
+  _replacement: {fileID: 6679185026115127002, guid: 236c3ee835e201c4e8cff9252275c907, type: 3}
+  explosionForceX: 1.5
+  explosionForceY: 3.5
+  cube1: {fileID: 0}
+  cube2: {fileID: 0}
+  cube3: {fileID: 0}
+  cube4: {fileID: 0}
+  launched: 0
+  FloatingText: {fileID: 6268443548526796336, guid: 2cb8f8ef15d273845ac679fdcb7099bd, type: 3}
+  pan: 0
+  boom: {fileID: 0}
