@@ -3451,6 +3451,8 @@ MonoBehaviour:
   fruitSprites: []
   patterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  isPattern: 0
+  PatternParent: {fileID: 0}
 --- !u!1001 &128331637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8349,6 +8351,8 @@ MonoBehaviour:
   fruitSprites: []
   patterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  isPattern: 0
+  PatternParent: {fileID: 0}
 --- !u!1 &326077113
 GameObject:
   m_ObjectHideFlags: 0
@@ -8422,6 +8426,8 @@ MonoBehaviour:
   fruitSprites: []
   patterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  isPattern: 0
+  PatternParent: {fileID: 0}
 --- !u!1 &326121938
 GameObject:
   m_ObjectHideFlags: 0
@@ -15430,6 +15436,8 @@ MonoBehaviour:
   fruitSprites: []
   patterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  isPattern: 0
+  PatternParent: {fileID: 0}
 --- !u!1 &694940107
 GameObject:
   m_ObjectHideFlags: 0
@@ -16994,15 +17002,12 @@ MonoBehaviour:
   gameObjects:
   - {fileID: 1271865576400040978, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
   - {fileID: 3451360241762871633, guid: cb83f814934cfc140b16be0112da5872, type: 3}
+  - {fileID: 3925705863507182383, guid: 580bd8f4a3b145b4dbc69040830396b8, type: 3}
   - {fileID: 1271865576400040978, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
   - {fileID: 3451360241762871633, guid: cb83f814934cfc140b16be0112da5872, type: 3}
   - {fileID: 3451360241762871633, guid: cb83f814934cfc140b16be0112da5872, type: 3}
+  - {fileID: 3925705863507182383, guid: 580bd8f4a3b145b4dbc69040830396b8, type: 3}
   - {fileID: 1271865576400040978, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
-  - {fileID: 1271865576400040978, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
-  - {fileID: 3451360241762871633, guid: cb83f814934cfc140b16be0112da5872, type: 3}
-  - {fileID: 1271865576400040978, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
-  - {fileID: 1271865576400040978, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
-  - {fileID: 3451360241762871633, guid: cb83f814934cfc140b16be0112da5872, type: 3}
   colNumbers: 01000000030000000500000001000000030000000500000001000000
   waitTime:
   - 5
@@ -17032,6 +17037,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a3c1b7b8379b9f640a4dcb7890707522, type: 3}
   patterHealthBar: {fileID: 109557841}
   healthtext: {fileID: 1663045722}
+  isPattern: 0
+  PatternParent: {fileID: 1978148889}
 --- !u!1001 &764559737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20815,6 +20822,8 @@ MonoBehaviour:
   fruitSprites: []
   patterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  isPattern: 0
+  PatternParent: {fileID: 0}
 --- !u!1 &933768076
 GameObject:
   m_ObjectHideFlags: 0
@@ -22669,6 +22678,8 @@ MonoBehaviour:
   fruitSprites: []
   patterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  isPattern: 0
+  PatternParent: {fileID: 0}
 --- !u!1 &1047961767
 GameObject:
   m_ObjectHideFlags: 0
@@ -24073,6 +24084,8 @@ MonoBehaviour:
   fruitSprites: []
   patterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  isPattern: 0
+  PatternParent: {fileID: 0}
 --- !u!1001 &1105733090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28998,7 +29011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1271628765
 Transform:
   m_ObjectHideFlags: 0
@@ -33147,7 +33160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1443666179
 Transform:
   m_ObjectHideFlags: 0
@@ -39258,6 +39271,8 @@ MonoBehaviour:
   fruitSprites: []
   patterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  isPattern: 0
+  PatternParent: {fileID: 0}
 --- !u!1 &1663045720
 GameObject:
   m_ObjectHideFlags: 0
@@ -43690,14 +43705,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windows:
-  - {fileID: 1443666178}
   - {fileID: 1271628764}
+  - {fileID: 1443666178}
   - {fileID: 431483430}
   - {fileID: 1049225118}
   - {fileID: 697708240}
   loadingWindows:
-  - {fileID: 1908492579}
   - {fileID: 1542233553}
+  - {fileID: 1908492579}
   - {fileID: 565117897}
   - {fileID: 1622938047}
   - {fileID: 1097935993}
@@ -43737,7 +43752,7 @@ MonoBehaviour:
   load: 1
   level: 0
   Score: {fileID: 2115931800}
-  levelChangeScore: 1000
+  levelChangeScore: 200
   orderImages: {fileID: 1978148889}
 --- !u!114 &1904571775
 MonoBehaviour:
@@ -47044,6 +47059,8 @@ MonoBehaviour:
   fruitSprites: []
   patterHealthBar: {fileID: 0}
   healthtext: {fileID: 0}
+  isPattern: 0
+  PatternParent: {fileID: 0}
 --- !u!1 &2073912890
 GameObject:
   m_ObjectHideFlags: 0
@@ -48515,7 +48532,7 @@ GameObject:
   - component: {fileID: 2115931800}
   m_Layer: 5
   m_Name: ScoreText
-  m_TagString: Untagged
+  m_TagString: ScoreText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

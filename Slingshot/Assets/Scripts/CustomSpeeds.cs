@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static System.Net.Mime.MediaTypeNames;
 
+
 public class CustomSpeeds : MonoBehaviour
 {
     [Header("Movement Settings")]
@@ -69,12 +70,16 @@ public class CustomSpeeds : MonoBehaviour
     private GameManager gameManager;            //  //
     private WindowLevel windowLevel;
     private MainSpawner mainSpawner;
+    private TMP_Text _score;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
         juicebar = GameObject.FindGameObjectWithTag("juiceBar").GetComponent<juiceBar>();
+        _score = GameObject.FindGameObjectWithTag("ScoreText").GetComponent<TMP_Text>();
+
         // Randomly decide whether to fly right or left
         bool direction = Random.value > 0.5f;
         flyRight = direction;
@@ -82,7 +87,7 @@ public class CustomSpeeds : MonoBehaviour
 
 
         goodWords = new List<string> { "Yummy", "Delicious", "Tasty", "Juicy", "Sweet" };
-
+        badWords = new List<string> { "Wrong!", "Fail!", "No!", "Nasty!", "Ew!" };
 
         if (rb == null)
         {
@@ -168,35 +173,49 @@ public class CustomSpeeds : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Projectile") && !launched)
         {
-            //Debug.Log("collision");
-            if(windowLevel.GetLevelName() == "Blue Windows"){
-                bool isOrderShot;
-                isOrderShot = mainSpawner.OnFruitShot(this.gameObject);
-                Debug.Log(isOrderShot);
-
-                if (isOrderShot == false) {
-
-                    Destroy(gameObject);
-
-                    return;
-                }
-            }
-            //Debug.Log(windowLevel.GetLevelName());
+       
             int foodlayer = this.gameObject.layer; //check layer of good foood or bad food
 
             //custom scores for order shoot level
-            if (windowLevel.GetLevelName() == "Blue Windows")
+            if (windowLevel.GetLevelName() == "Blue Windows" && mainSpawner.isPattern)
             {
+
+                bool isOrderShot;
+                isOrderShot = mainSpawner.OnFruitShot(this.gameObject);
+                //Debug.Log(isOrderShot);
+
+
                 GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
 
-                // Get the TMP_Text component
+                if (isOrderShot == false)
+                {
+
+                //    randomWord = goodWords[Random.Range(0, goodWords.Count)];
+                //}
+
+                //textComponent.SetText(randomWord);
+
                 TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
-                textComponent.fontSize = 2;
-                int scoreForShot = windowLevel.GetLevelChangeScore();
-                scoreForShot = scoreForShot / mainSpawner.correctOrder.Count; // for 1 shot
-                textComponent.text = scoreForShot.ToString();
-                ScoreScript.AddScore(scoreForShot);
-                return;
+                    textComponent.fontSize = 2;
+                    textComponent.color = Color.red;
+                    string randomword = badWords[Random.Range(0, badWords.Count)];
+                    textComponent.SetText(randomword);
+                    life.RemoveHealth(30);
+                    CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
+
+                }
+                else {
+
+                    TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
+                    textComponent.fontSize = 2;
+                    //int scoreForShot = (windowLevel.GetLevelChangeScore() - int.Parse(_score.text)) / 10;
+                    int scoreForShot = 8;
+                    textComponent.text = scoreForShot.ToString();
+                    ScoreScript.AddScore(scoreForShot);
+
+                }
+
+              
             }
 
             else {
@@ -325,6 +344,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else
             {
+                textComponent.color = Color.red;
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
                 CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
@@ -343,6 +363,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else
             {
+                textComponent.color = Color.red;
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
                 CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
@@ -361,6 +382,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else
             {
+                textComponent.color = Color.red;
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
                 CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
@@ -379,6 +401,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else
             {
+                textComponent.color = Color.red;
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
                 CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
@@ -395,6 +418,7 @@ public class CustomSpeeds : MonoBehaviour
             }
             else
             {
+                textComponent.color = Color.red;
                 textComponent.text = "BOOM!";
                 life.RemoveHealth(30);
                 CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);

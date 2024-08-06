@@ -30,6 +30,7 @@ TagManager:
   - PatternHealthBar
   - PatternHealthText
   - juiceBar
+  - ScoreText
   layers:
   - Default
   - TransparentFX
