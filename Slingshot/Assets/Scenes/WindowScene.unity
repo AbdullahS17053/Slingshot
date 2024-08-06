@@ -43737,7 +43737,7 @@ MonoBehaviour:
   load: 1
   level: 0
   Score: {fileID: 2115931800}
-  levelChangeScore: 500
+  levelChangeScore: 1000
   orderImages: {fileID: 1978148889}
 --- !u!114 &1904571775
 MonoBehaviour:
