@@ -33,6 +33,7 @@ TagManager:
   - ScoreText
   - mainWindow
   - patternWindow
+  - PostProcessing
   layers:
   - Default
   - TransparentFX

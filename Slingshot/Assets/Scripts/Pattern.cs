@@ -225,7 +225,9 @@ public class Pattern : MonoBehaviour
                     {
                         Destroy(patternFruits[j]);
                     }
+                    CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
                     life.RemoveHealth(20);
+
 
                     obj.GetComponent<PatternHelper>().ShowText(false);
                     playing = false;

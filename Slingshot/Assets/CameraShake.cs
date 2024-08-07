@@ -14,8 +14,14 @@ public class CameraShake : MonoBehaviour
     private float startingFrequency;
     private float targetIntensity;
     private float targetFrequency;
-    private float startingHurtIntensity;
-    private float targetingHurtIntensity;
+    [Header("Vignette Settings")]
+    public float startingHurtIntensity;
+    public float targetingHurtIntensity;
+    public float time;
+    [Header("Sounds")]
+    [SerializeField] AudioClip missedSound;
+    [SerializeField] AudioSource soundSource;
+    public bool soundOn = false;
 
     public Vignette vignette;
 
@@ -43,8 +49,6 @@ public class CameraShake : MonoBehaviour
             if (volume.profile.TryGetSettings(out vignette))
             {
                 vignette.intensity.value = 0;
-                startingHurtIntensity = 0.5f;
-                targetingHurtIntensity = 0.774f;
             }
             else
             {
@@ -93,7 +97,9 @@ public class CameraShake : MonoBehaviour
     {
         if (vignette != null)
         {
-            StartCoroutine(FadeVignetteIntensity(startingHurtIntensity, targetingHurtIntensity, 0.2f));
+            soundSource.clip = missedSound;
+            if (soundOn) soundSource.Play();
+            StartCoroutine(FadeVignetteIntensity(startingHurtIntensity, targetingHurtIntensity, time));
         }
     }
 
@@ -102,23 +108,24 @@ public class CameraShake : MonoBehaviour
         float elapsedTime = 0f;
 
         // Increase intensity to target
-        while (elapsedTime < duration / 2)
+        while (elapsedTime < duration / 4)
         {
             elapsedTime += Time.deltaTime;
-            vignette.intensity.value = Mathf.Lerp(startValue, endValue, elapsedTime / (duration / 2));
+            vignette.intensity.value = Mathf.Lerp(startValue, endValue, elapsedTime / (duration / 4));
             yield return null;
         }
 
         // Set to target intensity
         vignette.intensity.value = endValue;
 
+        yield return new WaitForSeconds(duration/2);
+
         // Reduce intensity to 0
         elapsedTime = 0f;
-        float EndingDuration = 2f;
-        while (elapsedTime < EndingDuration)
+        while (elapsedTime < duration / 4)
         {
             elapsedTime += Time.deltaTime;
-            vignette.intensity.value = Mathf.Lerp(endValue, 0f, elapsedTime / (EndingDuration / 2));
+            vignette.intensity.value = Mathf.Lerp(endValue, 0f, elapsedTime / (duration / 4));
             yield return null;
         }
 
