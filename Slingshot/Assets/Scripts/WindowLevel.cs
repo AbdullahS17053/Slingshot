@@ -219,4 +219,8 @@ public class WindowLevel : MonoBehaviour
         SetFiresToNormal();
     }
 
+    public int GetLevelNum() { 
+    
+        return levelNum;
+    }
 }

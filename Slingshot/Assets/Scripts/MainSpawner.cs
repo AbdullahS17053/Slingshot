@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class MainSpawner : MonoBehaviour
@@ -30,35 +31,31 @@ public class MainSpawner : MonoBehaviour
     private int fruitNum;
     private int maxHealth;
     private WindowLevel windowLevel;
+    public bool isPattern = false;
+    public GameObject PatternParent;
+    private TMP_Text _score;
     public void Start()
     {
-
         waiting = true;
         index = 0;
+
         windowLevel = GameObject.FindGameObjectWithTag("GameManager").GetComponent<WindowLevel>();
-        if (windowLevel.GetLevelName() == "Blue Windows")
-        {
-            patterHealthBar = GameObject.FindGameObjectWithTag("PatternHealthBar").GetComponent<MicroBar>();
-            healthtext = GameObject.FindGameObjectWithTag("PatternHealthText").GetComponentInChildren<TMP_Text>();
-            fruitNum = correctOrder.Count;
-            currrHealth = correctOrder.Count * 10;
-            maxHealth = currrHealth;
-            patterHealthBar.Initialize(currrHealth);
-            UpdateHealth(currrHealth);
-            InitializeFruitSpriteMap();
-
-            SpawnNextFruitInCanvas();
-        }
+        if (windowLevel.GetLevelName() == "Blue Windows") PatternParent.SetActive(false);
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
-
-       
-
+        _score = GameObject.FindGameObjectWithTag("ScoreText").GetComponent<TMP_Text>();
         StartCoroutine(SleepCoroutine(initialWait));
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
+        if ((int.Parse(_score.text) > windowLevel.GetLevelChangeScore() / 2) && windowLevel.GetLevelName() == "Blue Windows" && !isPattern)
+        {
+            isPattern = true; // set to false when moving to next level !!!
+           StartPattern();
+        }
         if (!waiting)
         {
             if (index >= colNumbers.Count)
@@ -73,8 +70,27 @@ public class MainSpawner : MonoBehaviour
             StartCoroutine(SleepCoroutine(waitTime[index]));
             index++;
         }
+
+  
     }
 
+
+    private void StartPattern() {
+        Debug.Log("Pattern Started");
+        fruitNum = correctOrder.Count;
+        currrHealth = correctOrder.Count * 10;
+        maxHealth = currrHealth;
+        patterHealthBar.Initialize(currrHealth);
+        UpdateHealth(currrHealth);
+        InitializeFruitSpriteMap();
+        PatternParent?.SetActive(true);
+        patterHealthBar = GameObject.FindGameObjectWithTag("PatternHealthBar").GetComponent<MicroBar>();
+        healthtext = GameObject.FindGameObjectWithTag("PatternHealthText").GetComponentInChildren<TMP_Text>();
+        patterHealthBar.gameObject.SetActive(true);
+        healthtext.gameObject.SetActive(true);
+        SpawnNextFruitInCanvas();
+
+    }
 
     public void RemoveHealth(int value)
     {
@@ -107,6 +123,8 @@ public class MainSpawner : MonoBehaviour
         }
         else
         {
+            CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
+
             Debug.Log("Wrong Fruit");
             life.RemoveHealth(20);
             LevelFailed();
@@ -114,6 +132,7 @@ public class MainSpawner : MonoBehaviour
         }
     }
 
+  
     private IEnumerator HandleCorrectFruitShot()
     {
         // Temporarily turn the sprite image black
@@ -138,7 +157,7 @@ public class MainSpawner : MonoBehaviour
 
     public bool LevelCompleted()
     {
-        Debug.Log("Level Completed");
+        _score.text =  (windowLevel.GetLevelNum() * windowLevel.GetLevelChangeScore()).ToString() ;
         return true;
     }
     public void LevelFailed() { }
