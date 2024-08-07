@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6812296, y: 1.6812296, z: 1.6812296}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,7 +66,6 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: df7fe48a4062d5448bff2a0f1470487e, type: 2}
   - {fileID: 2100000, guid: d2d07ef44c8ee1940aaabfd33b219104, type: 2}
-  - {fileID: 2100000, guid: 852f539423ca80440837a5d8f0fe6941, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,9 +149,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   rotationSpeed: 100
+  xRot: 0
+  yRot: 0
+  zRot: 1
   fadeDuration: 0.5
-  launchAngle: 45
-  deleteDelay: 5
   inFilled: 1
   flyRight: 1
   flyLeft: 0
@@ -171,4 +171,15 @@ MonoBehaviour:
   window5Layer:
     serializedVersion: 2
     m_Bits: 1024
+  _replacement: {fileID: 0}
+  explosionForceX: 15
+  explosionForceY: 10
+  cube1: {fileID: 0}
+  cube2: {fileID: 0}
+  cube3: {fileID: 0}
+  cube4: {fileID: 0}
+  hurtSound: {fileID: 0}
+  soundSource: {fileID: 0}
+  launched: 0
   FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
+  pan: 0

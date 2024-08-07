@@ -177,7 +177,7 @@ MonoBehaviour:
   window5Layer:
     serializedVersion: 2
     m_Bits: 1024
-  _replacement: {fileID: 3605295933082343770, guid: 996ccb5c33853db40a711a26ceac7d94, type: 3}
+  _replacement: {fileID: 3605295933082343770, guid: 4d2ef52c34d4ac54c8ce7b53d22f0035, type: 3}
   explosionForceX: 1.5
   explosionForceY: 3.5
   cube1: {fileID: 0}
