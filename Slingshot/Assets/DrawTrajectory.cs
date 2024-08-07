@@ -6,8 +6,8 @@ using UnityEngine;
 public class DrawTrajectory : MonoBehaviour
 {
     private GameObject lookAtTarget;
-    public GameObject line;
-    public GameObject bigLine;
+    //public GameObject line;
+    //public GameObject bigLine;
 
     [SerializeField]
     private LineRenderer lineRenderer;
@@ -83,7 +83,7 @@ public class DrawTrajectory : MonoBehaviour
 
             Vector3 newPoint = -movementVector + startPoint;
             fullTrajectoryPoints.Add(newPoint);
-            Instantiate(line, newPoint, Quaternion.identity);
+            //Instantiate(line, newPoint, Quaternion.identity);
 
 
             if (col) continue; // continue to add points to fullTrajectoryPoints but not to linePoints
@@ -108,8 +108,8 @@ public class DrawTrajectory : MonoBehaviour
                     glow = true;
                 }
                 linePoints.Add(hit.point);
-                if(i > 1)
-                    Instantiate(bigLine, hit.point, Quaternion.identity);
+                //if(i > 1)
+                //    Instantiate(bigLine, hit.point, Quaternion.identity);
                 col = true;
             }
             else
@@ -146,7 +146,7 @@ public class DrawTrajectory : MonoBehaviour
         Vector3 extendedPoint = lastPoint + direction.normalized * extensionLength;
 
         linePoints.Add(extendedPoint);
-        Instantiate(line, extendedPoint, Quaternion.identity);
+        //Instantiate(line, extendedPoint, Quaternion.identity);
         fullTrajectoryPoints.Add(extendedPoint);
     }
 

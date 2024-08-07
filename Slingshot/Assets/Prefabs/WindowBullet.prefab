@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 2414539572959560168}
   - component: {fileID: 4112171947832689066}
   - component: {fileID: 1033613677292047321}
-  - component: {fileID: 304099138735596770}
   - component: {fileID: 1967161226522739508}
+  - component: {fileID: 8234382799270982761}
   m_Layer: 0
   m_Name: WindowBullet
   m_TagString: Projectile
@@ -66,9 +66,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a2936dd31f7a1bf438c651815f8d4fdb, type: 2}
-  - {fileID: 2100000, guid: 2cf1318bfaea28b4d9625ceca36a51bf, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,12 +148,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64f29e2bb4f03a42914535031c2a347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineRenderer: {fileID: 304099138735596770}
+  lineRenderer: {fileID: 8234382799270982761}
   lineSegmentCount: 20
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!120 &304099138735596770
+  hasHit: 0
+  windowHit: {x: 0, y: 0, z: 0}
+--- !u!114 &1967161226522739508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065426748253760491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d206c2629cb39440be8708c8c348440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceMultiplier: 0.4
+  maxLeftDrag: -600
+  maxRightDrag: 500
+  maxUpDrag: 0
+  rotationSpeed: 0.1
+  additionalAngle: 0
+  xMultiplier: 0.6
+  yMultiplier: 1.62
+  zMultiplier: 900
+  rb: {fileID: 0}
+  pos: {fileID: 0}
+  aim: {fileID: 0}
+  shoot: {fileID: 0}
+--- !u!120 &8234382799270982761
 LineRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -176,7 +201,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 673325523275bc2408cc2a19dcc4c979, type: 2}
+  - {fileID: 2100000, guid: fa9f2a404c3e1c643ad92b9c34b013c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -197,9 +222,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -207,8 +230,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.059840616
-        value: 0.05409961
+        time: 0.4409027
+        value: 0.059545517
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -220,9 +243,9 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.48235297, g: 0.8117648, b: 0.2901961, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -238,14 +261,14 @@ LineRenderer:
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 0
+      atime2: 30609
       atime3: 0
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 1
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -259,28 +282,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &1967161226522739508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065426748253760491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d206c2629cb39440be8708c8c348440, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forceMultiplier: 0.4
-  maxLeftDrag: -600
-  maxRightDrag: 500
-  maxUpDrag: 0
-  rotationSpeed: 0.1
-  xMultiplier: 0.6
-  yMultiplier: 1.62
-  zMultiplier: 900
-  rb: {fileID: 0}
-  pos: {fileID: 0}
 --- !u!1 &8178150287441387760
 GameObject:
   m_ObjectHideFlags: 0
