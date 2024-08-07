@@ -1,15 +1,6 @@
-using Microlight.MicroBar;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.ProBuilder.Shapes;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static System.Net.Mime.MediaTypeNames;
 
 public class Pattern : MonoBehaviour
 {
@@ -323,90 +314,9 @@ public class Pattern : MonoBehaviour
         this.gameObject.GetComponent<Collider>().isTrigger = false;
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (pan || launched)
-            return;
-        if (xRot)
-            transform.Rotate(rotationSpeed * Time.deltaTime, 0, 0);
-        else if (yRot)
-            transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
-        else
-            transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+        
     }
-
-    public void inPan(bool changeColor)
-    {
-        rb.velocity = new Vector3(0, 0, 0);
-        rb.useGravity = true;
-
-        GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
-
-        // Get the TextMeshProUGUI component
-        TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
-
-        if (textComponent == null)
-        {
-            //Debug.LogError("TextMeshProUGUI component not found on the prefab.");
-            return;
-        }
-
-        // Set the size and color based on the context
-        textComponent.fontSize = 2.5f; // Adjust font size as needed
-
-        string randomWord;
-        if (changeColor)
-        {
-            textComponent.color = Color.red;
-            randomWord = badWords[Random.Range(0, badWords.Count)];
-            ScoreScript.SubtractScore(20);
-        }
-        else
-        {
-            randomWord = goodWords[Random.Range(0, goodWords.Count)];
-            ScoreScript.AddScore(20);
-        }
-
-        textComponent.SetText(randomWord);
-        Destroy(textComponent, 2f);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        currRow = other.gameObject.layer;
-    }
-
-    public void ShowText(int layer, int foodlayer)
-    {
-        GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
-
-        // Get the TMP_Text component
-        TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
-        textComponent.fontSize = 2;
-
-        if (textComponent == null)
-        {
-            //Debug.LogError("TMP_Text component not found on the prefab.");
-            return;
-        }
-
-        int score = 200;
-        textComponent.text = "Boss! " + score.ToString() + "!";
-        ScoreScript.AddScore(score);
-
-        // Destroy the text object after a short delay
-        Destroy(textObject, 1f);
-    }
-
-    public void Teleport(Vector3 position, Quaternion rotation)
-    {
-
-        if (hasBeenTeleported) return;
-
-        transform.position = position;
-        Physics.SyncTransforms();
-
-        hasBeenTeleported = true;
-    }
-
 }

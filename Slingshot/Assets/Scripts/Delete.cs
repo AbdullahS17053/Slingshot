@@ -9,6 +9,10 @@ public class Delete : MonoBehaviour
     private int food;
     private WindowLevel windowLevel;
     private MainSpawner mainSpawner;
+
+    public Vector3 increasedScale = new Vector3(3f, 3f, 3f);
+    public float bigDuration = 0.5f; 
+    public float lerpDuration = 0.5f;
     void Start()
     {
         windowLevel = GameObject.FindGameObjectWithTag("GameManager").GetComponent<WindowLevel>();
@@ -16,12 +20,6 @@ public class Delete : MonoBehaviour
         mainSpawner = FindObjectOfType<MainSpawner>();
         food = LayerMask.NameToLayer("GoodFood");
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -38,16 +36,41 @@ public class Delete : MonoBehaviour
                 }
                 else {
 
-                    CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
-                    life.RemoveHealth(perHitHealth);
+                    StartCoroutine(LerpToZeroScaleRoutine(collision.gameObject));
+
+
                 }
-              
+
             }
-            Destroy(collision.gameObject);
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    IEnumerator LerpToZeroScaleRoutine(GameObject target)
     {
-       
+        Destroy(target.GetComponent<CustomSpeeds>());
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+        Vector3 initialScale = target.transform.localScale;
+
+        yield return StartCoroutine(LerpScale(target.transform, initialScale, increasedScale, bigDuration));
+
+        yield return StartCoroutine(LerpScale(target.transform, increasedScale, Vector3.zero, lerpDuration));
+
+        CameraShake.Instance.ShakeCamera(1.2f, 5f, 0.5f);
+        life.RemoveHealth(perHitHealth);
+        Destroy(target);
+    }
+
+    IEnumerator LerpScale(Transform transform, Vector3 from, Vector3 to, float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            transform.localScale = Vector3.Lerp(from, to, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = to;
     }
 }
