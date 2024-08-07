@@ -187,9 +187,9 @@ MonoBehaviour:
   - {fileID: 5175267955941368727, guid: 517e976be9ac3ee41a961dd8bf728615, type: 3}
   - {fileID: 3993196853935147428, guid: ba93ae1410e341d41be192f9d77df500, type: 3}
   patternFruitPositions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: -0.56, y: 0.06583752, z: 0.4572631}
+  - {x: -0.7728945, y: 0.0658375, z: 0.457263}
+  - {x: -0.5607945, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   health: 30
   hitValue: 10
