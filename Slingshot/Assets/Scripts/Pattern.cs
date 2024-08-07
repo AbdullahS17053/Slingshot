@@ -37,7 +37,6 @@ public class Pattern : MonoBehaviour
     public Transform cube2;      // Second cube for x-position randomization
     public Transform cube3;      // First cube for z-position randomization
     public Transform cube4;      // Second cube for z-position randomization
-    public MicroBar bar;
 
 
     private Rigidbody rb;
@@ -69,10 +68,9 @@ public class Pattern : MonoBehaviour
     public WindowLevel windowLevel;
 
     [Header("Fruit Settings")]
-    public GameObject mainFruitPrefab;
-    public GameObject[] patternFruitPrefabs; // Array to hold different fruit prefabs
     public Transform mainFruitPosition;
-    public Transform[] patternFruitPositions; // Array of positions for pattern fruits
+    public GameObject[] patternFruitPrefabs; // Array to hold different fruit prefabs
+    public Vector3[] patternFruitPositions; // Array of positions for pattern fruits
 
     [Header("Pattern Settings")]
     public int health = 30;
@@ -86,7 +84,7 @@ public class Pattern : MonoBehaviour
     private List<GameObject> patternFruits;
 
     [Header("Microbar Prefab")]
-    [SerializeField] MicroBar tricksterHealthBar;
+    [SerializeField] MicroBar patternHealthBar;
     public TMP_Text healthtext;
 
     [Header("Sounds")]
@@ -102,11 +100,11 @@ public class Pattern : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
         meshRenderer = GetComponent<MeshRenderer>();
-        tricksterHealthBar = life.TricksterHealthBar;
-        tricksterHealthBar.gameObject.SetActive(true);
-        healthtext = GameObject.FindGameObjectWithTag("TricksterHealthText").GetComponentInChildren<TMP_Text>();
+        patternHealthBar = life.PatternHealthBar;
+        patternHealthBar.gameObject.SetActive(true);
+        healthtext = GameObject.FindGameObjectWithTag("PatternHealthText").GetComponentInChildren<TMP_Text>();
         currrHealth = health;
-        tricksterHealthBar.Initialize(health);
+        patternHealthBar.Initialize(health);
         UpdateHealth(health);
         goodWords = new List<string> { "Yummy", "Delicious", "Tasty", "Juicy", "Sweet" };
         badWords = new List<string> { "Yuck", "Gross", "Eww", "Disgusting", "Nasty" };
@@ -121,6 +119,8 @@ public class Pattern : MonoBehaviour
         // Call the method to instantiate fruits
         InstantiateFruits();
 
+        // Call the method to generate a random pattern
+        GeneratePattern();
     }
 
     private void InstantiateFruits()
@@ -133,7 +133,7 @@ public class Pattern : MonoBehaviour
         }
 
         // Instantiate the main fruit at the designated position
-        mainFruit = Instantiate(mainFruitPrefab, mainFruitPosition.position, Quaternion.identity);
+        this.transform.position = mainFruitPosition.position;
 
         // Randomly select positions for the pattern fruits
         List<int> availablePositions = Enumerable.Range(0, patternFruitPositions.Length).ToList();
@@ -145,7 +145,9 @@ public class Pattern : MonoBehaviour
             availablePositions.RemoveAt(randomIndex);
 
             // Instantiate a pattern fruit at the selected position
-            GameObject patternFruit = Instantiate(patternFruitPrefabs[i], patternFruitPositions[positionIndex].position, Quaternion.identity);
+            GameObject patternFruit = Instantiate(patternFruitPrefabs[i], patternFruitPositions[positionIndex], Quaternion.identity);
+            patternFruit.transform.SetParent(this.transform.parent);
+            patternFruit.transform.position = patternFruitPositions[positionIndex];
 
             // Add the PatternHelper script to the instantiated pattern fruit
             if (!patternFruit.TryGetComponent<PatternHelper>(out _))
@@ -155,9 +157,6 @@ public class Pattern : MonoBehaviour
 
             // Store the pattern fruit for later use
             patternFruits.Add(patternFruit);
-
-            // Call the method to generate a random pattern
-            GeneratePattern();
         }
     }
 
@@ -191,7 +190,7 @@ public class Pattern : MonoBehaviour
         if (soundOn) soundSource.Play();
 
         // Update HealthBar
-        if (tricksterHealthBar != null) tricksterHealthBar.UpdateBar(currrHealth, false, UpdateAnim.Damage);
+        if (patternHealthBar != null) patternHealthBar.UpdateBar(currrHealth, false, UpdateAnim.Damage);
         //leftAnimator.SetTrigger("Damage");
         UpdateHealth(currrHealth);
     }
@@ -285,7 +284,7 @@ public class Pattern : MonoBehaviour
             // Enable gravity
             rb.useGravity = true;
 
-            tricksterHealthBar.gameObject.SetActive(false);
+            patternHealthBar.gameObject.SetActive(false);
         }
 
 

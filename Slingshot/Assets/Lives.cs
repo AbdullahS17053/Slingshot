@@ -48,8 +48,8 @@ public class Lives : MonoBehaviour
         curtainRight = GameObject.FindGameObjectWithTag("Curtain2");
         TricksterHealthBar = GameObject.FindGameObjectWithTag("TricksterHealthBar").GetComponent<MicroBar>();
         TricksterHealthBar.gameObject.SetActive(false);
-        //PatternHealthBar = GameObject.FindGameObjectWithTag("PatternHealthBar").GetComponent<MicroBar>();
-        //PatternHealthBar.gameObject.SetActive(false);
+        PatternHealthBar = GameObject.FindGameObjectWithTag("PatternHealthBar").GetComponent<MicroBar>();
+        PatternHealthBar.gameObject.SetActive(false);
 
         if (curtainLeft != null) { 
         

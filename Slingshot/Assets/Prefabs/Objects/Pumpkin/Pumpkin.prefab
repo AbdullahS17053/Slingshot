@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6728717918809541099}
   - component: {fileID: -4140309125399911461}
   - component: {fileID: 7310150739237036464}
-  - component: {fileID: 8287379743490263111}
+  - component: {fileID: -4435665165714214605}
   m_Layer: 0
   m_Name: Pumpkin
   m_TagString: WindowObject
@@ -135,7 +135,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8287379743490263111
+--- !u!114 &-4435665165714214605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,18 +144,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5071555915851589694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e968d62904c8914d81a0b83422c9f84, type: 3}
+  m_Script: {fileID: 11500000, guid: 09d0f0e23a029b34a9d96ee5fa99299c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 0
   rotationSpeed: 100
   xRot: 0
-  yRot: 0
-  zRot: 1
-  fadeDuration: 0.5
-  inFilled: 1
-  flyRight: 1
-  flyLeft: 0
+  yRot: 1
+  zRot: 0
+  fadeDuration: 0
   window1Layer:
     serializedVersion: 2
     m_Bits: 64
@@ -171,15 +168,36 @@ MonoBehaviour:
   window5Layer:
     serializedVersion: 2
     m_Bits: 1024
-  _replacement: {fileID: 0}
+  _replacement: {fileID: 5071555915851589694}
   explosionForceX: 15
   explosionForceY: 10
   cube1: {fileID: 0}
   cube2: {fileID: 0}
   cube3: {fileID: 0}
   cube4: {fileID: 0}
+  launched: 0
+  FloatingText: {fileID: 0}
+  pan: 0
+  gameManager: {fileID: 0}
+  windowLevel: {fileID: 0}
+  mainFruitPosition: {fileID: 0}
+  patternFruitPrefabs:
+  - {fileID: 3993196853935147428, guid: ba93ae1410e341d41be192f9d77df500, type: 3}
+  - {fileID: 1271865576400040978, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
+  - {fileID: 5175267955941368727, guid: 517e976be9ac3ee41a961dd8bf728615, type: 3}
+  - {fileID: 3993196853935147428, guid: ba93ae1410e341d41be192f9d77df500, type: 3}
+  patternFruitPositions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  health: 30
+  hitValue: 10
+  minPatternLength: 3
+  maxPatternLength: 5
+  patternHealthBar: {fileID: 0}
+  healthtext: {fileID: 0}
+  choiceSound: {fileID: 0}
   hurtSound: {fileID: 0}
   soundSource: {fileID: 0}
-  launched: 0
-  FloatingText: {fileID: 2368764261694496369, guid: 7c8975c05f6e62149aeefb7533855d25, type: 3}
-  pan: 0
+  soundOn: 0
