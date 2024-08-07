@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Microlight.MicroBar;
+using TMPro;
+using System.Linq;
 
 public class Pattern : MonoBehaviour
 {
@@ -312,6 +315,28 @@ public class Pattern : MonoBehaviour
         rb.velocity = new Vector3(0, 0, 0);
         this.gameObject.tag = "WindowObject";
         this.gameObject.GetComponent<Collider>().isTrigger = false;
+    }
+
+    public void ShowText(int layer, int foodlayer)
+    {
+        GameObject textObject = Instantiate(FloatingText, transform.position, Quaternion.identity);
+
+        // Get the TMP_Text component
+        TMP_Text textComponent = textObject.GetComponent<TMP_Text>();
+        textComponent.fontSize = 2;
+
+        if (textComponent == null)
+        {
+            //Debug.LogError("TMP_Text component not found on the prefab.");
+            return;
+        }
+
+        int score = 200;
+        textComponent.text = "Boss! " + score.ToString() + "!";
+        ScoreScript.AddScore(score);
+
+        // Destroy the text object after a short delay
+        Destroy(textObject, 1f);
     }
 
     // Update is called once per frame
