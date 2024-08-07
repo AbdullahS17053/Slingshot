@@ -4,6 +4,8 @@ using UnityEngine;
 using Microlight.MicroBar;
 using TMPro;
 using System.Linq;
+using UnityEngine.UIElements;
+using UnityEditor.Rendering.Universal;
 
 public class Pattern : MonoBehaviour
 {
@@ -62,13 +64,14 @@ public class Pattern : MonoBehaviour
     public WindowLevel windowLevel;
 
     [Header("Fruit Settings")]
-    public Transform mainFruitPosition;
+    private GameObject mainFruitPosition;
     public GameObject[] patternFruitPrefabs; // Array to hold different fruit prefabs
-    public Vector3[] patternFruitPositions; // Array of positions for pattern fruits
+    private GameObject[] patternFruitPositions; // Array of positions for pattern fruits
 
     [Header("Pattern Settings")]
     public int health = 30;
     public int hitValue = 10;
+    private int patternLength = 0;
     public int minPatternLength = 3;
     public int maxPatternLength = 5;
 
@@ -76,6 +79,8 @@ public class Pattern : MonoBehaviour
 
     private GameObject mainFruit;
     private List<GameObject> patternFruits;
+    private List<GameObject> origPattern;
+    public List<GameObject> currPattern;
 
     [Header("Microbar Prefab")]
     [SerializeField] MicroBar patternHealthBar;
@@ -86,7 +91,12 @@ public class Pattern : MonoBehaviour
     [SerializeField] AudioClip hurtSound;
     [SerializeField] AudioSource soundSource;
     public bool soundOn = false;
+
     private int currrHealth;
+    private bool anim = false;
+    public bool playing = false;
+    int index = 0;
+    
 
 
     void Start()
@@ -94,6 +104,8 @@ public class Pattern : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         life = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Lives>();
         meshRenderer = GetComponent<MeshRenderer>();
+        mainFruitPosition = GameObject.FindGameObjectWithTag("mainWindow");
+        patternFruitPositions = GameObject.FindGameObjectsWithTag("patternWindow");
         patternHealthBar = life.PatternHealthBar;
         patternHealthBar.gameObject.SetActive(true);
         healthtext = GameObject.FindGameObjectWithTag("PatternHealthText").GetComponentInChildren<TMP_Text>();
@@ -108,7 +120,7 @@ public class Pattern : MonoBehaviour
         originalScale = transform.localScale;
         increasedScale = originalScale + new Vector3(increaseAmount, increaseAmount, increaseAmount);
 
-        patternFruits = new List<GameObject>();
+        
 
         // Call the method to instantiate fruits
         InstantiateFruits();
@@ -119,6 +131,10 @@ public class Pattern : MonoBehaviour
 
     private void InstantiateFruits()
     {
+        playing = false;
+        patternFruits = new List<GameObject>();
+        origPattern = new List<GameObject>();
+        currPattern = new List<GameObject>();
         // Ensure there are enough positions and fruit prefabs
         if (patternFruitPositions.Length < 4 || patternFruitPrefabs.Length < 4)
         {
@@ -127,7 +143,8 @@ public class Pattern : MonoBehaviour
         }
 
         // Instantiate the main fruit at the designated position
-        this.transform.position = mainFruitPosition.position;
+        this.transform.position = mainFruitPosition.transform.position;
+        StartCoroutine(LerpToNormalScaleRoutine());
 
         // Randomly select positions for the pattern fruits
         List<int> availablePositions = Enumerable.Range(0, patternFruitPositions.Length).ToList();
@@ -139,16 +156,12 @@ public class Pattern : MonoBehaviour
             availablePositions.RemoveAt(randomIndex);
 
             // Instantiate a pattern fruit at the selected position
-            GameObject patternFruit = Instantiate(patternFruitPrefabs[i], patternFruitPositions[positionIndex], Quaternion.identity);
+            GameObject patternFruit = Instantiate(patternFruitPrefabs[i], patternFruitPositions[positionIndex].transform.position, Quaternion.identity);
             patternFruit.transform.SetParent(this.transform.parent);
-            patternFruit.transform.position = patternFruitPositions[positionIndex];
+            patternFruit.transform.position = patternFruitPositions[positionIndex].transform.position;
 
-            // Add the PatternHelper script to the instantiated pattern fruit
-            if (!patternFruit.TryGetComponent<PatternHelper>(out _))
-            {
-                patternFruit.AddComponent<PatternHelper>();
-            }
-
+            patternFruit.GetComponent<PatternHelper>().spawn();
+            patternFruit.GetComponent<PatternHelper>().parent = this.gameObject;
             // Store the pattern fruit for later use
             patternFruits.Add(patternFruit);
         }
@@ -157,7 +170,7 @@ public class Pattern : MonoBehaviour
     private void GeneratePattern()
     {
         // Determine the length of the pattern
-        int patternLength = Random.Range(minPatternLength, maxPatternLength + 1);
+        patternLength = Random.Range(minPatternLength, maxPatternLength + 1);
 
         pattern = new List<int>();
 
@@ -168,11 +181,96 @@ public class Pattern : MonoBehaviour
 
             // Add the index to the pattern list
             pattern.Add(randomFruitIndex);
+            //patternFruits[randomFruitIndex].GetComponent<PatternHelper>().selected();
         }
 
         // Debug log to show the generated pattern
         string patternString = string.Join("", pattern.Select(index => patternFruits[index].name));
         Debug.Log("Generated Pattern: " + patternString);
+        StartCoroutine(waitDelay(2f));
+    }
+
+    private void Update()
+    {
+        if(anim)
+        {
+            if (index == patternLength)
+            {
+                anim = false;
+                playing = true;
+                index = 0;
+                return;
+            }
+            patternFruits[pattern[index]].GetComponent<PatternHelper>().selected();
+            patternFruits[pattern[index]].GetComponent<PatternHelper>().parent = this.gameObject;
+            StartCoroutine(waitDelay(1f));
+            origPattern.Add(patternFruits[pattern[index]]);
+            index++;
+            anim = false;
+        }
+    }
+
+    public void childHit(GameObject obj)
+    {
+        currPattern.Add(obj);
+        if (playing)
+        {
+            bool correct = true;
+            for (int i = 0; i < currPattern.Count; i++)
+            {
+                if (currPattern[i] != origPattern[i])
+                {
+                    correct = false;
+                    for (int j = 0; j < patternFruits.Count; j++)
+                    {
+                        Destroy(patternFruits[j]);
+                    }
+                    life.RemoveHealth(20);
+
+                    obj.GetComponent<PatternHelper>().ShowText(false);
+                    playing = false;
+
+                    InstantiateFruits();
+
+                    // Call the method to generate a random pattern
+                    GeneratePattern();
+                    return;
+                }
+                else if (i == origPattern.Count - 1)
+                {
+                    for (int j = 0; j < patternFruits.Count; j++)
+                    {
+                        Destroy(patternFruits[j]);
+                    }
+                    RemoveHealth(10);
+                    if (currrHealth <= 0)
+                    {
+                        death();
+                        return;
+                    }
+                    playing = false;
+
+                    InstantiateFruits();
+
+                    // Call the method to generate a random pattern
+                    GeneratePattern();
+                    return;
+
+                }
+                else
+                {
+                    
+                }
+            }
+            if(correct)
+                obj.GetComponent<PatternHelper>().ShowText(true);
+        }
+    }
+
+    IEnumerator waitDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        anim = true;
     }
 
     public void RemoveHealth(int value)
@@ -187,6 +285,7 @@ public class Pattern : MonoBehaviour
         if (patternHealthBar != null) patternHealthBar.UpdateBar(currrHealth, false, UpdateAnim.Damage);
         //leftAnimator.SetTrigger("Damage");
         UpdateHealth(currrHealth);
+        
     }
 
     private void UpdateHealth(int sc)
@@ -272,14 +371,15 @@ public class Pattern : MonoBehaviour
 
             // Apply the calculated force
             rb.AddForce(force, ForceMode.Impulse);
-            soundSource.clip = hurtSound;
-            if (soundOn) soundSource.Play();
+            
 
             // Enable gravity
             rb.useGravity = true;
 
             patternHealthBar.gameObject.SetActive(false);
         }
+        soundSource.clip = hurtSound;
+        if (soundOn) soundSource.Play();
 
 
         //Destroy(gameObject);
@@ -339,9 +439,4 @@ public class Pattern : MonoBehaviour
         Destroy(textObject, 1f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

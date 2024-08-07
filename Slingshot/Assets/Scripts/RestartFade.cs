@@ -20,6 +20,7 @@ public class RestartFade : MonoBehaviour
     {
         if (other.gameObject.CompareTag("WindowObject"))
         {
+            if (other.gameObject.GetComponent<CustomSpeeds>() != null)
             other.gameObject.GetComponent<CustomSpeeds>().inFilled = true;
 
         }
