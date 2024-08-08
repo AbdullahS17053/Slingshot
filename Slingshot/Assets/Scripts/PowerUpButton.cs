@@ -40,7 +40,11 @@ public class PowerUpButton : MonoBehaviour
     public void healthRefill()
     {
         if (currValue >= maxValue && life.currLives < life.maxHP)
+        {
             life.AddHealth(30);
+            if (healthBar != null) healthBar.UpdateBar(0, false, UpdateAnim.Heal);
+            if (juicebar != null)  juicebar.RemoveJuice(juicebar.currJuice);
+        }
     }
 
     public void UpdateValue(int value)

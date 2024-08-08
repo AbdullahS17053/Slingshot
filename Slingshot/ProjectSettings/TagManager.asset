@@ -34,6 +34,7 @@ TagManager:
   - mainWindow
   - patternWindow
   - PostProcessing
+  - LoadingScreenStatsText
   layers:
   - Default
   - TransparentFX

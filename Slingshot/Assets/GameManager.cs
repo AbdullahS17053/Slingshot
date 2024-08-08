@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         curtaincam = GameObject.FindGameObjectWithTag("CurtainCam").GetComponent<CinemachineVirtualCamera>();
 
         curtaincam.Priority = 20;
-        StartCoroutine(StartGameDelay());
+        //StartCoroutine(StartGameDelay());
     }
 
     public void levelStart(float time)

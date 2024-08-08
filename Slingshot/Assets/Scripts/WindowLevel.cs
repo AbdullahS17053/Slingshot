@@ -12,7 +12,7 @@ public class WindowLevel : MonoBehaviour
     public GameObject[] windows;
     public GameObject[] loadingWindows;
     public float loadTime;
-
+    public float startLodTime;
     public Material originalParday;
     public Material[] parday;
     public Material loadingParday;
@@ -45,6 +45,9 @@ public class WindowLevel : MonoBehaviour
     GameManager gameManager;
     Lives life;
     public GameObject orderImages;
+    private PostProcess postProcess;
+    public TMP_Text loadingScreenStats;
+    public ParticleSystem loadingParticleSystem;
 
 
     // Start is called before the first frame update
@@ -52,6 +55,18 @@ public class WindowLevel : MonoBehaviour
     {
         originalBackground.color = defaultBackground;
         originalParday.color = defaultParday;
+        postProcess = PostProcess.Instance;
+        loadingScreenStats = GameObject.FindGameObjectWithTag("LoadingScreenStatsText").GetComponent<TMP_Text>();
+
+        if (loadingParticleSystem != null)
+        {
+            var mainModule = loadingParticleSystem.main;
+
+            mainModule.loop = true;
+
+            StopParticleSystem();
+        }
+
         // Turn off all GameObjects in the windows array
         for (int i = 0; i < windows.Length; i++)
         {
@@ -116,9 +131,13 @@ public class WindowLevel : MonoBehaviour
             load = false;
             bullet.SetActive(false);
             gameManager.levelStop();
+       
             gameManager.ChangeCameraPriorityToCurtains();
-
+            postProcess.BlurScreenOn();
+            DisplayLoadingScreenStats();
             StartCoroutine(loadingLevel());
+
+
         }
 
         if (level && play)
@@ -142,21 +161,38 @@ public class WindowLevel : MonoBehaviour
             }
             else orderImages.SetActive(false);
 
-            // cam
-            gameManager.ChangeCameraPriorityToBall();
 
             StartCoroutine(startSpawner());
             originalBackground.color = backgroundMaterials[levelNum].color;
             baseBg.color = backgroundMaterials[levelNum].color;
             originalParday.color = parday[levelNum].color;
+           
+            postProcess.BlurScreenOff();
+            gameManager.ChangeCameraPriorityToBall();
+            loadingScreenStats.gameObject.SetActive(false);
             load = true;
             level = false;
         }
     }
 
+    private void DisplayLoadingScreenStats() { 
+    
+        loadingScreenStats.gameObject.SetActive(true);
+        int showscore = int.Parse(Score.text);
+
+        string showLevelName = string.Empty;
+        if (levelNum == 0) { showLevelName = "TRICKSTER";} else if (levelNum == 1) { showLevelName = "PATTERN"; } else if (levelNum == 2) { showLevelName = "PATTERN 2"; } else if(levelNum == 3) { showLevelName = "PATTERN 3"; }
+
+        loadingScreenStats.text = "Your Score : " + showscore + "\n\n Coming up next: \n\n" + showLevelName;
+    }
     IEnumerator loadingLevel()
     {
-        yield return new WaitForSeconds(loadTime);
+        if (levelNum != 0)
+        StartParticleSystem();
+
+        if (levelNum == 0) { yield return new WaitForSeconds(startLodTime); } // first level load time
+        else { yield return new WaitForSeconds(loadTime); }
+
 
         GameObject[] objectsToDelete = GameObject.FindGameObjectsWithTag("WindowObject");
 
@@ -172,9 +208,35 @@ public class WindowLevel : MonoBehaviour
         //scoreCounter.ResetScore();
         gameManager.levelStart(time[levelNum]);
 
+        StopParticleSystem();
     }
 
-    IEnumerator startSpawner()
+    public void StartParticleSystem()
+    {
+        if (levelNum == 0) { return; } // dont play at level 0
+        loadingParticleSystem.gameObject.SetActive(true);
+        if (loadingParticleSystem != null)
+        {
+            var mainModule = loadingParticleSystem.main;
+
+            mainModule.loop = true;
+            loadingParticleSystem.Play();
+        }
+    }
+
+    public void StopParticleSystem()
+    {
+        if (loadingParticleSystem != null)
+        {
+            var mainModule = loadingParticleSystem.main;
+
+            mainModule.loop = false;
+            loadingParticleSystem.Stop();
+        }
+        loadingParticleSystem.gameObject.SetActive(false);
+    }
+
+        IEnumerator startSpawner()
     {
         yield return new WaitForSeconds(1f);
         windows[levelNum].GetComponentInChildren<MainSpawner>().enabled = true;

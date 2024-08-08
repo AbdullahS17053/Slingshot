@@ -79,11 +79,11 @@ public class MainSpawner : MonoBehaviour
         Debug.Log("Pattern Started");
         fruitNum = correctOrder.Count;
         currrHealth = correctOrder.Count * 10;
-        maxHealth = currrHealth;
+        maxHealth = 100;
         patterHealthBar.Initialize(currrHealth);
         UpdateHealth(currrHealth);
         InitializeFruitSpriteMap();
-        PatternParent?.SetActive(true);
+        PatternParent.SetActive(true);
         patterHealthBar = GameObject.FindGameObjectWithTag("PatternHealthBar").GetComponent<MicroBar>();
         healthtext = GameObject.FindGameObjectWithTag("PatternHealthText").GetComponentInChildren<TMP_Text>();
         patterHealthBar.gameObject.SetActive(true);
@@ -96,18 +96,24 @@ public class MainSpawner : MonoBehaviour
     {
 
         currrHealth -= value;
+        Debug.Log("now health is" + currrHealth);
         if (currrHealth < 0f) currrHealth = 0;
         //soundSource.clip = hurtSound;
         //if (soundOn) soundSource.Play();
 
         // Update HealthBar
-        if (patterHealthBar != null) patterHealthBar.UpdateBar(currrHealth, false, UpdateAnim.Damage);
+        if (patterHealthBar != null)
+        {
+            Debug.Log("pattern heathbar found");
+            patterHealthBar.UpdateBar(currrHealth, false, UpdateAnim.Damage);
+        }
         //leftAnimator.SetTrigger("Damage");
         UpdateHealth(currrHealth);
     }
 
     private void UpdateHealth(int sc)
     {
+        Debug.Log("updating health to" + sc);
         healthtext.text = sc.ToString() + "HP";
     }
 
@@ -117,7 +123,7 @@ public class MainSpawner : MonoBehaviour
         string fruitName = fruit.name.Replace("(Clone)", "").Trim();
         if (correctOrder[currentOrderIndex].name == fruitName)
         {
-            RemoveHealth(maxHealth / fruitNum);
+            RemoveHealth(10);
             StartCoroutine(HandleCorrectFruitShot());
             return true;
         }

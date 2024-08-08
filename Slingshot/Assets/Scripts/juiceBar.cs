@@ -66,4 +66,9 @@ public class juiceBar : MonoBehaviour
     {
         RemoveJuice(maxJuice);
     }
+    public void resetBartoZero() {
+
+        currJuice = 0;
+        if (juicebar != null) juicebar.UpdateBar(0, false, UpdateAnim.Damage);
+    }
 }
