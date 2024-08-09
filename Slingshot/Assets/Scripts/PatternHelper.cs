@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
-using UnityEngine.WSA;
+//using UnityEngine.WSA;
 
 public class PatternHelper : MonoBehaviour
 {

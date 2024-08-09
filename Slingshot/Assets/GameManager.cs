@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -14,16 +15,105 @@ public class GameManager : MonoBehaviour
     private float currentTime;
     public Text timerText;
     public bool start = false;
-
+    public GameObject settingsUI;
+    public bool isVibrate = true;
+    public AudioSource musicSource;
     void Start()
     {
-        ballcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineVirtualCamera>();
-        curtaincam = GameObject.FindGameObjectWithTag("CurtainCam").GetComponent<CinemachineVirtualCamera>();
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            ballcam = GameObject.FindGameObjectWithTag("vcam").GetComponent<CinemachineVirtualCamera>();
+            curtaincam = GameObject.FindGameObjectWithTag("CurtainCam").GetComponent<CinemachineVirtualCamera>();
 
-        curtaincam.Priority = 20;
-        //StartCoroutine(StartGameDelay());
+            curtaincam.Priority = 20;
+        }
+        else { 
+        
+        
+        
+        }
+    }
+    public void StartNewGame()
+    {
+        SceneManager.LoadScene("WindowScene");
     }
 
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    public void ShowSettings()
+    {
+        GameObject settingsUI = GameObject.FindGameObjectWithTag("SettingsUI");
+        if (settingsUI != null)
+        {
+            foreach (Transform child in settingsUI.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            Debug.LogError("SettingsUI GameObject not found");
+        }
+
+    }
+
+    public void HideSettings()
+    {
+        GameObject settingsUI = GameObject.FindGameObjectWithTag("SettingsUI");
+        if (settingsUI != null)
+        {
+            foreach (Transform child in settingsUI.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            Debug.LogError("SettingsUI GameObject not found");
+        }
+
+    }
+
+
+    public void TurnOffVibration() { 
+    
+        isVibrate = false;
+    }
+
+    public void TurnOnVibration() { 
+    
+        isVibrate = true;
+    }
+    public void TurnOnMusic()
+    {
+        if (musicSource != null)
+        {
+            musicSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("MusicSource is not assigned.");
+        }
+    }
+
+    public void TurnOffMusic()
+    {
+        if (musicSource != null)
+        {
+            musicSource.Stop();
+        }
+        else
+        {
+            Debug.LogWarning("MusicSource is not assigned.");
+        }
+    }
     public void levelStart(float time)
     {
         currentTime = time;

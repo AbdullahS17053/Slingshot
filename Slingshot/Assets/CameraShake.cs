@@ -24,6 +24,8 @@ public class CameraShake : MonoBehaviour
     public bool soundOn = false;
 
     public Vignette vignette;
+    public GameManager gameManager;
+
 
     private void Awake()
     {
@@ -76,6 +78,10 @@ public class CameraShake : MonoBehaviour
 
             // Initialize vignette settings
             CallPostProcessing();
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+            if (gameManager.isVibrate) { TriggerVibration(); } else { Debug.Log("Vibrator off"); }
+
+
         }
         else
         {
@@ -145,6 +151,16 @@ public class CameraShake : MonoBehaviour
                 cinemachineBasicMultiChannelPerlin.m_FrequencyGain = Mathf.Lerp(startingFrequency, targetFrequency, (shakeTimer) / shakeTimeTotal);
             }
         }
+    }
+
+    private void TriggerVibration()
+    {
+        Debug.Log("Vibration triggered");
+#if UNITY_ANDROID
+        Handheld.Vibrate();
+#elif UNITY_IOS
+    iPhoneUtils.Vibrate();
+#endif
     }
 
 }
